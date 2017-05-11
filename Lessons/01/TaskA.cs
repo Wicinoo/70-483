@@ -14,6 +14,8 @@ namespace Lessons._01
     /// </summary>
     public class TaskA
     {
+        public delegate void PrintDateTimeFunnyInfo(DateTime dateTime);
+
         public static void Run()
         {
             throw new NotImplementedException();
