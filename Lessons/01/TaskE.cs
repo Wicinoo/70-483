@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Lessons._01
 {
@@ -22,11 +23,77 @@ namespace Lessons._01
     /// </summary>
     public class TaskE
     {
+
         public static void Run()
         {
             // E.g. Action<DateTime> problem42 = dt => { Console.WriteLine(dt...)};
+            Action<string> example = x => { Console.WriteLine(x[0]); };
+            example("My name is what?");
 
-            throw new NotImplementedException();
+            /****************************************************************/
+
+            Action<IEnumerable<int>> arrDel = x => {
+                int padding = 0;
+                foreach (int item in x) {
+                    Console.WriteLine(String.Format("{0}{1}", new String(' ', padding), item));
+                    padding++;
+                }
+            };
+
+            arrDel(new int[] { 1, 2, 3 });
+
+            /****************************************************************/
+            Func<string, bool> isFirstCharacterAlphaNum = x => {
+                if (!String.IsNullOrEmpty(x)) {
+                    return System.Text.RegularExpressions.Regex.IsMatch(x, @"^[\w]");
+                }
+                return false;
+            };
+
+            string testString = "My name is who?";
+            Console.WriteLine(String.Format("Is first character of '{0}' alphanumeric: {1}", testString, isFirstCharacterAlphaNum(testString)));
+
+            testString = " My name is who?";
+            Console.WriteLine(String.Format("Is first character of '{0}' alphanumeric: {1}", testString, isFirstCharacterAlphaNum(testString)));
+
+            /****************************************************************/
+            Action<string, string> printLongerString = (str1, str2) =>
+            {
+                if (str1.Length > str2.Length) {
+                    Console.WriteLine(str1);
+                }
+                else {
+                    Console.WriteLine(str2);
+                }
+            };
+
+
+            printLongerString("My name is", "chka-chka Slim Shady");
+
+            /****************************************************************/
+
+            Func<DateTime, string> formatDate = x => { return x.ToString("yyyyMMdd"); };
+
+            Console.WriteLine(String.Format("Today in 'yyyymmdd' format: {0}", formatDate(DateTime.Today)));
+
+            /****************************************************************/
+
+            Func<bool, bool, bool> xor = (val1, val2) => { return val1 ^ val2; };
+
+            Console.WriteLine(String.Format("XOR result for false, true is: {0}", xor(false, true)));
+            Console.WriteLine(String.Format("XOR result for true, true is: {0}", xor(true, true)));
+
+            /****************************************************************/
+
+            Action nothing = () => { };
+
+            /****************************************************************/
+
+            Action<Action> actionInception = (x) => { x(); };
+
+            actionInception(nothing);
+
         }
+
     }
 }
