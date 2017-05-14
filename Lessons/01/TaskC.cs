@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Runtime.InteropServices;
 
 namespace Lessons._01
 {
@@ -11,9 +12,34 @@ namespace Lessons._01
     /// </summary>
     public class TaskC
     {
+        delegate void ServiceCar(Car car);
+        delegate void ServiceBus(Bus bus);
+
         public static void Run()
         {
-            throw new NotImplementedException();
+            ServiceCar changeTyres = ChangeTyres;
+            changeTyres(new Car());
+            changeTyres(new Bus());
+
+            ServiceBus changeTyresOfABus = ChangeTyres;
+            changeTyresOfABus(new Bus());
+
+            ServiceBus cleanUpInterier = CleanUpInterier;
+            cleanUpInterier(new Bus());
+        }
+
+        private static void ChangeTyres(Car car)
+        {
+            Console.WriteLine($"Changing tyres of a {car.GetType().Name}");
+        }
+
+        private static void CleanUpInterier(Bus bus)
+        {
+            Console.WriteLine($"Cleaning up an interier of a {bus.GetType().Name}");
         }
     }
+
+    public class Car { }
+
+    public class Bus : Car { }
 }
