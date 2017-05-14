@@ -11,6 +11,8 @@ namespace Lessons
 
             TaskB.Run();
 
+            TaskF.Run();
+
             Console.ReadKey();
         }
     }
