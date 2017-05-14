@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Lessons._01
 {
@@ -11,9 +12,42 @@ namespace Lessons._01
     /// </summary>
     public class TaskC
     {
+        private delegate void ServiceCar(Car car);
+
+        private delegate void ServiceBus(Bus bus);
+
         public static void Run()
         {
-            throw new NotImplementedException();
+            var car = new Car();
+            var bus = new Bus();
+
+            ServiceCar changeTyresCar = c => c.ChangeTyres();
+            ServiceBus changeTyresBus = b => b.ChangeTyres();
+            ServiceBus cleanBus = b => b.CleanInterier();
+
+            changeTyresCar.Invoke(car);
+            changeTyresCar.Invoke(bus);
+
+            changeTyresBus.Invoke(bus);
+
+            cleanBus.Invoke(bus);
+        }
+
+
+        private class Car
+        {
+            public void ChangeTyres()
+            {
+                Console.WriteLine("Car tyres changed!");
+            }
+        }
+
+        private class Bus : Car
+        {
+            public void CleanInterier()
+            {
+                Console.WriteLine("Bus interier cleaned!");
+            } 
         }
     }
 }
