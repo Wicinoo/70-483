@@ -14,7 +14,7 @@ namespace Lessons._01
     /// </summary>
     public class TaskA
     {
-        public delegate void PrintDateTimeFunnyInfo(DateTime dateTime);
+        private delegate void PrintDateTimeFunnyInfo(DateTime dateTime);
 
         public static void Run()
         {
@@ -40,7 +40,7 @@ namespace Lessons._01
         }
 
 
-        public static void M1(DateTime dateTime)
+        private static void M1(DateTime dateTime)
         {
             int minsToNextLunch = GetMinsToNextLunch(dateTime);
 
@@ -65,13 +65,13 @@ namespace Lessons._01
         {
             var minsEnding = minsToNextLunch == 1 ? "minute" : "minutes";
 
-            Console.WriteLine("Next lunch is in {0} {1}", minsToNextLunch, minsEnding);
+            Console.WriteLine($"Next lunch is in {minsToNextLunch} {minsEnding}");
         }
 
 
-        public static void M2(DateTime dateTime)
+        private static void M2(DateTime dateTime)
         {
-            Console.WriteLine("today is the day number {0} in this week", (int)dateTime.DayOfWeek + 1);
+            Console.WriteLine($"today is the day number {(int)dateTime.DayOfWeek + 1} in this week");
         }
     }
 }
