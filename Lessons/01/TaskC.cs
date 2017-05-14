@@ -11,9 +11,42 @@ namespace Lessons._01
     /// </summary>
     public class TaskC
     {
+        class Car
+        {
+            public bool TyresAreChanged { get; private set; }
+
+            public static void ChangeTyres(Car car)
+            {
+                car.TyresAreChanged = true;
+            }
+        }
+
+        class Bus: Car
+        {
+            public bool InterierIsCleanedUp { get; private set; }
+
+            public static void CleanUpInterier(Bus bus)
+            {
+                bus.InterierIsCleanedUp = true;
+            }
+        }
+
+        private delegate void ServiceCar(Car car);
+
+        private delegate void ServiceBus(Bus bus);
+
         public static void Run()
         {
-            throw new NotImplementedException();
+            ServiceCar svcCarCarChangeTyres = Car.ChangeTyres;
+
+            ServiceCar svcCarBusChangeTyres = Bus.ChangeTyres;
+
+
+            ServiceBus svcBusBusChangeTyres = Bus.ChangeTyres;
+
+            ServiceBus svcBusCarChangeTyres = Car.ChangeTyres;
+
+            ServiceBus svcBusCleanUpInterier = Bus.CleanUpInterier;
         }
     }
 }
