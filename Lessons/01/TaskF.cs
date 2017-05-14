@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading;
 
 namespace Lessons._01
 {
@@ -12,9 +13,62 @@ namespace Lessons._01
     /// </summary>
     public class TaskF
     {
+        private delegate void MarketUpdate(decimal value);
+
+        class MarketTimer
+        {
+            private Random _random = new Random();
+
+            private bool _isStopped;
+
+            public void Run()
+            {
+                do
+                {
+                    var value = GenerateValue();
+
+                    OnMarketUpdate?.Invoke(value);
+
+                    Thread.Sleep(1000);
+                }
+                while (!_isStopped);
+            }
+
+            private decimal GenerateValue()
+            {
+                return (decimal)(20 + _random.NextDouble()*60);
+            }
+
+            public void Stop()
+            {
+                _isStopped = true;
+            }
+
+            public event MarketUpdate OnMarketUpdate;
+        }
+
         public static void Run()
         {
-            throw new NotImplementedException();
+            var timer = new MarketTimer();
+
+            timer.OnMarketUpdate += Print;
+
+            Thread t = new Thread(timer.Run);
+
+            t.Start();
+
+            Console.ReadKey();
+
+            timer.OnMarketUpdate -= Print;
+
+            Console.ReadKey();
+
+            timer.Stop();
+        }
+
+        private static void Print(decimal value)
+        {
+            Console.WriteLine(value);
         }
     }
 }
