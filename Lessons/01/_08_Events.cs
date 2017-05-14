@@ -17,6 +17,10 @@ namespace Lessons._01
             classWithEvent.OnEvent += () => Console.WriteLine("Handler 2 of OnEvent event.");
 
             classWithEvent.Raise();
+
+            var classWithEventNullTest = new ClassWithEventRecomendSyntax();
+            classWithEventNullTest.Raise();
+
         }
     }
 
@@ -33,6 +37,7 @@ namespace Lessons._01
         }
     }
 
+
     public class ClassWithEvent
     {
         public event Action OnEvent;
@@ -41,8 +46,17 @@ namespace Lessons._01
         {
             if (OnEvent != null)
             {
-                OnEvent();
+                OnEvent();  
             }
+        }
+    }
+    public class ClassWithEventRecomendSyntax
+    {
+        public event Action OnEvent = delegate {}; //necessary!!!
+
+        public void Raise()
+        {
+            OnEvent();  //because you used recomend syntax, you can avoid null check  
         }
     }
 }

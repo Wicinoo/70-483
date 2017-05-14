@@ -13,6 +13,14 @@ namespace Lessons._01
 
             BinaryOperation multiplication = Multiplication;
             Console.WriteLine("Multiplication(4,5): {0}", multiplication(4, 5));
+
+            BinaryOperation subtraction = Subtraction;
+            Console.WriteLine("Subtraction(5,4): {0}", subtraction(5,4));
+        }
+
+        private static int Subtraction(int x, int y)
+        {
+            return x - y;
         }
 
         public static int Addition(int a, int b)

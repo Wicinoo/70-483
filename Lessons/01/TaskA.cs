@@ -1,4 +1,5 @@
 ﻿using System;
+using Rhino.Mocks.Impl;
 
 namespace Lessons._01
 {
@@ -14,9 +15,40 @@ namespace Lessons._01
     /// </summary>
     public class TaskA
     {
+        public delegate void PrintDateTimeFunnyInfo(DateTime inputDateTime);
         public static void Run()
         {
-            throw new NotImplementedException();
+            Console.WriteLine("M1");
+            var printableMethods = new PrintableMethods();
+            PrintDateTimeFunnyInfo printM1 = printableMethods.M1;
+            printM1(DateTime.Now);
+
+            Console.WriteLine("M1 + M2");
+            PrintDateTimeFunnyInfo printM1M2 = printableMethods.M1;
+            printM1M2 += printableMethods.M2;
+            printM1M2(DateTime.Now);
+
+            Console.WriteLine("M1 + M2 - M1");
+            PrintDateTimeFunnyInfo printM1M2WithoutM1 = printableMethods.M1;
+            printM1M2WithoutM1 += printableMethods.M2;
+            printM1M2WithoutM1 -= printableMethods.M1;
+            printM1M2WithoutM1(DateTime.Now);
+
+        }
+    }
+
+    public class PrintableMethods
+    {
+        public void M1(DateTime inputDateTime)
+        {
+            DateTime lunchDate = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day + 1);
+            var lunch = lunchDate.Subtract(inputDateTime);
+            Console.WriteLine("Next lunch is in {0} minutes", lunch.Minutes);
+        }
+
+        public void M2(DateTime inputDateTime)
+        {
+            Console.WriteLine("Today is the day number {0} in this week", (int) inputDateTime.DayOfWeek);
         }
     }
 }
