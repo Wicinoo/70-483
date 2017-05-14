@@ -22,11 +22,11 @@ namespace Lessons._01
 
             MapString operation5 = @string => @string;
 
-            Console.WriteLine($"operation1(1) = {operation1("stringToMap")}");
-            Console.WriteLine($"operation2(1) = {operation2("stringToMap")}");
-            Console.WriteLine($"operation3(1) = {operation3("stringToMap")}");
-            Console.WriteLine($"operation4(1) = {operation4("stringToMap")}");
-            Console.WriteLine($"operation5(1) = {operation5("stringToMap")}");
+            Console.WriteLine($"operation1(\"stringToMap\") = {operation1("stringToMap")}");
+            Console.WriteLine($"operation2(\"stringToMap\") = {operation2("stringToMap")}");
+            Console.WriteLine($"operation3(\"stringToMap\") = {operation3("stringToMap")}");
+            Console.WriteLine($"operation4(\"stringToMap\") = {operation4("stringToMap")}");
+            Console.WriteLine($"operation5(\"stringToMap\") = {operation5("stringToMap")}");
         }
     }
 }
