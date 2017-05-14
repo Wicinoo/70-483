@@ -1,4 +1,5 @@
 ﻿using System;
+using Lessons._01;
 
 namespace Lessons
 {
@@ -6,8 +7,7 @@ namespace Lessons
     {
         static void Main(string[] args)
         {
-            //_01.Runner.Run();
-            //_02.Runner.Run();
+            TaskA.Run();
 
             Console.ReadKey(); 
         }
