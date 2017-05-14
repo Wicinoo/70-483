@@ -14,9 +14,51 @@ namespace Lessons._01
     /// </summary>
     public class TaskA
     {
+        delegate void PrintDateTimeFunnyInfo(DateTime dateTime);
+
         public static void Run()
         {
-            throw new NotImplementedException();
+            PrintDateTimeFunnyInfo delegateInstanceForM1 = M1;
+            Console.WriteLine("instance for M1 and invoke it for current date and time: ");
+            delegateInstanceForM1(DateTime.Now);
+
+            Console.WriteLine("=======================");
+
+            PrintDateTimeFunnyInfo delegateInstanceForM1M2 = M1;
+            delegateInstanceForM1M2 += M2;
+            Console.WriteLine("instance for M1 + M2 and invoke it for current date and time.: ");
+            delegateInstanceForM1M2(DateTime.Now);
+
+            Console.WriteLine("=======================");
+
+            PrintDateTimeFunnyInfo delegateInstanceForM1M2MinusM1 = M1;
+            delegateInstanceForM1M2MinusM1 += M2;
+            delegateInstanceForM1M2MinusM1 -= M1;
+            Console.WriteLine("instance for M1 + M2 - M1 and invoke it for current date and time.: ");
+            delegateInstanceForM1M2MinusM1(DateTime.Now);
+        }
+
+
+        private static void M1(DateTime dateTime)
+        {
+            var nextNoon = GetNextNoon(dateTime);
+            var timeToLunch = nextNoon - dateTime;
+
+            Console.WriteLine($"Next Lunch is in {timeToLunch.TotalMinutes}.");
+        }
+
+        private static void M2(DateTime dateTime)
+        {
+            int numberOfDayInWeek = ((int)DateTime.Now.DayOfWeek == 0) ? 7 : (int)DateTime.Now.DayOfWeek;
+
+            Console.WriteLine($"today is the day number {numberOfDayInWeek} in this week");
+        }
+
+        private static DateTime GetNextNoon(DateTime dateTime)
+        {
+            var todaysNoon = DateTime.Today + new TimeSpan(12, 0, 0);
+
+            return dateTime < todaysNoon ? todaysNoon : todaysNoon.AddDays(1);
         }
     }
 }

@@ -29,7 +29,7 @@ namespace Lessons._01
 
             Logger emptyLogger = null;
             // Uncomment if you want to see what will happen.
-            //emptyLogger("Message for the empty logger.");
+            emptyLogger("Message for the empty logger.");
         }
 
         private static void LogWithAsteriskes(string message)
