@@ -9,6 +9,8 @@ namespace Lessons
         {
             TaskA.Run();
 
+            TaskB.Run();
+
             Console.ReadKey();
         }
     }
