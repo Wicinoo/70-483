@@ -1,19 +1,22 @@
-﻿namespace Lessons._01
+﻿using System;
+
+namespace Lessons._01
 {
     public static class Runner
     {
         public static void Run()
         {
-            //_01_Delegate.Run();
+            Console.WriteLine("hello world");
+            _01_Delegate.Run();
             //_02_OperationsWithDelegates.Run();
             //_03_LambdaExpressionBasics.Run();
-            //_04_Contravariance.Run();
+            //_04_Contravariance.Run();s
             //_05_Covariance.Run();
             //_06_DelegatesAdvancedTopics.Run();
             //_07_SystemDelegates.Run();
             //_08_Events.Run();
 
-            //TaskA.Run();
+            TaskA.Run();
             //TaskB.Run();
             //TaskC.Run();
             //TaskD.Run();
