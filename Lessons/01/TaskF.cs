@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Timers;
 
 namespace Lessons._01
 {
@@ -14,7 +15,55 @@ namespace Lessons._01
     {
         public static void Run()
         {
-            throw new NotImplementedException();
+            var market = new Market();
+            market.MarketUpdated += OnMarketUpdated; 
+            market.Init();
+
+            Console.ReadKey();
+            market.MarketUpdated -= OnMarketUpdated;
+        }
+
+        public static void OnMarketUpdated(object obj, MarketEventArgs args)
+        {
+            Console.WriteLine(args.MarketValue);
+        }
+    }
+
+    public class MarketEventArgs : EventArgs
+    {
+        public int MarketValue { get; set; }
+    }
+
+    public class Market
+    {
+        //public delegate void MarketUpdatedEventHandler(object source, MarketEventArgs args);
+        //public event MarketUpdatedEventHandler MarketUpdated;
+
+        public event EventHandler<MarketEventArgs> MarketUpdated; 
+
+        private readonly Func<int> _getMarketValue = () => new Random().Next(20, 80);
+
+        private Timer _timer;
+
+        public void Init()
+        {
+            _timer = new Timer(1000);
+            _timer.Elapsed += Tick;
+            _timer.AutoReset = true;
+            _timer.Start();
+        }
+
+        private void Tick(object source, ElapsedEventArgs args)
+        {
+            OnMarketUpdated(_getMarketValue());
+        }
+
+        protected virtual void OnMarketUpdated(int value)
+        {
+            if (MarketUpdated != null)
+            {
+                MarketUpdated(this, new MarketEventArgs() { MarketValue = value} );
+            }
         }
     }
 }
