@@ -15,7 +15,7 @@
 
             TaskA.Run();
             TaskB.Run();
-            //TaskC.Run();
+            TaskC.Run();
             //TaskD.Run();
             //TaskE.Run();
             //TaskF.Run();
