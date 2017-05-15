@@ -11,9 +11,27 @@ namespace Lessons._01
     /// </summary>
     public class TaskC
     {
+        public delegate void ServiceCar(Car car);
+
+        public delegate void ServiceBus(Bus bus);
         public static void Run()
         {
-            throw new NotImplementedException();
+            
         }
     }
+
+    public class VehicleOperations
+    {
+        public void ChangeTyres(Car car)
+        {
+        }
+
+        public void CleanInterier(Bus bus)
+        {
+            
+        }
+}
+
+    public class Car { }
+    public class Bus : Car { }
 }

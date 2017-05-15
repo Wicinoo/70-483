@@ -14,7 +14,7 @@
             //_08_Events.Run();
 
             TaskA.Run();
-            //TaskB.Run();
+            TaskB.Run();
             //TaskC.Run();
             //TaskD.Run();
             //TaskE.Run();
