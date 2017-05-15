@@ -13,7 +13,32 @@ namespace Lessons._01
     {
         public static void Run()
         {
-            throw new NotImplementedException();
+            ServiceCar serviceCarDelegate = ChangeTyres;
+            //serviceCarDelegate += CleanUpBus;
+            ServiceBus serviceBusDelegate = CleanUpBus;
+            serviceBusDelegate += ChangeTyres;
+
+            serviceCarDelegate(new Car());
+            serviceCarDelegate(new Bus());
+            serviceBusDelegate(new Bus());
+        }
+
+        public static void ChangeTyres(Car car)
+        {
+            Console.WriteLine("Tyres changed for " + car.GetType().Name);
+        }
+
+        public static void CleanUpBus(Bus bus)
+        {
+            Console.WriteLine($"{bus.GetType().Name} cleaned up.");
         }
     }
+
+    public class Car { }
+
+    public class Bus : Car { }
+
+    public delegate void ServiceCar(Car car);
+
+    public delegate void ServiceBus(Bus bus);
 }

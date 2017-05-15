@@ -10,7 +10,19 @@ namespace Lessons._01
     {
         public static void Run()
         {
-            throw new NotImplementedException();
+            MapString msDelegate = delegate (string s) { return "Anonymous method: " + s; };
+            msDelegate += (string s) => { return "Lambda expression (explicitly typed parameter): " + s; };
+            msDelegate += (s) => { return "Lambda expression (implicitly typed parameter): " + s; };
+            msDelegate += s => { return "Lambda expression (implicitly typed parameter): " + s; };
+            msDelegate += s => "Lambda expression (implicitly typed parameter): " + s; 
+
+            foreach (Delegate d in msDelegate.GetInvocationList())
+            {
+                MapString msd = (MapString)d;
+                Console.WriteLine(msd("Some string"));
+            }
         }
     }
+
+    public delegate string MapString(string @string);
 }
