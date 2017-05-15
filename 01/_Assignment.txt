@@ -1,0 +1,17 @@
+﻿* Read "Objective 1.4: Create and implement events and callbacks" to be able to: 
+	- explain delegates.
+	- demonstrate adding and removing method from a delegate.
+	- understand chaining of delegates with return value.
+	- explain contravariance and covariance for delegates.
+	- use lambda expressions with explicitly as well as implicity typed parameters.
+	- use MulticastDelegate.GetInvocationList(), support for asynchronous invocation.
+	- use predefined delegates from System namespace - Action, Func, Predicate.
+	- explain publisher-subscriber design pattern.
+	- provide an event and raise it.
+	- explain cons of using an Action as a property instead of "event".
+	- use EventHandler<T> and EventArgs types.
+	- use custom event accessors add { }, remove { }
+* Walk through examples _01_Delegate.cs - _08_Events.cs.
+* Solve TaskA - TaskG.
+* Commit all changes into your branch in the respository.
+* Update your lesson record on confluence.
