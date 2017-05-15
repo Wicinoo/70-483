@@ -26,7 +26,37 @@ namespace Lessons._01
         {
             // E.g. Action<DateTime> problem42 = dt => { Console.WriteLine(dt...)};
 
-            throw new NotImplementedException();
+            Action<string> problem1 = input => { Console.WriteLine($"{input[0]}"); };
+
+
+            Action<int[]> problem2 = ints =>
+            {
+                for (int i = 0; i < ints.Length; i++)
+                {
+                    Console.WriteLine($"{new string(' ', i)}{ints[i]}");
+                }
+            };
+
+
+            Predicate<char> problem3 = c => char.IsLetterOrDigit(c);
+
+
+            Action<string, string> problem4 = (string1, string2) =>
+            {
+                Console.WriteLine(string1.Length >= string2.Length ? string1 : string2);
+            };
+
+
+            Func<string> problem5 = () => DateTime.Now.ToString("yyyymmdd");
+
+
+            Func<bool, bool, bool> problem6 = (bool1, bool2) => bool1 ^ bool2;
+
+
+            Action problem7 = () => { };
+
+
+            Action<Action> problem8 = action => { action(); };
         }
     }
 }
