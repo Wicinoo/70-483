@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 
 namespace Lessons._01
 {
@@ -25,8 +26,40 @@ namespace Lessons._01
         public static void Run()
         {
             // E.g. Action<DateTime> problem42 = dt => { Console.WriteLine(dt...)};
+            Action<string> problem1 = (s) => 
+            {
+                if (!string.IsNullOrEmpty(s))
+                {
+                    Console.WriteLine(s.ToCharArray()[0]);
+                }
+            };
 
-            throw new NotImplementedException();
+            problem1("Test");
+            problem1(null);
+            problem1(string.Empty);
+            problem1(Environment.NewLine);
+
+
+            Action<int[]> problem2 = (arr) =>
+            {
+                if (arr == null) return;
+
+                for (int i = 0; i < arr.Length; i++)
+                {
+                    Console.Write(new string(' ', i + 1));
+                    Console.WriteLine(arr[i].ToString());
+                }
+            };
+
+            problem2(new int[] { 100, 120, 150, 190, 200 });
+            problem2(new int[] { });
+            problem2(null);
+
+
+            Predicate<char> problem3 = (c) => char.IsDigit(c);
+
+            bool isDigit = problem3('1');
+            isDigit = problem3('a');
         }
     }
 }
