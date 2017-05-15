@@ -16,7 +16,7 @@ namespace Lessons._01
     {
         public static void Run()
         {
-            //throw new NotImplementedException(); lol
+            throw new NotImplementedException();
         }
     }
 }
