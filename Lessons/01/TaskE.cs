@@ -2,6 +2,8 @@
 
 namespace Lessons._01
 {
+    using System.Text.RegularExpressions;
+
     /// <summary>
     /// Use the most suitable system delegates (Action, Func, Predicate) for the problems below. 
     /// For each case write an example and print results for functions.
@@ -24,9 +26,52 @@ namespace Lessons._01
     {
         public static void Run()
         {
-            // E.g. Action<DateTime> problem42 = dt => { Console.WriteLine(dt...)};
+            // (1)
+            Action<string> result1 = input => Console.WriteLine(input[0]);
+            result1("Foo");
 
-            throw new NotImplementedException();
+            // (2)
+            Action<int[]> result2 = input =>
+                {
+                    for (int i = 0; i < input.Length; i++)
+                    {
+                        var str = input[i].ToString();
+
+                        // Insert relevant number of spaces and print result value
+                        Console.WriteLine(str.PadLeft(i + str.Length));
+                    }
+                };
+            result2(new[] { 1, 5, 77, 323 });
+
+            // (3)
+            Func<char, bool> result3 = c => Char.IsLetter(c) || Char.IsDigit(c);
+            Console.WriteLine($"Result 3 for 'Y': {result3('Y')}");
+            Console.WriteLine($"Result 3 for '£': {result3('£')}");
+
+            // (4)
+            Action<string[]> result4 = strings =>
+                {
+                    Console.WriteLine(strings[0].Length >= strings[1].Length ? strings[0] : strings[1]);
+                };
+            result4(new[] { "Foo", "BarBaz" });
+
+            // (5)
+            Func<string> result5 = () => DateTime.Now.ToString("yyyymmdd");
+            Console.WriteLine(result5());
+
+            // (6)
+            Func<bool, bool, bool> result6 = (b1, b2) => b1 ^ b2;
+            Console.WriteLine($"True XOR True = {result6(true, true)}");
+
+            // (7)
+            Action result7 = () => { };
+
+            // (8)
+            Action<Action> result8 = act =>
+                {
+                    act.Invoke();
+                };
+            result8(() => Console.WriteLine("I did it!"));
         }
     }
 }
