@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Threading;
+using System.Timers;
 
 namespace Lessons._01
 {
@@ -12,9 +14,43 @@ namespace Lessons._01
     /// </summary>
     public class TaskF
     {
+        static readonly Random Generator = new Random();
+
         public static void Run()
         {
-            throw new NotImplementedException();
+            Func<decimal> marketPrice = () => Convert.ToDecimal(Generator.NextDouble() * 60 + 20);
+
+            MarketScanner scanner = new MarketScanner { OnMarketUpdated = Console.WriteLine };
+
+            while (true)
+            {
+                long start = DateTime.Now.Ticks;
+
+                scanner.Update(marketPrice());
+
+                if (Console.KeyAvailable)
+                {
+                    break;
+                }
+
+                int elapsedInMilliseconds = (int) ((DateTime.Now.Ticks - start) / 10000);
+                int wait = 1000 - elapsedInMilliseconds;
+
+                Thread.Sleep(wait <= 0 ? 1 : wait);
+            }
+
+            Console.WriteLine("Stopped reading market pricing data.");
+            Console.ReadKey();
+        }
+    }
+
+    class MarketScanner
+    {
+        public Action<decimal> OnMarketUpdated { get; set; }
+
+        public void Update(decimal price)
+        {
+            OnMarketUpdated?.Invoke(price);
         }
     }
 }
