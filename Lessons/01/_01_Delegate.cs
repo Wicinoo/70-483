@@ -22,7 +22,7 @@ namespace Lessons._01
 
         public static int Multiplication(int a, int b)
         {
-            return a * b;
+            return a * b; //Is this division?
         }
     }
 }
