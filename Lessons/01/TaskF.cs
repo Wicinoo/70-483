@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Timers;
 
 namespace Lessons._01
 {
@@ -14,7 +15,20 @@ namespace Lessons._01
     {
         public static void Run()
         {
-            throw new NotImplementedException();
+            var timer = new Timer(1000);
+            timer.Elapsed += MarketMonitor.OnMarketUpdated;
+            timer.Enabled = true;
+
+            Console.ReadLine();
+            timer.Elapsed -= MarketMonitor.OnMarketUpdated;
+        }
+    }
+
+    public class MarketMonitor
+    {
+        public static void OnMarketUpdated(object sender, EventArgs e)
+        {
+            Console.WriteLine($"Current market value: {new Random().Next(20, 80)}");
         }
     }
 }
