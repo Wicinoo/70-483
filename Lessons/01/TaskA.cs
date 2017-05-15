@@ -14,9 +14,48 @@ namespace Lessons._01
     /// </summary>
     public class TaskA
     {
+        private const int LunchTimeInHours = 12;
+
+        delegate void PrintDatetimeFunnyInfo(DateTime time);
+
         public static void Run()
         {
-            throw new NotImplementedException();
+            PrintDatetimeFunnyInfo m1 = M1;
+            m1(DateTime.Now);
+
+            PrintDatetimeFunnyInfo both = M1;
+            both += M2;
+            both(DateTime.Now);
+
+            PrintDatetimeFunnyInfo bothMinusFirst = M1;
+            bothMinusFirst += M2;
+            bothMinusFirst -= M1;
+            bothMinusFirst(DateTime.Now);
+        }
+
+        private static void M1(DateTime time)
+        {
+            Console.WriteLine(GetNextLunchMessage(GetTimeTillLunch(time)));
+        }
+
+        private static void M2(DateTime time)
+        {
+            Console.WriteLine($"today is the day number {(int)DateTime.Today.DayOfWeek} in this week");
+        }
+
+        private static string GetNextLunchMessage(TimeSpan howLong)
+        {
+            return $"Next lunch is in {Math.Floor(howLong.TotalMinutes)} minutes";
+        }
+
+        private static TimeSpan GetTimeTillLunch(DateTime time)
+        {
+            return GetNextNoon(time) - time;
+        }
+
+        private static DateTime GetNextNoon(DateTime time)
+        {
+            return DateTime.Today.AddHours(time.Hour >= LunchTimeInHours ? LunchTimeInHours * 3 : LunchTimeInHours);
         }
     }
 }
