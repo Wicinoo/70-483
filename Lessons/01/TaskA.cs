@@ -45,7 +45,7 @@ namespace Lessons._01
 
         public static void M2(DateTime date)
         {
-            Console.WriteLine("Today is the day number {0} in this week.", (int)date.DayOfWeek);
+            Console.WriteLine(String.Format("Today is the day number {0} in this week.", (int)date.DayOfWeek + 1));
         }
     }
 }
