@@ -17,8 +17,8 @@
             //TaskB.Run();
             //TaskC.Run();
             //TaskD.Run();
-            //TaskE.Run();
-            //TaskF.Run();
+            TaskE.Run();
+            TaskF.Run();
             // Use R# to run tests in TaskG
         }
     }

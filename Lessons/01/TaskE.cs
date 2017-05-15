@@ -2,6 +2,12 @@
 
 namespace Lessons._01
 {
+    using System.Collections;
+    using System.Collections.Generic;
+    using System.Linq;
+
+    using FluentAssertions.Primitives;
+
     /// <summary>
     /// Use the most suitable system delegates (Action, Func, Predicate) for the problems below. 
     /// For each case write an example and print results for functions.
@@ -26,7 +32,56 @@ namespace Lessons._01
         {
             // E.g. Action<DateTime> problem42 = dt => { Console.WriteLine(dt...)};
 
-            throw new NotImplementedException();
+            Action<string> p1 = x => Console.WriteLine(x[0]);
+
+            Action<int[]> p2 = x =>
+                {
+                    for (int i = 0; i < x.Length; i++)
+                    {
+                        Console.WriteLine("{0} ({1})", new String(' ', i), x[i].ToString());
+                    }
+                };
+
+            Predicate<char> p3 = x => Char.IsLetterOrDigit(x);
+
+            Action<string, string> p4 = (x, y) =>
+                {
+                    if (x.Length >= y.Length) Console.WriteLine(x);
+                    else Console.WriteLine(y);
+                };
+
+            Func<string> p5 = () =>
+                {
+                    var dt = DateTime.Now;
+                    return dt.ToString("yyyyMMdd");
+                };
+
+            Func<bool, bool, bool> p6 = (a, b) =>
+                {
+                    return a != b;
+                };
+
+            Action p7 = () => { };
+
+            Action<Action> p8 = x => { x(); };
+
+
+
+            p1("hullo");
+
+            p2(new int[] {1, 2, 3, 4});
+
+            Console.WriteLine(p3('L').ToString());
+
+            p4("blablo", "dolgates");
+
+            Console.WriteLine(p5());
+
+            Console.WriteLine(p6(true, false).ToString());
+
+            p7();
+
+            p8(p7);
         }
     }
 }

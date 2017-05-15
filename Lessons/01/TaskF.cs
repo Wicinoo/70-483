@@ -2,6 +2,8 @@
 
 namespace Lessons._01
 {
+    using System.Threading;
+
     /// <summary>
     /// Implement a class that raises OnMarketUpdated event each second. 
     /// The event passes a decimal number that represents current market value.
@@ -12,9 +14,38 @@ namespace Lessons._01
     /// </summary>
     public class TaskF
     {
+        public event Action<decimal> OnMarketUpdate;
+
         public static void Run()
         {
-            throw new NotImplementedException();
+            new TaskF();
+        }
+
+        public TaskF()
+        {
+            OnMarketUpdate += RecieveMarketData;
+
+            var ticker = new Timer(GenerateMarketData, this, 1000, 1000);
+
+            Console.ReadKey();
+            Console.WriteLine("Unsubscribed.");
+            OnMarketUpdate -= RecieveMarketData;
+
+            //Console.ReadKey();
+        }
+
+        public static void GenerateMarketData(object o)
+        {
+            TaskF taskf = (TaskF) o;
+            int seed = DateTime.Now.Second;
+
+            if (taskf.OnMarketUpdate != null)
+                taskf.OnMarketUpdate(new Random().Next(20,80+1));
+        }
+
+        public static void RecieveMarketData(decimal val)
+        {
+            Console.WriteLine(val);
         }
     }
 }

@@ -2,6 +2,8 @@
 
 namespace Lessons._01
 {
+    using FluentAssertions;
+
     /// <summary>
     /// Define a delegate "PrintDateTimeFunnyInfo" with DateTime type as a parameter without any return value.
     /// Create a method (M1) with the same signature like the delegate that prints the number of minutes to lunch (at noon).
@@ -14,9 +16,40 @@ namespace Lessons._01
     /// </summary>
     public class TaskA
     {
+        public delegate void PrintDateTimeFunnyInfo(DateTime d);
+
         public static void Run()
         {
-            throw new NotImplementedException();
+            PrintDateTimeFunnyInfo printDateInfo = M1;
+            //M1
+            printDateInfo(DateTime.Now);
+
+            printDateInfo += M2;
+            //M1 + M2
+            printDateInfo(DateTime.Now);
+
+            printDateInfo -= M1;
+            // M1 + M2 - M1
+            printDateInfo(DateTime.Now);
+
+        }
+
+        public static void M1(DateTime d)
+        {
+            bool isAfterLunch = (d.Hour >= 12);
+            DateTime noon = new DateTime(d.Year, d.Month, d.Day, 12, 0, 0);
+
+            if (isAfterLunch)
+            {
+                noon = noon.AddDays(1);
+            }
+
+            Console.WriteLine("Next lunch is in {0} minutes", (int)noon.Subtract(d).TotalMinutes);
+        }
+
+        public static void M2(DateTime d)
+        {
+            Console.WriteLine("today is the day number {0} in this week", (int)d.DayOfWeek);
         }
     }
 }
