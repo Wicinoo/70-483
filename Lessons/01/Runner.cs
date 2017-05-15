@@ -6,8 +6,7 @@ namespace Lessons._01
     {
         public static void Run()
         {
-            Console.WriteLine("hello world");
-            _01_Delegate.Run();
+            //_01_Delegate.Run();
             //_02_OperationsWithDelegates.Run();
             //_03_LambdaExpressionBasics.Run();
             //_04_Contravariance.Run();s
