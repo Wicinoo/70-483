@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 
 namespace Lessons._01
 {
@@ -24,9 +25,107 @@ namespace Lessons._01
     {
         public static void Run()
         {
-            // E.g. Action<DateTime> problem42 = dt => { Console.WriteLine(dt...)};
+            PrintFirstChar();
 
-            throw new NotImplementedException();
+            Console.WriteLine("=========");
+
+            PrintIntArray();
+
+            Console.WriteLine("=========");
+
+            TrueForLetterOrDigit();
+
+            Console.WriteLine("=========");
+
+            PrintLongerString();
+
+            Console.WriteLine("=========");
+
+            ReturnDate();
+
+            Console.WriteLine("=========");
+
+            Xor();
+
+            Console.WriteLine("=========");
+
+            EmptyMethod();
+
+            Console.WriteLine("=========");
+
+            InvokeActionInMethod();
+        }
+
+        private static void InvokeActionInMethod()
+        {
+            Action action = () => Console.WriteLine("text in anon");
+
+            Action<Action> m8 = act => act();
+
+            m8(action);
+        }
+
+        private static void EmptyMethod()
+        {
+            Action m7 = () => { };
+        }
+
+        private static void Xor()
+        {
+            Func<bool, bool, bool> m6 = (b1, b2) => b1 ^ b2;
+
+            Console.WriteLine(m6(false, false));
+            Console.WriteLine(m6(false, true));
+            Console.WriteLine(m6(true, false));
+            Console.WriteLine(m6(true, true));
+        }
+
+        private static void ReturnDate()
+        {
+            Func<string> m5 = () => DateTime.Today.ToString("yyyyMMdd");
+
+            Console.WriteLine(m5());
+        }
+
+        private static void PrintLongerString()
+        {
+            Action<string, string> m4 = (s1, s2) =>
+            {
+                if (s1.Length > s2.Length)
+                    Console.WriteLine(s1);
+                else
+                    Console.WriteLine(s2);
+            };
+
+            m4("foo", "foobar");
+        }
+
+        private static void TrueForLetterOrDigit()
+        {
+            Predicate<char> m3 = c => char.IsLetterOrDigit(c);
+
+            Console.WriteLine(m3('a'));
+            Console.WriteLine(m3('#'));
+        }
+
+        private static void PrintFirstChar()
+        {
+            Action<string> m1 = s => Console.WriteLine(s.FirstOrDefault());
+            m1("abc");
+        }
+
+        private static void PrintIntArray()
+        {
+            Action<int[]> m2 = array =>
+            {
+                for (int i = 0; i < array.Length; i++)
+                {
+                    var strNumber = array[i].ToString();
+                    Console.WriteLine(strNumber.PadLeft(strNumber.Length + i, ' '));
+                }
+            };
+
+            m2(new int[] { 10, 20, 30 });
         }
     }
 }
