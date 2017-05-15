@@ -2,8 +2,6 @@
 
 namespace Lessons._01
 {
-    using System.Text.RegularExpressions;
-
     /// <summary>
     /// Use the most suitable system delegates (Action, Func, Predicate) for the problems below. 
     /// For each case write an example and print results for functions.
