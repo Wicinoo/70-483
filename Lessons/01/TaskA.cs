@@ -38,7 +38,7 @@ namespace Lessons._01
 
         public static void M1(DateTime date)
         {
-            TimeSpan span = new DateTime(date.Year, date.Month, (date.Hour > 12 ? date.Day + 1 : date.Day), 12, 0, 0) - date;
+            TimeSpan span = new DateTime(date.Year, date.Month, (date.Hour >= 12 ? date.Day + 1 : date.Day), 12, 0, 0) - date;
 
             Console.WriteLine(String.Format("Next lunch is in {0:#} minutes.", span.TotalMinutes));
         }
