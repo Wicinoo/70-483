@@ -15,8 +15,8 @@ namespace Lessons._01
             //_07_SystemDelegates.Run();
             //_08_Events.Run();
 
-            TaskA.Run();
-            //TaskB.Run();
+            //TaskA.Run();
+            TaskB.Run();
             //TaskC.Run();
             //TaskD.Run();
             //TaskE.Run();
