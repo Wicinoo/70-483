@@ -16,8 +16,6 @@ namespace Lessons._01
     {
         public delegate void PrintDateTimeFunnyInfo(DateTime date);
 
-        public delegate void Del(DateTime date);
-
         public static void Run()
         {
             PrintDateTimeFunnyInfo minutesToLunch = M1;
@@ -28,7 +26,7 @@ namespace Lessons._01
 
             dayOfWeek(DateTime.Now);
 
-            Del d = M1;
+            PrintDateTimeFunnyInfo d = M1;
 
             d += M2;
             d(DateTime.Now);

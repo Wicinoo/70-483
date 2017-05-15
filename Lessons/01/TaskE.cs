@@ -85,15 +85,13 @@ namespace Lessons._01
 
             /****************************************************************/
 
-            Action nothing = () => { };
+            Action meaningOfLife = () => { };
 
             /****************************************************************/
 
             Action<Action> actionInception = (x) => { x(); };
 
-            actionInception(nothing);
-
+            actionInception(meaningOfLife);
         }
-
     }
 }

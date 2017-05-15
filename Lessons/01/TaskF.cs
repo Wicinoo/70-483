@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading;
 
 namespace Lessons._01
 {
@@ -12,9 +13,42 @@ namespace Lessons._01
     /// </summary>
     public class TaskF
     {
+        delegate void SimpleDelegate();
         public static void Run()
         {
-            throw new NotImplementedException();
+            MarketUpdater mu = new MarketUpdater();
+
+            mu.OnMarketUpdated += MarketUpdated;
+            SimpleDelegate asyncInvoker = () => { mu.Run(); };
+            asyncInvoker.BeginInvoke(null, null);
+
+            Console.ReadKey();
+
+            mu.OnMarketUpdated -= MarketUpdated;
+
+            //not needed since there already is one in Program.cs
+            //Console.ReadKey();
+        }
+
+        public static void MarketUpdated(object sender, int marketValue)
+        {
+            Console.WriteLine(marketValue);
+        }
+    }
+
+    public class MarketUpdater
+    {
+        public event EventHandler<int> OnMarketUpdated = delegate { };
+
+        public void Run()
+        {
+            Random rnd = new Random();
+
+            while (!Console.KeyAvailable)
+            {
+                this.OnMarketUpdated(this, rnd.Next(20, 80));
+                Thread.Sleep(1000);
+            }
         }
     }
 }
