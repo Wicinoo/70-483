@@ -11,6 +11,8 @@ namespace Lessons
 
             TaskB.Run();
 
+            TaskD.Run();
+
             TaskF.Run();
 
             Console.ReadKey();
