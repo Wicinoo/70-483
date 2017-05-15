@@ -17,8 +17,8 @@ namespace Lessons._01
 
             //TaskA.Run();
             //TaskB.Run();
-            TaskC.Run();
-            //TaskD.Run();
+            //TaskC.Run();
+            TaskD.Run();
             //TaskE.Run();
             //TaskF.Run();
             // Use R# to run tests in TaskG
