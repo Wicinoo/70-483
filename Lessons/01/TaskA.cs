@@ -16,7 +16,44 @@ namespace Lessons._01
     {
         public static void Run()
         {
-            throw new NotImplementedException();
+            PrintDateTimeFunnyInfo instance1 = M1;
+
+            instance1.Invoke(DateTime.Now);
+
+            PrintDateTimeFunnyInfo instance2 = M1;
+
+            instance2 += M2;
+
+            instance2.Invoke(DateTime.Now);
+
+            PrintDateTimeFunnyInfo instance3 = M1;
+
+            instance3 += M2;
+
+            instance3 -= M1;
+
+            instance3.Invoke(DateTime.Now);
         }
+
+        private static void M1(DateTime time)
+        {
+            if (time < DateTime.Today.AddHours(12))
+            {
+                Console.WriteLine("Next lunch is in {0} minutes", (int) (DateTime.Today.AddHours(12) - time).TotalMinutes);
+            }
+            else
+            {
+                Console.WriteLine("Next lunch is in {0} minutes", (int) (DateTime.Today.AddDays(1).AddHours(12) - time).TotalMinutes);
+            }
+        }
+
+        private static void M2(DateTime time)
+        {
+            Console.WriteLine("today is the day number {0} in this week", (int) time.DayOfWeek + 1);
+        }
+
+        private delegate void PrintDateTimeFunnyInfo(DateTime time);
     }
+
+ 
 }
