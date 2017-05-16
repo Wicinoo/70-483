@@ -22,11 +22,52 @@ namespace Lessons._01
     /// </summary>
     public class TaskE
     {
+        public delegate void PrintString(string stringToPrint);
+
+        public delegate void PrintIntegerArray(int[] intArrayToPrint);
+
+        public delegate void DoSomething(Action action);
+
         public static void Run()
         {
-            // E.g. Action<DateTime> problem42 = dt => { Console.WriteLine(dt...)};
+            Action<string> firstCharacter = s => Console.WriteLine(s[0]);
 
-            throw new NotImplementedException();
+            firstCharacter("V for Vendetta");
+
+            Action<int[]> printArray = print =>
+            {
+                for (var p = 0; p < print.Length; p++)
+                {
+                    Console.Write(new string(' ', p));
+                    Console.Write(p);
+                    Console.WriteLine();
+                }
+            };
+
+            printArray(new[] { 1, 2, 3, 4, 5 });
+
+            Predicate<char> IsLetterOrDigit = char.IsLetterOrDigit;
+
+            Console.WriteLine(IsLetterOrDigit('{'));
+            Console.WriteLine(IsLetterOrDigit('3'));
+
+            Action<string, string> WriteTwoStrings = (s, s1) => Console.WriteLine("{0} {1}", s, s1);
+
+            WriteTwoStrings("Hello", "World");
+
+            Func<DateTime, string> FancyDateFormat = time => time.ToString("yyyymmdd");
+
+            Console.WriteLine(FancyDateFormat(DateTime.Now));
+
+            Func<bool, bool, bool> XorTwoBooleams = (b, b1) => b ^ b1;
+
+            Console.WriteLine("Xor of false and tru {0}", XorTwoBooleams(false, true));
+
+            Action Nothing = () => { };
+
+            Nothing();
+
+            DoSomething DoNothing = action => action.Invoke();
         }
     }
 }

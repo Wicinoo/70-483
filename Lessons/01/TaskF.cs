@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading;
 
 namespace Lessons._01
 {
@@ -14,7 +15,43 @@ namespace Lessons._01
     {
         public static void Run()
         {
-            throw new NotImplementedException();
+            var marketUpdater = new MarketUpdater();
+
+            marketUpdater.OnMarketUpdated += OnMarketUpdaterOnOnMarketUpdated;
+
+            Console.WriteLine("Press ESC to stop");
+            do
+            {
+                while (!Console.KeyAvailable)
+                {
+                    marketUpdater.Update();
+                    Thread.Sleep(1000);
+                }
+            } while (Console.ReadKey(true).Key != ConsoleKey.Escape);
+
+            marketUpdater.OnMarketUpdated -= OnMarketUpdaterOnOnMarketUpdated;
+
+            Console.ReadKey(true);
+        }
+
+        private static void OnMarketUpdaterOnOnMarketUpdated()
+        {
+            Console.WriteLine("Market Updated");
+        }
+    }
+
+    public class MarketUpdater
+    {
+        public event Action OnMarketUpdated;
+
+        public void Update()
+        {
+            Console.WriteLine("Doing Stuff");
+
+            if (OnMarketUpdated != null)
+            {
+                OnMarketUpdated();
+            }
         }
     }
 }

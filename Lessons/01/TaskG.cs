@@ -38,31 +38,59 @@ namespace Lessons._01
         [Fact]
         public void Check_WhenTemperatureIsLowerAndHeaterIsStarted_ShouldNotStartHeater()
         {
-            throw new NotImplementedException();
+            _currentTemperatureProvider.Stub(x => x.GetTemperature()).Return(21);
+            _temperatureSettingsProvider.Stub(x => x.GetRequestedTemperature()).Return(20);
+            _heater.Stub(heater => heater.IsStarted).Return(true);
+
+            _thermostat.Check();
+
+            _heater.AssertWasNotCalled(heater => heater.Start());
         }
 
         [Fact]
         public void Check_WhenTemperatureIsAsRequestedAndHeaterIsNotStarted_ShouldNotStartHeater()
         {
-            throw new NotImplementedException();
+            _currentTemperatureProvider.Stub(x => x.GetTemperature()).Return(25);
+            _temperatureSettingsProvider.Stub(x => x.GetRequestedTemperature()).Return(25);
+
+            _thermostat.Check();
+            _heater.AssertWasNotCalled(heater => heater.Start());
         }
 
         [Fact]
         public void Check_WhenTemperatureIsAsRequestedAndHeaterIsStarted_ShouldStopHeater()
         {
-            throw new NotImplementedException();
+            _currentTemperatureProvider.Stub(x => x.GetTemperature()).Return(25);
+            _temperatureSettingsProvider.Stub(x => x.GetRequestedTemperature()).Return(25);
+            _heater.Stub(heater => heater.IsStarted).Return(true);
+
+            _thermostat.Check();
+
+            _heater.AssertWasCalled(heater => heater.Stop());
         }
 
         [Fact]
         public void Check_WhenTemperatureIsHigherAndHeaterIsStarted_ShouldStopHeater()
         {
-            throw new NotImplementedException();
+            _currentTemperatureProvider.Stub(x => x.GetTemperature()).Return(25);
+            _temperatureSettingsProvider.Stub(x => x.GetRequestedTemperature()).Return(25);
+            _heater.Stub(heater => heater.IsStarted).Return(true);
+
+            _thermostat.Check();
+
+            _heater.AssertWasCalled(heater => heater.Stop());
         }
 
         [Fact]
         public void Check_WhenTemperatureIsHigherAndHeaterIsNotStarted_ShouldNotStopHeater()
         {
-            throw new NotImplementedException();
+            _currentTemperatureProvider.Stub(x => x.GetTemperature()).Return(25);
+            _temperatureSettingsProvider.Stub(x => x.GetRequestedTemperature()).Return(20);
+            _heater.Stub(heater => heater.IsStarted).Return(false);
+
+            _thermostat.Check();
+
+            _heater.AssertWasNotCalled(heater => heater.Stop());
         }
     }
 
@@ -87,7 +115,7 @@ namespace Lessons._01
             var currentTemperature = _currentTemperatureProvider.GetTemperature();
             var requestedTemperature = _temperatureSettingsProvider.GetRequestedTemperature();
 
-            if (currentTemperature > requestedTemperature && _heater.IsStarted)
+            if (currentTemperature >= requestedTemperature && _heater.IsStarted)
             {
                 _heater.Stop();
             }
