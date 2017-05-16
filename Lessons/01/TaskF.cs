@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading;
 
 namespace Lessons._01
 {
@@ -14,7 +15,41 @@ namespace Lessons._01
     {
         public static void Run()
         {
-            throw new NotImplementedException();
+            var marketValue = new MarketValue();
+            var marketValuePrinter = new MarketValuePrinter();
+
+            TimerCallback marketValueUpdate = marketValueState => marketValue.Raise();
+
+            marketValue.OnMarketUpdated += (value) => marketValuePrinter.PrintMarketValue(value);
+
+            using (var timer = new Timer(marketValueUpdate, marketValue, 0, 1000))
+            {
+                Console.Read();
+                marketValue.OnMarketUpdated -= (value) => marketValuePrinter.PrintMarketValue(value);
+            }
+        }
+
+        public class MarketValue
+        {
+            public event Action<decimal> OnMarketUpdated;
+
+            public void Raise()
+            {
+                if (OnMarketUpdated != null)
+                {
+                    var randomNumber = new Random();
+
+                    OnMarketUpdated(Convert.ToDecimal(randomNumber.Next(20, 80)));
+                }
+            }
+        }
+
+        public class MarketValuePrinter
+        {
+            public void PrintMarketValue(decimal marketValue)
+            {
+                Console.WriteLine($"Current market value is: {marketValue}");
+            }
         }
     }
 }
