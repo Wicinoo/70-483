@@ -22,9 +22,9 @@ namespace Lessons._01
             Func<int, int, int> min = (a, b) => Math.Min(a, b);
             Func<int, int, int> minWithMethodGroup = Math.Min;
             Func<string, string, bool> equalsIgnoreCase = (s1, s2) => string.Equals(s1, s2, StringComparison.InvariantCultureIgnoreCase);
-
+            Console.WriteLine(equalsIgnoreCase("steve","field"));
             Predicate<int> isOdd = number => number % 2 == 1;
-
+            //Console.WriteLine(isOdd(5));
             Action<Action<DateTime>> invokeActionForCurrentDate = actionForDateTime => actionForDateTime(DateTime.Now);
 
             invokeActionForCurrentDate(dateTime => { Console.WriteLine(dateTime); });
