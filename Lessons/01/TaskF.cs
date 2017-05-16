@@ -15,7 +15,7 @@ namespace Lessons._01
     {
         public static void Run()
         {
-            Console.WriteLine("TaskE:");
+            Console.WriteLine("TaskF:");
             Console.WriteLine("---------------------------------------");
             Market m = new Market();
             m.OnMarketUpdated += m_OnMarketUpdated;
