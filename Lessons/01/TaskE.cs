@@ -27,8 +27,6 @@ namespace Lessons._01
     {
         public static void Run()
         {
-            // E.g. Action<DateTime> problem42 = dt => { Console.WriteLine(dt...)};
-
             Action<string> problem1 = someString => { Console.WriteLine(someString[0]); };
             Action<int[]> problem2 = array =>
             {
@@ -40,7 +38,7 @@ namespace Lessons._01
             Predicate<char> problem3 = char.IsLetterOrDigit;
             Action<string, string> problem4 = (first, second) => { Console.WriteLine(first + second); };
             Func<string> problem5 = () => DateTime.Now.ToString("yyyyMMdd");
-            Func<bool, bool, bool> problem6 = (a, b) => a || b;
+            Func<bool, bool, bool> problem6 = (a, b) => (a || b) && !(a && b);
             Action problem7 = () => { };
             Action<Action> problem8 = action => action.Invoke();
             
