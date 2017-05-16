@@ -18,11 +18,11 @@ namespace Lessons._01
             var marketValue = new MarketValue();
             var marketValuePrinter = new MarketValuePrinter();
 
-            TimerCallback marketValueUpdate = marketValueState => marketValue.Raise();
+            TimerCallback marketValueUpdate = state => marketValue.Raise();
 
             marketValue.OnMarketUpdated += (sender, value) => marketValuePrinter.PrintMarketValue(value);
 
-            using (var timer = new Timer(marketValueUpdate, marketValue, 0, 1000))
+            using (var timer = new Timer(marketValueUpdate, null, 0, 1000))
             {
                 Console.Read();
                 marketValue.OnMarketUpdated -= (sender, value) => marketValuePrinter.PrintMarketValue(value);
@@ -34,6 +34,7 @@ namespace Lessons._01
             private event EventHandler<decimal> onMarketUpdated = delegate { };
             public event EventHandler<decimal> OnMarketUpdated
             {
+
                 add
                 {
                     lock (onMarketUpdated)
