@@ -12,11 +12,32 @@ namespace Lessons._01
     /// Create a delegate instance for M1 + M2 and invoke it for current date and time.
     /// Create a delegate instance for M1 + M2 - M1 and invoke it for current date and time.
     /// </summary>
-    public class TaskA
-    {
-        public static void Run()
-        {
-            throw new NotImplementedException();
+    public class TaskA {
+        private static delegate void PrintDateTimeFunnyInfo(DateTime date);
+
+        public static void Run() {
+            PrintDateTimeFunnyInfo minutesToLunch = M1;
+            minutesToLunch(DateTime.Now);
+
+            PrintDateTimeFunnyInfo dayOfWeek = M2;
+            dayOfWeek(DateTime.Now);
+
+            PrintDateTimeFunnyInfo multiDelegate = M1;
+            multiDelegate += M2;
+            multiDelegate(DateTime.Now);
+
+            multiDelegate -= M1;
+            multiDelegate(DateTime.Now);
+        }
+
+        public static void M1(DateTime date) {
+            TimeSpan span = new DateTime(date.Year, date.Month, (date.Hour >= 12 ? date.Day + 1 : date.Day), 12, 0, 0) - date;
+
+            Console.WriteLine("Next lunch is in {0:#} minutes.", span.TotalMinutes);
+        }
+
+        public static void M2(DateTime date) {
+            Console.WriteLine("Today is the day number {0} in this week.", (int)date.DayOfWeek + 1);
         }
     }
 }

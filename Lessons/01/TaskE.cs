@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Linq;
+using System.Collections.Generic;
 
 namespace Lessons._01
 {
@@ -20,13 +22,74 @@ namespace Lessons._01
     /// (7) An anonymous empty method.
     /// (8) An anonymous method that gets apr parameterless action as an input and invokes that action.
     /// </summary>
-    public class TaskE
-    {
-        public static void Run()
-        {
-            // E.g. Action<DateTime> problem42 = dt => { Console.WriteLine(dt...)};
+    public class TaskE {
+        public static void Run() {
+            //1
+            Action<string> first = ((String x) => Console.WriteLine(x[0]));
+            first("Dormammu, I've come to bargain!");
 
-            throw new NotImplementedException();
+            //2
+            Action<IEnumerable<int>> second = (array => {
+                int indent = 0;
+
+                foreach (int item in array) {
+                    Console.WriteLine("{0}{1}", new String(' ', indent), item);
+                    indent++;
+                }
+            });
+
+            second(new int[] { 1, 2, 3, 4, 5 });
+
+            //3
+            Predicate<String> third = ((String x) => {
+                if (!String.IsNullOrEmpty(x)) {
+                    return Char.IsLetterOrDigit(x[0]);
+                }
+
+                return false;
+            });
+
+            String claim = "So Earth has wizards now, huh? ";
+            Console.WriteLine("The first character of '{0}' is alphanumeric: {1}", claim, third(claim));
+
+            claim = "[bursting in] Stop! Tampering with continuum probabilities is forbidden!";
+            Console.WriteLine("The first character of '{0}' is alphanumeric: {1}", claim, third(claim));
+
+            //4
+            Action<string, string> fourth = ((firstString, theOtherOne) => {
+                if (firstString.Length > theOtherOne.Length) {
+                    Console.WriteLine(firstString);
+                } else {
+                    Console.WriteLine(theOtherOne);
+                }
+            });
+
+            fourth("What's in that tea? Psilocybin? LSD? ", "It's just tea... with a little honey.");
+
+            //5
+            Func<DateTime, string> fifth = ((DateTime x) => { 
+                return x.ToString("yyyyMMdd"); 
+            });
+
+            Console.WriteLine("Today is: {0}", fifth(DateTime.Today));
+
+            //6
+            Func<bool, bool, bool> sixth = ((firstBool, theOtherBool) => { 
+                return firstBool ^ theOtherBool; 
+            });
+
+            Console.WriteLine("1==1 XOR 2==2 = {0}", sixth(1==1, 2==2));
+            Console.WriteLine("1==10 XOR 2==2 = {0}", sixth(1==10, 2==2));
+
+            //7
+            Action seventh = () => { };
+
+            //8
+            Action<Action> eighth = ((x) => { 
+                x(); 
+            });
+
+            eighth(seventh);
         }
     }
 }
