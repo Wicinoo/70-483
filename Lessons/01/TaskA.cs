@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 
 namespace Lessons._01
 {
@@ -16,7 +16,39 @@ namespace Lessons._01
     {
         public static void Run()
         {
-            throw new NotImplementedException();
+            Console.WriteLine("TaskA:");
+            Console.WriteLine("---------------------------------------");
+            Console.WriteLine("M1:");
+            PrintDateTimeFunnyInfo m1 = new PrintDateTimeFunnyInfo(M1);
+            m1(DateTime.Now);
+
+            Console.WriteLine("M1 + M2:");
+
+            PrintDateTimeFunnyInfo m1m2 = new PrintDateTimeFunnyInfo(M1);
+            m1m2 += new PrintDateTimeFunnyInfo(M2);
+            m1m2(DateTime.Now);
+
+            Console.WriteLine("M1 + M2 - M1:");
+
+            PrintDateTimeFunnyInfo m1m2m1 = new PrintDateTimeFunnyInfo(M1);
+            m1m2m1 += new PrintDateTimeFunnyInfo(M2);
+            m1m2m1 -= new PrintDateTimeFunnyInfo(M1);
+            m1m2m1(DateTime.Now);
+            Console.WriteLine("---------------------------------------");
+        }
+
+        static void M1(DateTime date)
+        {
+            DateTime nextLunch = date.Hour > 12 ? date.Date.AddDays(1) : date.Date;
+            nextLunch = new DateTime(nextLunch.Year, nextLunch.Month, nextLunch.Day, 12, 0, 0);
+            Console.WriteLine("Minutes remaining till lunch: " + (nextLunch - date).TotalMinutes.ToString("0.00")); ;
+        }
+
+        static void M2(DateTime date)
+        {
+            Console.WriteLine("Today is " + date.DayOfWeek.ToString());
         }
     }
+
+    delegate void PrintDateTimeFunnyInfo(DateTime date);
 }
