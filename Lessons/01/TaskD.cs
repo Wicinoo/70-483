@@ -9,7 +9,16 @@ namespace Lessons._01
     {
         public static void Run()
         {
-            throw new NotImplementedException();
+            CreateCar createCar = () => new Car();
+            Car carIsCar = createCar();
+
+            CreateBus createBus = () => new Bus();
+            Bus busIsBus = createBus();
+            Car busIsAlsoCar = createBus();
         }
     }
+
+    internal delegate Car CreateCar();
+
+    internal delegate Bus CreateBus();
 }
