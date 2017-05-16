@@ -20,27 +20,41 @@ namespace Lessons._01
 
             TimerCallback marketValueUpdate = marketValueState => marketValue.Raise();
 
-            marketValue.OnMarketUpdated += (value) => marketValuePrinter.PrintMarketValue(value);
+            marketValue.OnMarketUpdated += (sender, value) => marketValuePrinter.PrintMarketValue(value);
 
             using (var timer = new Timer(marketValueUpdate, marketValue, 0, 1000))
             {
                 Console.Read();
-                marketValue.OnMarketUpdated -= (value) => marketValuePrinter.PrintMarketValue(value);
+                marketValue.OnMarketUpdated -= (sender, value) => marketValuePrinter.PrintMarketValue(value);
             }
         }
 
         public class MarketValue
         {
-            public event Action<decimal> OnMarketUpdated;
+            private event EventHandler<decimal> onMarketUpdated = delegate { };
+            public event EventHandler<decimal> OnMarketUpdated
+            {
+                add
+                {
+                    lock (onMarketUpdated)
+                    {
+                        onMarketUpdated += value;
+                    }
+                }
+                remove
+                {
+                    lock (onMarketUpdated)
+                    {
+                        onMarketUpdated += value;
+                    }
+                }
+            }
 
             public void Raise()
             {
-                if (OnMarketUpdated != null)
-                {
-                    var randomNumber = new Random();
+                var randomNumber = new Random();
 
-                    OnMarketUpdated(Convert.ToDecimal(randomNumber.Next(20, 80)));
-                }
+                onMarketUpdated(this, Convert.ToDecimal(randomNumber.Next(20, 80)));
             }
         }
 
