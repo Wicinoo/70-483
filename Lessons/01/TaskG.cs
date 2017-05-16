@@ -98,8 +98,8 @@ namespace Lessons._01
         private readonly IHeater _heater;
 
         public Thermostat(
-            ICurrentTemperatureProvider currentTemperatureProvider,
-            ITemperatureSettingsProvider temperatureSettingsProvider,
+            ICurrentTemperatureProvider currentTemperatureProvider, 
+            ITemperatureSettingsProvider temperatureSettingsProvider, 
             IHeater heater)
         {
             _currentTemperatureProvider = currentTemperatureProvider;
