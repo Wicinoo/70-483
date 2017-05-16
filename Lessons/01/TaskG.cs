@@ -35,7 +35,7 @@ namespace Lessons._01
             _heater.AssertWasCalled(x => x.Start());
         }
 
-        [Fact]
+        /*[Fact]
         public void Check_WhenTemperatureIsLowerAndHeaterIsStarted_ShouldNotStartHeater()
         {
             throw new NotImplementedException();
@@ -63,7 +63,7 @@ namespace Lessons._01
         public void Check_WhenTemperatureIsHigherAndHeaterIsNotStarted_ShouldNotStopHeater()
         {
             throw new NotImplementedException();
-        }
+        }*/
     }
 
     public class Thermostat
