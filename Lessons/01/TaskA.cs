@@ -1,4 +1,5 @@
 ﻿using System;
+using FluentAssertions.Numeric;
 
 namespace Lessons._01
 {
@@ -14,9 +15,36 @@ namespace Lessons._01
     /// </summary>
     public class TaskA
     {
+        delegate void PrintDateTimeFunnyInfo(DateTime dateTime);
+
         public static void Run()
         {
-            throw new NotImplementedException();
+            var number1 = new PrintDateTimeFunnyInfo(M1);
+            number1(DateTime.Now);
+
+            var number2 = new PrintDateTimeFunnyInfo(M1);
+            number2 += M2;
+            number2(DateTime.Now);
+
+            var number3 = new PrintDateTimeFunnyInfo(M1);
+            number3 += M2;
+            number3 -= M1;
+            number3(DateTime.Now);
+         }
+
+        private static void M1(DateTime dateTime)
+        {
+            var nextLunch = dateTime.Hour < 12
+                ? new DateTime(dateTime.Year, dateTime.Month, dateTime.Day, 12, 0, 0)
+                : new DateTime(dateTime.Year, dateTime.Month, dateTime.Day, 12, 0, 0).AddDays(1);
+
+            var minutesToLaunch = Math.Round((nextLunch - dateTime).TotalMinutes);
+            Console.WriteLine($"Next lunch is in {minutesToLaunch} miutes");
+        }
+
+        private static void M2(DateTime dateTime)
+        {
+            Console.WriteLine($"Today is the day number {((int)dateTime.DayOfWeek)+1} in this week");
         }
     }
 }
