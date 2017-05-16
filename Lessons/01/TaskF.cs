@@ -46,7 +46,7 @@ namespace Lessons._01
 
             while (!Console.KeyAvailable)
             {
-                this.OnMarketUpdated(this, rnd.Next(20, 80));
+                this.OnMarketUpdated(this, rnd.Next(20, 81));
                 Thread.Sleep(1000);
             }
         }
