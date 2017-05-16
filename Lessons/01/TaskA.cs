@@ -18,23 +18,27 @@ namespace Lessons._01
 
         public static void Run()
         {
+            //question1
             PrintDateTimeFunnyInfo m1 = M1;
             m1(DateTime.Now);
 
             PrintDateTimeFunnyInfo m2 = M2;
             //m2(DateTime.Now);
 
-            //PrintDateTimeFunnyInfo m1 = M1;
-            m1 += m2;
-            m1(DateTime.Now);
-
-            //Console.WriteLine(m1.GetInvocationList().GetLength(0));
-
-            PrintDateTimeFunnyInfo m3 = m1;
-            m3 -= m2;
+            //question 2
+            PrintDateTimeFunnyInfo m3 = M1;
+            m3 += m2;
             m3(DateTime.Now);
-            
+
             //Console.WriteLine(m3.GetInvocationList().GetLength(0));
+
+            //question 3
+            PrintDateTimeFunnyInfo m4 = M1;
+            m4 += m2;
+            //Console.WriteLine(m4.GetInvocationList().GetLength(0));
+            m4 -= m1;
+            //Console.WriteLine(m4.GetInvocationList().GetLength(0));
+            m4(DateTime.Now);
         }
 
         public static void M1(DateTime d)
