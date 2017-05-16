@@ -2,7 +2,7 @@
 using Rhino.Mocks;
 using Xunit;
 
-namespace Lessons._01
+namespace Library
 {
     /// <summary>
     /// Complete the tests without implementation according to their names.
