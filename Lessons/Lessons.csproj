@@ -70,6 +70,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="01\Demo.cs" />
     <Compile Include="01\Runner.cs" />
     <Compile Include="01\TaskA.cs" />
     <Compile Include="01\TaskB.cs" />
