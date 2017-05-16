@@ -12,11 +12,61 @@ namespace Lessons._01
     /// Create a delegate instance for M1 + M2 and invoke it for current date and time.
     /// Create a delegate instance for M1 + M2 - M1 and invoke it for current date and time.
     /// </summary>
+    /// 
+
+    public delegate void PrintDateTimeFunnyInfo(DateTime dateTime);
+
     public class TaskA
     {
         public static void Run()
         {
-            throw new NotImplementedException();
+            //1
+            PrintDateTimeFunnyInfo M1 = m1;
+            M1(DateTime.Now);
+
+            PrintDateTimeFunnyInfo M2 = m2;
+            /*M2(DateTime.Now);*/
+
+            //2
+            PrintDateTimeFunnyInfo M3 = m1;
+            M3 += M2;
+            M3(DateTime.Now);
+
+            //3
+            PrintDateTimeFunnyInfo M4 = m1;
+            M4 += M2;
+            M4 -= M1;
+            M4(DateTime.Now);
+        }
+
+        public static void m1(DateTime dateTime)
+        {
+            var lunchTime = new DateTime(dateTime.Year, dateTime.Month, dateTime.Day, 12, 0, 0);
+            var message = "Next lunch is in {0} minutes";
+            if (dateTime <= lunchTime)
+            {
+                PrintOutputToConsole(message, lunchTime.Subtract(dateTime).TotalMinutes);
+            }
+            else
+            {
+                var nextLunch = lunchTime.AddDays(1);
+                PrintOutputToConsole(message, nextLunch.Subtract(dateTime).TotalMinutes);
+            }
+        }
+
+        public static void m2(DateTime dateTime)
+        {
+            var message = "today is the day number {0} in this week";
+            var dayOfWeek = Convert.ToDouble(dateTime.DayOfWeek)+1;
+
+            PrintOutputToConsole(message,dayOfWeek);
+        }
+
+
+        private static void PrintOutputToConsole(string message, double value)
+        {
+            Console.WriteLine(String.Format(message, value));
         }
     }
+
 }
