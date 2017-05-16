@@ -38,7 +38,7 @@ namespace Lessons._01
                 {
                     for (int i = 0; i < x.Length; i++)
                     {
-                        Console.WriteLine("{0} ({1})", new String(' ', i), x[i].ToString());
+                        Console.WriteLine("{0}({1})", new String(' ', i), x[i].ToString());
                     }
                 };
 

@@ -49,7 +49,8 @@ namespace Lessons._01
 
         public static void M2(DateTime d)
         {
-            Console.WriteLine("today is the day number {0} in this week", (int)d.DayOfWeek);
+            //dirty hack to get day of week incremented by one.
+            Console.WriteLine("today is the day number {0} in this week", (int)d.AddDays(1).DayOfWeek);
         }
     }
 }
