@@ -26,7 +26,34 @@ namespace Lessons._01
         {
             // E.g. Action<DateTime> problem42 = dt => { Console.WriteLine(dt...)};
 
-            throw new NotImplementedException();
+            Action<string> e1 = x => { Console.WriteLine(x.Substring(0, 1)); };
+
+            Action<int[]> e2 = array =>
+            {
+                for (int i = 0; i < array.Length; i++)
+                {
+                    Console.Write(new string(' ', i) + array[i].ToString());
+                }
+            };
+
+            Func<char, bool> e3 = c => char.IsLetterOrDigit(c);
+            Func<char, bool> e3a = char.IsLetterOrDigit;
+
+            Action<string, string> e4 = (s1, s2) =>
+            {
+                Console.Write(s1);
+                Console.WriteLine(s2);
+            };
+
+
+            Func<string> e5 = () => $"{DateTime.Now:yyyyMMdd}";
+
+            Func<bool, bool, bool> e6 = (b1, b2) => b1 ^ b2;
+
+            Action e7 = () => { };
+
+
+            Action<Action> e8 = action => action();
         }
     }
 }
