@@ -72,9 +72,9 @@ namespace Lessons._01
 
             /****************************************************************/
 
-            Func<DateTime, string> formatDate = x => { return x.ToString("yyyyMMdd"); };
+            Func<string> formatDate = () => { return DateTime.Now.ToString("yyyyMMdd"); };
 
-            Console.WriteLine(String.Format("Today in 'yyyymmdd' format: {0}", formatDate(DateTime.Today)));
+            Console.WriteLine(String.Format("Today in 'yyyymmdd' format: {0}", formatDate()));
 
             /****************************************************************/
 
