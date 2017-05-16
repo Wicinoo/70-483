@@ -18,11 +18,20 @@ namespace Lessons._01
             MapString operation4 = x => { return x; };   // Lambda expression (implicitly typed parameter)
             MapString operation5 = x => x;   // Lambda expression (implicitly typed parameter)
 
-            Console.WriteLine($"operation1(1) = {operation1("1")}");
-            Console.WriteLine($"operation2(1) = {operation2("1")}");
-            Console.WriteLine($"operation3(1) = {operation3("1")}");
-            Console.WriteLine($"operation4(1) = {operation4("1")}");
-            Console.WriteLine($"operation5(1) = {operation5("1")}");
+            string input = "None shall pass";
+            Console.WriteLine($"operation1({input}) = {operation1(input)}");
+
+            input = "I move, for no man.";
+            Console.WriteLine($"operation2({input}) = {operation2(input)}");
+
+            input = "It's just a flesh wound!";
+            Console.WriteLine($"operation3({input}) = {operation3(input)}");
+
+            input = "Running away, eh? You yellow bastards!";
+            Console.WriteLine($"operation4({input}) = {operation4(input)}");
+
+            input = "Come back here and take what's coming to ya! I'll bite your legs off!";
+            Console.WriteLine($"operation5({input}) = {operation5(input)}");
         }
     }
 }

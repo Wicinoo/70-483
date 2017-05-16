@@ -43,7 +43,7 @@ namespace Lessons._01
             arrDel(new int[] { 1, 2, 3 });
 
             /****************************************************************/
-            Func<string, bool> isFirstCharacterAlphaNum = x => {
+            Predicate<string> isFirstCharacterAlphaNum = x => {
                 if (!String.IsNullOrEmpty(x)) {
                     return System.Text.RegularExpressions.Regex.IsMatch(x, @"^[\w]");
                 }

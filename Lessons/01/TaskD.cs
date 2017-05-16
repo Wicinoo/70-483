@@ -17,7 +17,7 @@ namespace Lessons._01
             fnzDevDel = GetHeWhoShallBeKilled;
 
             GetHoldingsDeveloperDelegate getHoldDel;
-            // we cannot assign good developer to getHoldings developer. Simplye because he would most likely kill himself if he had to extend it
+            // we cannot assign good developer to getHoldings developer. Simply because he would most likely kill himself if he had to extend it
             //getHoldDel = GetGoodDeveloper;
 
             //we can assign bad developer since he is the one to blame for all of it
