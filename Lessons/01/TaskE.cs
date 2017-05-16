@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 
 namespace Lessons._01
 {
@@ -24,9 +24,51 @@ namespace Lessons._01
     {
         public static void Run()
         {
-            // E.g. Action<DateTime> problem42 = dt => { Console.WriteLine(dt...)};
+            Console.WriteLine("TaskE:");
+            Console.WriteLine("---------------------------------------");
+            Action<string> p1 = str => 
+            {
+                if (str.Length > 0)
+                    Console.WriteLine(str[0]);
+                else
+                    Console.WriteLine("");
+            };
 
-            throw new NotImplementedException();
+            Action<int[]> p2 = ints =>
+            {
+                for (int i = 0; i < ints.Length; i++)
+                {
+                    Console.WriteLine(ints[i].ToString().PadLeft(i, ' '));
+                }
+            };
+
+            Predicate<char> p3 = c => { return Char.IsLetterOrDigit(c); };
+
+            Action<string, string> p4 = (s1, s2) => 
+            {
+                if (s1.Length > s2.Length)
+                    Console.WriteLine(s1);
+                else
+                    Console.WriteLine(s2); 
+            };
+
+            Func<string> p5 = () => { return DateTime.Now.ToString("yyyyMMdd"); };
+
+            Func<bool, bool, bool> p6 = (b1, b2) => { return b1 ^ b2; };
+
+            Action p7 = () => { };
+
+            Action<Action> p8 = (act) => act();
+
+            p1("aaa");
+            p2(new int[] { 8, 4, 6, 7, 8, 654, 897, 18, 7198, 719 });
+            p3('a');
+            p4("aaaaaa","aaaaaaaaaa");
+            p5();
+            p6(true, false);
+            p7();
+            p8(p7);
+            Console.WriteLine("---------------------------------------");
         }
     }
 }
