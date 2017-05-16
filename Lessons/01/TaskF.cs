@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Timers;
 
 namespace Lessons._01
 {
@@ -14,7 +15,38 @@ namespace Lessons._01
     {
         public static void Run()
         {
-            throw new NotImplementedException();
+            Market market = new Market() { Interval = 1000 };
+            market.OnMarketUpdated += actionrnd;
+            market.Start();
+            Console.ReadKey();
+            market.OnMarketUpdated -= actionrnd;
+            Console.WriteLine("Market doesn't ganerate values now.");
+            Console.ReadKey();
+            market.Stop();
+            Console.WriteLine("Market is now stopped.");
+        }
+
+        public static void actionrnd(decimal d)
+        { Console.WriteLine("Market value is {0}", d); }
+    }
+
+    public class Market : Timer
+    {
+        public event Action<decimal> OnMarketUpdated;
+
+        private static readonly Random getrandom = new Random();
+
+       public Market()
+        {
+            this.Elapsed += Raise;
+        }
+
+        public void Raise(object source, ElapsedEventArgs e)
+        {
+            if (OnMarketUpdated != null)
+            {
+                OnMarketUpdated(getrandom.Next(20,80));
+            }
         }
     }
 }
