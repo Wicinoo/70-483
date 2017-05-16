@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading;
 
 namespace Lessons._01
 {
@@ -14,7 +15,56 @@ namespace Lessons._01
     {
         public static void Run()
         {
-            throw new NotImplementedException();
+            var market = new Market();
+
+            market.OnMarketChange += PrintMarketValue;
+
+            var marketThread = new Thread(() => market.Start());
+
+            marketThread.Start();
+
+            Console.ReadKey();
+
+            Console.Out.WriteLine("Unregistering OnMarketChange event now.");
+
+            market.OnMarketChange -= PrintMarketValue;
+
+            Console.ReadKey();
+
+            Console.Out.WriteLine("Closing market now.");
+
+            market.Stop();
+        }
+
+        private static void PrintMarketValue(object sender, int i)
+        {
+            Console.Out.WriteLine($"The current market value is {i}.");
+        }
+    }
+
+    public class Market
+    {
+        public event EventHandler<int> OnMarketChange = delegate { };
+
+        private bool _shouldRun = true;
+
+        public void Start()
+        {
+            var random = new Random();
+
+            while (_shouldRun)
+            {
+                var marketValue = random.Next(20, 80);
+
+                OnMarketChange(this, marketValue);
+
+                Thread.Sleep(TimeSpan.FromSeconds(1));
+            }
+        }
+
+        public void Stop()
+        {
+            _shouldRun = false;
         }
     }
 }

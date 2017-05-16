@@ -14,9 +14,47 @@ namespace Lessons._01
     /// </summary>
     public class TaskA
     {
+        public delegate void PrintDateTimeFunnyInfo(DateTime dateTime);
+
         public static void Run()
         {
-            throw new NotImplementedException();
+            PrintDateTimeFunnyInfo d1 = M1;
+
+            d1(DateTime.Now);
+
+            PrintDateTimeFunnyInfo d2 = M1;
+
+            d2 += M2;
+
+            d2(DateTime.Now);
+
+            PrintDateTimeFunnyInfo d3 = M1;
+
+            d3 += M2;
+
+            d3 -= M1;
+
+            d3(DateTime.Now);
+        }
+
+        public static void M1(DateTime fromDateTime)
+        {
+            var fromTime = fromDateTime.TimeOfDay;
+
+            var lunchTime = DateTime.Parse("12:00").TimeOfDay;
+
+            var toNextLunchTime = fromTime < lunchTime
+                ? lunchTime - fromTime
+                : lunchTime - fromTime + TimeSpan.FromDays(1);
+
+            Console.Out.WriteLine($"Next lunch is in {toNextLunchTime.TotalMinutes.ToString("####")} minutes.");
+        }
+
+        public static void M2(DateTime dateTime)
+        {
+            var dayOfWeek = (int) dateTime.DayOfWeek + 1;
+
+            Console.Out.WriteLine($"Today is the day number {dayOfWeek} in this week.");
         }
     }
 }

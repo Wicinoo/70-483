@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Linq;
+using System.Text.RegularExpressions;
 
 namespace Lessons._01
 {
@@ -24,9 +26,70 @@ namespace Lessons._01
     {
         public static void Run()
         {
-            // E.g. Action<DateTime> problem42 = dt => { Console.WriteLine(dt...)};
+            // 1
 
-            throw new NotImplementedException();
+            Action<string> f1 = (s) =>
+            {
+                Console.Out.WriteLine(s[0]);
+            };
+
+            f1("Test");
+
+            // 2
+
+            Action<int[]> f2 = (ia) =>
+            {
+                Console.Out.WriteLine(
+                    string.Join(
+                        "\n",
+                        ia.Select(PrefixWithSpaces)
+                    )
+                );
+            };
+
+            f2(new[] {3, 6, 9, 12, 15});
+
+            // 3
+
+            Func<char, bool> f3 = char.IsLetterOrDigit;
+
+            Console.Out.WriteLine($"Is 'A' {(f3('A') ? "is" : "is not")} a letter or a digit.");
+
+            // 4
+
+            Action<string, string> f4 = (s1, s2) => { Console.Out.WriteLine(s1.Length >= s2.Length ? s1 : s2); };
+
+            f4("short_string", "looooooooooong_string");
+
+            // 5
+
+            Func<string> f5 = () => DateTime.Now.ToString("yyyymmdd");
+
+            Console.Out.WriteLine(f5());
+
+            // 6
+
+            Func<bool, bool, bool> f6 = (b1, b2) => b1 ^ b2;
+
+            Console.Out.WriteLine(f6(true, true));
+
+
+            // 7
+
+            Action f7 = () => {};
+
+            f7();
+
+            // 8
+
+            Action<Action> f8 = a => a();
+
+            f8(() => { Console.Out.WriteLine("Hi!"); });
+        }
+
+        public static string PrefixWithSpaces(int value, int nSpaces)
+        {
+            return string.Join("", Enumerable.Repeat(" ", nSpaces)) + value;
         }
     }
 }
