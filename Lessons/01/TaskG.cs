@@ -38,19 +38,32 @@ namespace Lessons._01
         [Fact]
         public void Check_WhenTemperatureIsLowerAndHeaterIsStarted_ShouldNotStartHeater()
         {
-            throw new NotImplementedException();
+            _currentTemperatureProvider.Stub(x => x.GetTemperature()).Return(19);
+            _temperatureSettingsProvider.Stub(x => x.GetRequestedTemperature()).Return(20);
+            
+            //unsure how to make sure heater was already running. Can't figure this out!
+            _thermostat.Check();
+            _heater.AssertWasNotCalled(x => x.Start());
         }
 
         [Fact]
         public void Check_WhenTemperatureIsAsRequestedAndHeaterIsNotStarted_ShouldNotStartHeater()
         {
-            throw new NotImplementedException();
+            _currentTemperatureProvider.Stub(x => x.GetTemperature()).Return(20);
+            _temperatureSettingsProvider.Stub(x => x.GetRequestedTemperature()).Return(20);
+
+            _thermostat.Check();
+            _heater.AssertWasNotCalled(x => x.Start());
         }
 
         [Fact]
         public void Check_WhenTemperatureIsAsRequestedAndHeaterIsStarted_ShouldStopHeater()
         {
-            throw new NotImplementedException();
+            _currentTemperatureProvider.Stub(x => x.GetTemperature()).Return(20);
+            _temperatureSettingsProvider.Stub(x => x.GetRequestedTemperature()).Return(20);
+
+            _thermostat.Check();
+            _heater.AssertWasCalled(x => x.Stop());
         }
 
         [Fact]
@@ -87,7 +100,7 @@ namespace Lessons._01
             var currentTemperature = _currentTemperatureProvider.GetTemperature();
             var requestedTemperature = _temperatureSettingsProvider.GetRequestedTemperature();
 
-            if (currentTemperature > requestedTemperature && _heater.IsStarted)
+            if (currentTemperature >= requestedTemperature && _heater.IsStarted)
             {
                 _heater.Stop();
             }

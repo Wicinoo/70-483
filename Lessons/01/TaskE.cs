@@ -81,9 +81,10 @@ namespace Lessons._01
             Console.WriteLine(emptyAction);
 
             /// (8) An anonymous method that gets a parameterless action as an input and invokes that action.
-            Action<Action<DateTime>> invokeActionForCurrentDate = actionForDateTime => actionForDateTime(DateTime.Now);
+            Action paramlessAction = () => { Console.WriteLine("I have been invoked"); };
+            Action<Action> actionInvoker = (func) => { func(); };
 
-            invokeActionForCurrentDate(dateTime => { Console.WriteLine(dateTime.TimeOfDay); });
+            actionInvoker(paramlessAction);
         }
     }
 }
