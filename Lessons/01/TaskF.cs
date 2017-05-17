@@ -1,4 +1,7 @@
 ﻿using System;
+using System.Security.Cryptography;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Lessons._01
 {
@@ -14,7 +17,51 @@ namespace Lessons._01
     {
         public static void Run()
         {
-            throw new NotImplementedException();
+            var marketHandler = new MarketHandler()
+            {
+                IsRunning = true
+            };
+
+            MarketUpdate.OnMarketUpdated += Printer;
+
+            Thread t = new Thread(marketHandler.RaiseInLoop);
+            t.Start();
+
+            Console.ReadLine();
+            MarketUpdate.OnMarketUpdated -= Printer;
+            Console.ReadLine();
+            marketHandler.IsRunning = false;
+        }
+
+
+
+        public static void Printer(int number)
+        {
+            Console.WriteLine(number);
+        }
+    }
+
+    public class MarketHandler
+    {
+        public bool IsRunning { get; set; }
+        public void RaiseInLoop()
+        {
+            var rand = new Random();
+
+            while (IsRunning)
+            {
+                Thread.Sleep(1000);
+                MarketUpdate.Raise(rand.Next(20, 80));
+            }
+        }
+    }
+    public class MarketUpdate
+    {
+        public static event Action<int> OnMarketUpdated;
+
+        public static void Raise(int x)
+        {
+            OnMarketUpdated?.Invoke(x);
         }
     }
 }

@@ -1,4 +1,8 @@
 ﻿using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
+using System.Linq.Expressions;
 
 namespace Lessons._01
 {
@@ -26,7 +30,34 @@ namespace Lessons._01
         {
             // E.g. Action<DateTime> problem42 = dt => { Console.WriteLine(dt...)};
 
-            throw new NotImplementedException();
+            var input = Console.ReadLine();
+            Action<string> printFirstChar = Console.WriteLine;
+            printFirstChar(input);
+
+            Action<int[]> printArray = x => Array.ForEach(x, Console.WriteLine);
+            printArray(new[] { 5, 5, 6, 8, 4, 7, 53, 1, 14, -5, 0, 1 });
+
+            Func<char, bool> isCharOrDigit = x => Char.IsLetterOrDigit(x);
+            Console.WriteLine(isCharOrDigit('b') ? "b is a char or a digit" : "b is neither a char nor a digit");
+
+            Action<string, string> printTheLongerOne = (x,y) => Console.WriteLine(x.Length > y.Length ? x : y);
+            printTheLongerOne("I am the longer string", "IAmTheShortString");
+
+            Func<string> getNow = () => DateTime.Now.ToString("yyyymmdd");
+            Console.WriteLine(getNow());
+
+            Func<bool, bool, bool> getXor = (x, y) => x != y;
+            Console.WriteLine(getXor(true, false) ? "1 xor 0 is true" : "1 xor 0 is false");
+
+            Action emptyMethod = () => { };
+            emptyMethod();
+
+            Action<Action> invokeAnAction = x => x();
+            invokeAnAction(
+                () =>
+                    Console.WriteLine(
+                        "I am parameterless and useless action, but as you see, even though I have been just invoked, this is wasting of resources and terrorism on our environment"));
+
         }
     }
 }
