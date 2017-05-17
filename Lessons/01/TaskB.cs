@@ -8,9 +8,21 @@ namespace Lessons._01
     /// </summary>
     public class TaskB
     {
+        delegate string MapString(string @string);
+
         public static void Run()
         {
-            throw new NotImplementedException();
+            MapString PossibleForm1 = delegate(string a)    { return a + "b"; };   // Anonymous method
+            MapString PossibleForm2 = (string a) => { return a + "b"; };   // Lambda expression (explicitly typed parameter)
+            MapString PossibleForm3 = (a) => { return a + "b"; };   // Lambda expression (implicitly typed parameter)
+            MapString PossibleForm4 = a => { return a + "b"; };   // Lambda expression (implicitly typed parameter)
+            MapString PossibleForm5 = a => a + "b";   // Lambda expression (implicitly typed parameter)
+
+            Console.WriteLine($"PossibleForm1(\"a\") = {PossibleForm1("a")}");
+            Console.WriteLine($"PossibleForm2(\"a\") = {PossibleForm2("a")}");
+            Console.WriteLine($"PossibleForm3(\"a\") = {PossibleForm3("a")}");
+            Console.WriteLine($"PossibleForm4(\"a\") = {PossibleForm4("a")}");
+            Console.WriteLine($"PossibleForm5(\"a\") = {PossibleForm5("a")}");
         }
     }
 }
