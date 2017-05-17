@@ -24,9 +24,58 @@ namespace Lessons._01
     {
         public static void Run()
         {
-            // E.g. Action<DateTime> problem42 = dt => { Console.WriteLine(dt...)};
+            //1.
+            Action<string> actionFirstChar = @string => Console.WriteLine(@string[0]);
+            actionFirstChar("something");
 
-            throw new NotImplementedException();
+            //2.
+            Action<int[]> actionPrintInts = arr =>
+            {
+                for (int i = 0; i < arr.Length; i++)
+                {
+                    Console.WriteLine(new String(' ', i) + arr[i]);
+                }
+            };
+            actionPrintInts(new int[] {5, 10, 7, 6, 9, 3, 4, 1});
+
+            //3.
+            Func<char, bool> CheckLetterOrNumber =
+                (str) => ((str >= 'A' && str <= 'Z') || (str >= 'a' && str <= 'z') || (str >= '0' && str <= '9'));
+            
+            bool x = CheckLetterOrNumber('*');
+            if (x)
+            {
+                Console.WriteLine("TRUE");
+            }
+            else
+            {
+                Console.WriteLine("FALSE");
+            }
+
+            //4.
+            Action<string, string> PrintLongString = (a, y) => Console.WriteLine(a + y);
+            PrintLongString("aaaad", "bbbbn");
+
+            //6.
+            Func<bool, bool, bool> GetXor = (a, b) => (a != b);
+            bool res = GetXor(true, false);
+            if (res)
+            {
+                Console.WriteLine("XOR");
+            }
+            else
+            {
+                Console.WriteLine("NOT XOR");
+            }
+
+            //7.
+            Action blabla = () => { };
+
+
+            //8.
+            Action<Action> ActionInAction = (ac) => { ac.Invoke(); };
+
+            //throw new NotImplementedException();
         }
     }
 }
