@@ -1,4 +1,6 @@
 ﻿using System;
+using System.IO;
+using System.Timers;
 
 namespace Lessons._01
 {
@@ -14,7 +16,35 @@ namespace Lessons._01
     {
         public static void Run()
         {
-            throw new NotImplementedException();
+            var timer = new Timer(1000);
+
+            timer.Elapsed += new ElapsedEventHandler(timer_Tick);
+            timer.Enabled = true;                      
+            timer.Start();
+
+            Console.ReadKey();
+
+            timer.Elapsed -= new ElapsedEventHandler(timer_Tick);
+
+            Console.ReadKey();
+        }
+
+        public static void timer_Tick(object sender, EventArgs e)
+        {
+            OnMarketUpdated onMarketUpdated = new OnMarketUpdated();
+            onMarketUpdated.Raise(new Random().Next(20,81));
+        }
+        public class OnMarketUpdated
+        {
+            public event Action<decimal> OnEvent = (decimal number) => Console.WriteLine("Market value is {0}", number);
+
+            public void Raise(decimal number)
+            {
+                if (OnEvent != null)
+                {
+                    OnEvent(number);
+                }
+            }
         }
     }
 }

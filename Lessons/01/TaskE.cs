@@ -24,9 +24,25 @@ namespace Lessons._01
     {
         public static void Run()
         {
-            // E.g. Action<DateTime> problem42 = dt => { Console.WriteLine(dt...)};
+            Action<string> firstChar = x => Console.WriteLine(x[0]);
+            Action<int[]> printList = x =>
+            {
+                string spaces = String.Empty;
+                foreach (var item in x)
+                {
+                    Console.WriteLine(spaces + item.ToString() + Environment.NewLine);
+                    spaces += " ";
+                }
+            };
 
-            throw new NotImplementedException();
+            Predicate<char> isDigitOrLetter = x => char.IsLetterOrDigit(x);
+            Action<string, string> printLonger = (x,y) => Console.WriteLine(x.Length > y.Length ? x : y);
+            Func<DateTime, string> formatDateTime = x => x.ToString("yyyymmdd");
+            Func<bool, bool, bool> xor = (x, y) => x ^ y;
+            Action ac = () => { };
+            Action<Action> action = x => x();
+
+            //test
         }
     }
 }
