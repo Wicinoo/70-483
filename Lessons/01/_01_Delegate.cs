@@ -17,7 +17,6 @@ namespace Lessons._01
 
         public static int Addition(int a, int b)
         {
-            //sth
             return a + b;
         }
 
