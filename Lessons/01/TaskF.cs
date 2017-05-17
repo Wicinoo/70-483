@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Runtime.InteropServices.ComTypes;
 using System.Threading;
 using System.Timers;
 
@@ -14,43 +15,68 @@ namespace Lessons._01
     /// </summary>
     public class TaskF
     {
-        static readonly Random Generator = new Random();
-
         public static void Run()
         {
-            Func<decimal> marketPrice = () => Convert.ToDecimal(Generator.NextDouble() * 60 + 20);
+            var marketScanner = new MarketScanner();
+            marketScanner.MarketUpdated += PrintInputEvent;
 
-            MarketScanner scanner = new MarketScanner { OnMarketUpdated = Console.WriteLine };
-
-            while (true)
-            {
-                long start = DateTime.Now.Ticks;
-
-                scanner.Update(marketPrice());
-
-                if (Console.KeyAvailable)
-                {
-                    break;
-                }
-
-                int elapsedInMilliseconds = (int) ((DateTime.Now.Ticks - start) / 10000);
-                int wait = 1000 - elapsedInMilliseconds;
-
-                Thread.Sleep(wait <= 0 ? 1 : wait);
-            }
-
-            Console.WriteLine("Stopped reading market pricing data.");
+            marketScanner.Start();
+            marketScanner.MarketUpdated -= PrintInputEvent;
+            marketScanner.Start();           
             Console.ReadKey();
+        }
+
+        private static void PrintInputEvent(object o, OnMarketUpdatedArgs args)
+        {
+            Console.WriteLine(args.MarketPrice);
         }
     }
 
+    delegate void OnMarketUpdated(object sender, OnMarketUpdatedArgs args);
+
     class MarketScanner
-    {
-        public Action<decimal> OnMarketUpdated { get; set; }
+    {      
+        public event OnMarketUpdated MarketUpdated;
+
+        private bool _running;
+
+        private Random _random;
 
         public void Update(decimal price)
         {
-            OnMarketUpdated?.Invoke(price);
+            MarketUpdated?.Invoke(this, new OnMarketUpdatedArgs() { MarketPrice = price });
         }
+
+        public void Start()
+        {
+            _running = true;
+            _random = new Random();
+            Run();
+        }
+
+        public void Yield()
+        {
+            _running = false;
+        }
+
+        public void Run()
+        {
+            while (_running)
+            {
+                Update(Convert.ToDecimal(_random.NextDouble() * 60) + 20);
+
+                Thread.Sleep(1000);
+
+                if (Console.KeyAvailable)
+                {
+                    Yield();
+                }
+            }
+        }
+    }
+
+    public class OnMarketUpdatedArgs : EventArgs
+    {
+        public decimal MarketPrice { get; set; }
     }
 }
