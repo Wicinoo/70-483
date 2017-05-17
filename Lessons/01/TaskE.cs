@@ -79,6 +79,11 @@ namespace Lessons._01
             /// (7) An anonymous empty method.
             Action emptyAction = () => { };
             Console.WriteLine(emptyAction);
+
+            /// (8) An anonymous method that gets a parameterless action as an input and invokes that action.
+            Action<Action<DateTime>> invokeActionForCurrentDate = actionForDateTime => actionForDateTime(DateTime.Now);
+
+            invokeActionForCurrentDate(dateTime => { Console.WriteLine(dateTime.TimeOfDay); });
         }
     }
 }
