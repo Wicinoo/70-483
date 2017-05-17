@@ -4,8 +4,8 @@ namespace Lessons._01
 {
     /// <summary>
     /// Have a class Car and its descendant Bus. 
-    /// Declare delegates "void ServiceCar(Car car)" and "void ServiceBus(Bus bus)". 
-    /// Define a method to change the tyres of a car.
+    /// Declare delegates "void ServiceCar(Car bus)" and "void ServiceBus(Bus bus)". 
+    /// Define a method to change the tyres of a bus.
     /// Define a method to clean up an interier of a bus.
     /// Demonstrate all possible combinations of assigning the methods to the delegates. Apply "contravariance".
     /// </summary>
@@ -24,7 +24,7 @@ namespace Lessons._01
             ServiceCar tierService = service.ChangeTyres;
 
             bigInterierService(dirtyBus);
-            //bigInterierService(dirtyCar); not possibe, because they have too big cleaner
+            //bigInterierService(dirtyCar); //not possibe, because they have too big cleaner
             ShowVehicle(dirtyBus);
 
             tierService(dirtyCar); //possibility, because tier service has big Jack (zvedák) (Contravariance)

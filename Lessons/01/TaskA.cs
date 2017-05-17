@@ -43,7 +43,7 @@ namespace Lessons._01
         {
             DateTime lunchDate = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day + 1);
             var lunch = lunchDate.Subtract(inputDateTime);
-            Console.WriteLine("Next lunch is in {0} minutes", lunch.Minutes);
+            Console.WriteLine("Next lunch is in {0} minutes", lunch.TotalMinutes);
         }
 
         public void M2(DateTime inputDateTime)

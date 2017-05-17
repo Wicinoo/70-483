@@ -69,7 +69,6 @@ namespace Lessons._01
 
             Action<Action> problem8 = input => input();
             problem8(() => Console.WriteLine("test"));
-            throw new NotImplementedException();
         }
     }
 }
