@@ -1,5 +1,4 @@
-﻿using System;
-using Rhino.Mocks;
+﻿using Rhino.Mocks;
 using Xunit;
 
 namespace Lessons._01
@@ -27,8 +26,16 @@ namespace Lessons._01
         [Fact]
         public void Check_WhenTemperatureIsLowerAndHeaterIsNotStarted_ShouldStartHeater()
         {
+            // WHEN Temperature Is Lower
+
             _currentTemperatureProvider.Stub(x => x.GetTemperature()).Return(19);
             _temperatureSettingsProvider.Stub(x => x.GetRequestedTemperature()).Return(20);
+
+            // AND Heater Is Not Started
+
+            _heater.Stub(x => x.IsStarted).Return(false);
+
+            // Should Start Heater
 
             _thermostat.Check();
 
@@ -38,31 +45,96 @@ namespace Lessons._01
         [Fact]
         public void Check_WhenTemperatureIsLowerAndHeaterIsStarted_ShouldNotStartHeater()
         {
-            throw new NotImplementedException();
+            // WHEN Temperature Is Lower
+
+            _currentTemperatureProvider.Stub(x => x.GetTemperature()).Return(19);
+            _temperatureSettingsProvider.Stub(x => x.GetRequestedTemperature()).Return(20);
+
+            // AND Heater Is Started
+
+            _heater.Stub(x => x.IsStarted).Return(true);
+
+            // Should Not Start Heater
+
+            _thermostat.Check();
+
+            _heater.AssertWasNotCalled(x => x.Start());
         }
 
         [Fact]
         public void Check_WhenTemperatureIsAsRequestedAndHeaterIsNotStarted_ShouldNotStartHeater()
         {
-            throw new NotImplementedException();
+            // WHEN Temperature Is As Requested
+
+            _currentTemperatureProvider.Stub(x => x.GetTemperature()).Return(20);
+            _temperatureSettingsProvider.Stub(x => x.GetRequestedTemperature()).Return(20);
+
+            // AND Heater Is Not Started
+
+            _heater.Stub(x => x.IsStarted).Return(false);
+
+            // Should Not Start Heater
+
+            _thermostat.Check();
+
+            _heater.AssertWasNotCalled(x => x.Start());
         }
 
         [Fact]
         public void Check_WhenTemperatureIsAsRequestedAndHeaterIsStarted_ShouldStopHeater()
         {
-            throw new NotImplementedException();
+            // WHEN Temperature Is As Requested
+
+            _currentTemperatureProvider.Stub(x => x.GetTemperature()).Return(20);
+            _temperatureSettingsProvider.Stub(x => x.GetRequestedTemperature()).Return(20);
+
+            // AND Heater Is Started
+
+            _heater.Stub(x => x.IsStarted).Return(true);
+
+            // Should Stop Heater
+
+            _thermostat.Check();
+
+            _heater.AssertWasCalled(x => x.Stop());
         }
 
         [Fact]
         public void Check_WhenTemperatureIsHigherAndHeaterIsStarted_ShouldStopHeater()
         {
-            throw new NotImplementedException();
+            // WHEN Temperature Is Higher
+
+            _currentTemperatureProvider.Stub(x => x.GetTemperature()).Return(21);
+            _temperatureSettingsProvider.Stub(x => x.GetRequestedTemperature()).Return(20);
+
+            // AND Heater Is Started
+
+            _heater.Stub(x => x.IsStarted).Return(true);
+
+            // Should Stop Heater
+
+            _thermostat.Check();
+
+            _heater.AssertWasCalled(x => x.Stop());
         }
 
         [Fact]
         public void Check_WhenTemperatureIsHigherAndHeaterIsNotStarted_ShouldNotStopHeater()
         {
-            throw new NotImplementedException();
+            // WHEN Temperature Is Higher
+
+            _currentTemperatureProvider.Stub(x => x.GetTemperature()).Return(21);
+            _temperatureSettingsProvider.Stub(x => x.GetRequestedTemperature()).Return(20);
+
+            // AND Heater Is Not Started
+
+            _heater.Stub(x => x.IsStarted).Return(false);
+
+            // Should Stop Heater
+
+            _thermostat.Check();
+
+            _heater.AssertWasNotCalled(x => x.Stop());
         }
     }
 
@@ -87,7 +159,7 @@ namespace Lessons._01
             var currentTemperature = _currentTemperatureProvider.GetTemperature();
             var requestedTemperature = _temperatureSettingsProvider.GetRequestedTemperature();
 
-            if (currentTemperature > requestedTemperature && _heater.IsStarted)
+            if (currentTemperature >= requestedTemperature && _heater.IsStarted)
             {
                 _heater.Stop();
             }
