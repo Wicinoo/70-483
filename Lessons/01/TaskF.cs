@@ -14,7 +14,26 @@ namespace Lessons._01
     {
         public static void Run()
         {
-            throw new NotImplementedException();
+
+        }
+    }
+
+    public class Market
+    {
+        public Action OnMarketUpdated { get; set; }
+
+        public void Raise()
+        {
+            if (OnMarketUpdated != null)
+            {
+                OnMarketUpdated();
+            }
         }
     }
 }
+
+/*    public class MarketEvent
+    {
+        public event Action
+    }
+}*/

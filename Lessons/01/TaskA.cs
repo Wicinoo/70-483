@@ -32,11 +32,15 @@ namespace Lessons._01
             M3 += M2;
             M3(DateTime.Now);
 
+
+            //Console.WriteLine(M4.GetInvocationList().GetLength(0));
             //3
             PrintDateTimeFunnyInfo M4 = m1;
             M4 += M2;
             M4 -= M1;
             M4(DateTime.Now);
+
+           // Console.WriteLine(M4.GetInvocationList().GetLength(0)); 
         }
 
         public static void m1(DateTime dateTime)

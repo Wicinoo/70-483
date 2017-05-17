@@ -19,11 +19,11 @@ namespace Lessons._01
             MapString operation5 =         x =>  x + 5;
 
 
-            Console.WriteLine($"operation1(1) = {operation1("test")}");
-            Console.WriteLine($"operation2(1) = {operation2("test")}");
-            Console.WriteLine($"operation3(1) = {operation3("test")}");
-            Console.WriteLine($"operation4(1) = {operation4("test")}");
-            Console.WriteLine($"operation5(1) = {operation5("test")}");
+            Console.WriteLine($"operation1(test) = {operation1("test")}");
+            Console.WriteLine($"operation2(test) = {operation2("test")}");
+            Console.WriteLine($"operation3(test) = {operation3("test")}");
+            Console.WriteLine($"operation4(test) = {operation4("test")}");
+            Console.WriteLine($"operation5(test) = {operation5("test")}");
         }
     }
 }

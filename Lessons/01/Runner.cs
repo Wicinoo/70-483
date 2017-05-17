@@ -13,11 +13,11 @@
             //_07_SystemDelegates.Run();
             //_08_Events.Run();
 
-            //TaskA.Run();
-            //TaskB.Run();
-            //TaskC.Run();
-            //TaskD.Run();
-            TaskE.Run();
+            TaskA.Run();
+            TaskB.Run();
+            TaskC.Run();
+            TaskD.Run();
+            //TaskE.Run();
             //TaskF.Run();
             // Use R# to run tests in TaskG
         }
