@@ -12,13 +12,11 @@ namespace Lessons._01
             CreateCar createCar = () => new Car();
             Car carIsCar = createCar();
 
-            CreateBus createBus = () => new Bus();
-            Bus busIsBus = createBus();
-            Car busIsAlsoCar = createBus();
+            CreateCar createBusAsCar = () => new Bus();
+            Car busCreatedAsCar = createBusAsCar();
         }
     }
 
     internal delegate Car CreateCar();
 
-    internal delegate Bus CreateBus();
 }

@@ -24,11 +24,18 @@ namespace Lessons._01
             _thermostat = new Thermostat(_currentTemperatureProvider, _temperatureSettingsProvider, _heater);
         }
 
+        //to remove some seem like theory may be better here
+        public void PrepareStubs(int currentTemperature, int requestedTemperature, bool heaterIsRunning)
+        {
+            _currentTemperatureProvider.Stub(x => x.GetTemperature()).Return(currentTemperature);
+            _temperatureSettingsProvider.Stub(x => x.GetRequestedTemperature()).Return(requestedTemperature);
+            _heater.Stub(x => x.IsStarted).Return(heaterIsRunning);
+        }
+
         [Fact]
         public void Check_WhenTemperatureIsLowerAndHeaterIsNotStarted_ShouldStartHeater()
         {
-            _currentTemperatureProvider.Stub(x => x.GetTemperature()).Return(19);
-            _temperatureSettingsProvider.Stub(x => x.GetRequestedTemperature()).Return(20);
+            PrepareStubs(19, 20, false);
 
             _thermostat.Check();
 
@@ -38,25 +45,41 @@ namespace Lessons._01
         [Fact]
         public void Check_WhenTemperatureIsLowerAndHeaterIsStarted_ShouldNotStartHeater()
         {
-            throw new NotImplementedException();
+            PrepareStubs(19, 20, true);
+
+            _thermostat.Check();
+
+            _heater.AssertWasNotCalled(x => x.Start());
         }
 
         [Fact]
         public void Check_WhenTemperatureIsAsRequestedAndHeaterIsNotStarted_ShouldNotStartHeater()
         {
-            throw new NotImplementedException();
+            PrepareStubs(20, 20, false);
+
+            _thermostat.Check();
+
+            _heater.AssertWasNotCalled(x => x.Start());
         }
 
         [Fact]
         public void Check_WhenTemperatureIsAsRequestedAndHeaterIsStarted_ShouldStopHeater()
         {
-            throw new NotImplementedException();
+            PrepareStubs(20, 20, true);
+
+            _thermostat.Check();
+
+            _heater.AssertWasCalled(x => x.Stop());
         }
 
         [Fact]
         public void Check_WhenTemperatureIsHigherAndHeaterIsStarted_ShouldStopHeater()
         {
-            throw new NotImplementedException();
+            PrepareStubs(21, 20, true);
+
+            _thermostat.Check();
+
+            _heater.AssertWasCalled(x => x.Stop());
         }
 
         [Fact]
@@ -73,8 +96,8 @@ namespace Lessons._01
         private readonly IHeater _heater;
 
         public Thermostat(
-            ICurrentTemperatureProvider currentTemperatureProvider, 
-            ITemperatureSettingsProvider temperatureSettingsProvider, 
+            ICurrentTemperatureProvider currentTemperatureProvider,
+            ITemperatureSettingsProvider temperatureSettingsProvider,
             IHeater heater)
         {
             _currentTemperatureProvider = currentTemperatureProvider;

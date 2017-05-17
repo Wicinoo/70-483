@@ -70,6 +70,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="01\Bus.cs" />
+    <Compile Include="01\Car.cs" />
     <Compile Include="01\Runner.cs" />
     <Compile Include="01\TaskA.cs" />
     <Compile Include="01\TaskB.cs" />
