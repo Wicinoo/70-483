@@ -1,0 +1,3 @@
+﻿when git showing samething about - you don't have comminted some of files, but fetch dont shows nothing, run git from console by these commands:
+git status
+git stash 
