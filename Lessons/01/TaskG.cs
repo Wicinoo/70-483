@@ -62,7 +62,7 @@ namespace Lessons._01
         [Fact]
         public void Check_WhenTemperatureIsAsRequestedAndHeaterIsStarted_ShouldStopHeater()
         {
-            _currentTemperatureProvider.Stub(x => x.GetTemperature()).Return(19);
+            _currentTemperatureProvider.Stub(x => x.GetTemperature()).Return(20);
             _temperatureSettingsProvider.Stub(x => x.GetRequestedTemperature()).Return(19);
             _heater.Stub(x => x.IsStarted).Return(true);
 
@@ -88,7 +88,7 @@ namespace Lessons._01
         {
             _currentTemperatureProvider.Stub(x => x.GetTemperature()).Return(20);
             _temperatureSettingsProvider.Stub(x => x.GetRequestedTemperature()).Return(19);
-            _heater.Stub(x => x.IsStarted).Return(true);
+            _heater.Stub(x => x.IsStarted).Return(false);
 
             _thermostat.Check();
 
