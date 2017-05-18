@@ -117,6 +117,7 @@
   <ItemGroup>
     <Content Include="01\_Assignment.txt" />
     <Content Include="02\_Assignment.txt" />
+    <Content Include="gitinfo.txt" />
     <Content Include="lib\FluentAssertions.Core.dll" />
     <Content Include="lib\FluentAssertions.Core.pdb" />
     <Content Include="lib\FluentAssertions.Core.xml" />
