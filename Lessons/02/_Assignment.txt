@@ -1,0 +1,35 @@
+﻿* Read "Objective 1.1: Implement multithreading and asynchronous processing" to be able to: 
+	- Understand main terms and principles of multiprocessing in C# - CPU, thread, virtual memory, context switching, parallelism, scalability, overhead.
+	- Understand when is using threads efficient.
+	- Create a thread by using ThreadStart delegate and start it.
+	- Understand meaning of Thread.Sleep() method and especially Thread.Sleep(0).
+	- Wait for a thread completition (Join()).
+	- Explain differences between foreground and background threads.
+	- Using ParameterizedThreadStart delegate to pass a value. (thread.Start(<value>))
+	- Stop a thread from outside by using Thread.Abort(). It throws ThreadAbortException.
+	- Stop a thread by using a shared variable.
+	- Understand separated stacks (local data) for different threads. Using [ThreadStatic] to make non-local data private.
+	- Understand thread execution context (Thread.CurrentThread). Current culture, principals, priority and others. Using ExecutionContext.SuppressFlow method to optimize using of resources.
+	- Understand the thread pool (ThreadPool) pros and cons.
+	- Explain advantages of using tasks against threads. (completion, result)
+	- Create a task by using the default task scheduler.
+	- Handle a result from a task. (Task.Result)
+	- Put a continuation task (Task.ContinueWith()).
+	- Understand conditional continuations (TaskContinuationOptions).
+	- Binding child tasks to the parent task (TaskCreationOptions.AttachedToParent).
+	- Explain differences among Task.Wait, Task.WaitAll, Task.WaitAny.
+	- Use TaskFactory as a template for creating tasks.
+	- Use method For(), ForEach() and Invoke() of Parallel class in proper context.
+	- Use ParallelStateObject to break (Break()) or stop (Stop()) parallel processing.
+	- Explain differences between CPU-bound and I/O-bound threads.
+	- Use async and await keywords for asynchronous processing (C# 5).
+	- Handle AggregateException.
+	- Understand PLINQ (Parallel Language Integrated Query) basics (AsParallel(), AsOrdered(), AsSequential(), Where(), Select().
+	- Understand differences between foreach(... in ParallelQuery<>) and ParallelQuery.ForAll().
+	- Handle AggregateException in ForAll().
+	- Use concurrent collections (ConcurrentBag<T>, ConcurrentDictionary<TKey,T>, ConcurrentQueue<T>, ConcurrentStack<T>) in proper way.
+	- Understand how to use BlockingCollection<> with combination of a thread.
+* Walk through examples _01_Threads.cs - _16_BlockingCollectionExample.cs.
+* Solve TaskA - TaskE.
+* Commit all changes into your branch in the respository.
+* Update your lesson record on confluence.
