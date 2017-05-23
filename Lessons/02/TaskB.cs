@@ -20,13 +20,43 @@ namespace Lessons._02
     {
         public static void Run()
         {
-            var urls = new List<string> { "www.visualstudion.com", "www.microsoft.com", "www.google.com" };
-            //SequenceProcessing(urls);
-            //ParralelProcessingByThreads(urls);
-            //ParralelProcessingByThreadPool(urls);
+            var urls = new List<string> { "www.visualstudion.com", "www.microsoft.com", "www.google.com", "www.seznam.cz", "www.centrum.cz" };
+            SequenceProcessing(urls);
+            ParralelProcessingByThreads(urls);
+            ParralelProcessingByThreadPool(urls);
             ParralelProcessingByTasks(urls);
-            //ParralelProcessingByParallelForEach(urls);
+            ParralelProcessingByTasksFactory(urls);
+            ParralelProcessingByParallelForEach(urls);
 
+        }
+
+        private static void ParralelProcessingByTasksFactory(List<string> urls)
+        {
+            var stopWatch = new Stopwatch();
+            stopWatch.Start();
+            Task parent = Task.Run(() =>
+            {
+                TaskFactory tf = new TaskFactory(TaskCreationOptions.AttachedToParent,
+                TaskContinuationOptions.ExecuteSynchronously);
+                foreach (var url in urls)
+                {
+                    tf.StartNew(() =>
+                    {
+                       _httpResult = GetHttpResult(url);
+                    });
+                }
+
+                //return results;
+            });
+            parent.Wait();
+            stopWatch.Stop();
+            PrintResult(MethodBase.GetCurrentMethod().Name, stopWatch.Elapsed.Milliseconds);
+            //var finalTask = parent.ContinueWith(
+            //parentTask => {
+            //    foreach (int i in parentTask.Result)
+            //        Console.WriteLine(i);
+            //});
+            //finalTask.Wait();
         }
 
         private static void ParralelProcessingByTasks(List<string> urls)
@@ -36,9 +66,10 @@ namespace Lessons._02
             Task[] tasks = new Task[urls.Count];
             for (int i = 0; i < urls.Count; i++)
             {
+                var url = urls[i];        //we have to do it, because Task.Run consumes delegate. (we need add just a value to parameter)
                 tasks[i] = Task.Run(() =>
                 {
-                    GetHttpResult(urls[i]);
+                   _httpResult = GetHttpResult(url);
                 });
             }
             Task.WaitAll(tasks);
@@ -55,8 +86,7 @@ namespace Lessons._02
             {
                 var resetEvent = new ManualResetEvent(false);
                 ThreadPool.QueueUserWorkItem((s) =>
-                {
-                    
+                {                  
                     _httpResult = GetHttpResult(url);
                     resetEvent.Set();
                 });
