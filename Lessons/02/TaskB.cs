@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Threading;
+using System.Net;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Lessons._02
 {
@@ -13,7 +16,28 @@ namespace Lessons._02
     {
         public static void Run()
         {
-            throw new NotImplementedException();
+            var url = new List<string>() { "http://www.visualstudio.com", "http://www.microsoft.com", "http://www.google.com" };
+
+            var watch = new Stopwatch();
+            watch.Start();
+            url.ForEach(x => ReadPage(x));
+            watch.Stop();
+            Console.WriteLine(watch.Elapsed);
+
+            watch.Reset();
+            watch.Start();
+            Parallel.ForEach(url, x => ReadPage(x));
+            watch.Stop();
+            Console.WriteLine(watch.Elapsed);
+        }
+
+        public static void ReadPage(string url)
+        {            
+            using (WebClient client = new WebClient())
+            {
+                var result = client.DownloadString(url);
+                Console.WriteLine("page {0} is loaded", url);
+            }            
         }
     }
 }

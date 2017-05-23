@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 
 namespace Lessons._02
 {
@@ -9,7 +10,17 @@ namespace Lessons._02
     {
         public static void Run()
         {
-            throw new NotImplementedException();
+            var task = Task.Run(() => {
+                Console.WriteLine("I am a task");
+
+                return 95;
+            });
+
+            Console.WriteLine(task.Result);
+            Console.WriteLine(task.ToString());
+            Console.WriteLine(task.Status);
+            task.Wait();
+            Console.WriteLine(task.Status);
         }
     }
 }
