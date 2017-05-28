@@ -9,7 +9,7 @@ namespace Lessons
             //_01.Runner.Run();
             //_02.Runner.Run();
 
-            Console.ReadKey(); 
+            Console.ReadKey();
         }
     }
 }
