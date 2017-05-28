@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 
 namespace Lessons._01
 {
@@ -14,9 +15,54 @@ namespace Lessons._01
     /// </summary>
     public class TaskA
     {
+        private static readonly TimeSpan lunch = new TimeSpan(12, 0, 0);
+
+        public delegate void PrintDateTimeFunnyInfo(DateTime input);
+
         public static void Run()
         {
-            throw new NotImplementedException();
+            Console.WriteLine("1.:");
+            PrintDateTimeFunnyInfo printInfo1 = MinutesToLunch;
+            printInfo1(DateTime.Now);
+
+            Console.WriteLine("2.:");
+            PrintDateTimeFunnyInfo printInfo2 = MinutesToLunch;
+            printInfo2 += DayNumberOfTheWeek;
+            printInfo2(DateTime.Now);
+
+            Console.WriteLine("3.:");
+            PrintDateTimeFunnyInfo printInfo3 = MinutesToLunch;
+            printInfo3 += DayNumberOfTheWeek;
+            printInfo3 -= MinutesToLunch;
+            printInfo3(DateTime.Now);
+        }
+
+        private static void MinutesToLunch(DateTime input)
+        {
+            double result = 0;
+            if (lunch >= input.TimeOfDay)
+            {
+                result = (lunch - input.TimeOfDay).TotalMinutes;
+            }
+            else if (lunch < input.TimeOfDay)
+            {
+                result = (24 * 60 - input.TimeOfDay.TotalMinutes) + 12 * 60;
+            }
+
+            Console.WriteLine($"Next lunch is in {result.ToString("N0")} minutes.");
+        }
+
+        private static void DayNumberOfTheWeek(DateTime input)
+        {
+            var number =
+                Enum.GetValues(typeof(DayOfWeek))
+                .Cast<DayOfWeek>()
+                .ToList()
+                .Where(day => day == input.DayOfWeek)
+                .Select(day => Convert.ToInt32(day))
+                .FirstOrDefault();
+
+            Console.WriteLine($"Today is the day number {number} in this week.");
         }
     }
 }

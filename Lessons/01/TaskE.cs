@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 
 namespace Lessons._01
 {
@@ -24,9 +25,35 @@ namespace Lessons._01
     {
         public static void Run()
         {
-            // E.g. Action<DateTime> problem42 = dt => { Console.WriteLine(dt...)};
+            Action<string> part1 = input => { Console.WriteLine(input?[0]); };
 
-            throw new NotImplementedException();
+            Action<int[]> part2 =
+                input => input
+                .Select((value, index) => new { value, index })
+                .ToList()
+                .ForEach(x => Console.WriteLine($"{new string(' ', x.index)}{x.value}"));
+
+            Predicate<char> part3 = input => char.IsLetterOrDigit(input);
+
+            Func<string, string, string> part4 = (input1, input2) => input1.Length > input2.Length ? input1 : input2;
+
+            Action part5 = () => Console.WriteLine($"{DateTime.Now:yyyymmdd}");
+
+            Func<bool, bool, bool> part6 = (input1, input2) => input1 ^ input2;
+
+            Action part7 = delegate { };
+
+            Action<Action> part8 = currentTime => currentTime();
+
+
+            part1("Hello");
+            part2(new int[] { 1, 5, 8 });
+            Console.WriteLine(part3('1'));
+            Console.WriteLine(part4("Hello", "Ahoj"));
+            part5();
+            Console.WriteLine(part6(true, false));
+            part7();
+            part8(part5);
         }
     }
 }

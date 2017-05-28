@@ -11,9 +11,35 @@ namespace Lessons._01
     /// </summary>
     public class TaskC
     {
+        public delegate void ServiceCar(Car car);
+
+        public delegate void ServiceBus(Bus bus);
+
         public static void Run()
         {
-            throw new NotImplementedException();
+            ServiceCar service = ChangeTyres;
+            service(new Car());
+            service(new Bus());
+
+            ServiceBus service2 = CleanInterier;
+            service2(new Bus());
+
+            ServiceBus service3 = ChangeTyres;
+            service3(new Bus());
         }
+
+        public static void ChangeTyres(Car car)
+        {
+            Console.WriteLine($"{car.GetType().Name} had tyres changed.");
+        }
+
+        public static void CleanInterier(Bus bus)
+        {
+            Console.WriteLine($"{bus.GetType().Name} had interier cleaned.");
+        }
+
+        public class Car { }
+
+        public class Bus : Car { }
     }
 }
