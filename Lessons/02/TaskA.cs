@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Lessons._02
 {
@@ -9,7 +11,14 @@ namespace Lessons._02
     {
         public static void Run()
         {
-            throw new NotImplementedException();
+            Task task = Task.Run(() =>
+            {
+                var context = Thread.CurrentThread;
+                Console.WriteLine(context.CurrentCulture);
+                Console.WriteLine(context.Priority);
+                Console.WriteLine(context.IsBackground);
+            });
+            task.Wait();
         }
     }
 }
