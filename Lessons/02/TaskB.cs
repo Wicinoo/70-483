@@ -1,6 +1,9 @@
-﻿using System;
+﻿
+using System;
 using System.Diagnostics;
+using System.Net.Http;
 using System.Threading;
+using System.Threading.Tasks;
 
 namespace Lessons._02
 {
@@ -13,7 +16,38 @@ namespace Lessons._02
     {
         public static void Run()
         {
-            throw new NotImplementedException();
+            Stopwatch sw = new Stopwatch();
+            string[] urls = {
+                "http://www.visualstudio.com",
+                "http://www.microsoft.com",
+                "http://www.google.com"
+            };
+            sw.Start();
+            foreach (var url in urls)
+            {
+                var res = DownloadContentFromSite(url).Result;
+                Console.WriteLine("Result was returned with length of {0} chars.", res.Length);
+            }
+            sw.Stop();
+            Console.WriteLine($"Sequential: {sw.Elapsed}" + Environment.NewLine);
+            sw.Restart();
+            Parallel.ForEach(urls, url =>
+            {
+                var res = DownloadContentFromSite(url).Result;
+                Console.WriteLine("Result was returned with length of {0} chars.", res.Length);
+            });
+            sw.Stop();
+            Console.WriteLine($"Parallel: {sw.Elapsed}");
+        }
+
+        private static async Task<string> DownloadContentFromSite(string url)
+        {
+            using (HttpClient client = new HttpClient())
+            {
+                string result = await client.GetStringAsync(url);
+                Console.WriteLine($"Request was sent to {url}.");
+                return result;
+            }
         }
     }
 }
