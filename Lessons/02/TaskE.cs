@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Net.Http;
+using System.Threading.Tasks;
 
 namespace Lessons._02
 {
@@ -10,9 +12,27 @@ namespace Lessons._02
     /// </summary>
     public class TaskE
     {
-        public static void Run()
+        public static async void Run()
         {
-            throw new NotImplementedException();
+            var reader = new SiteReader();
+            var result = await reader.ReadAsync("http://www.google.com");
+            Console.WriteLine(result);
+        }
+    }
+
+    public interface ISiteReader
+    {
+        Task<string> ReadAsync(string requestUrl);
+    }
+
+    public class SiteReader : ISiteReader
+    {
+        public Task<string> ReadAsync(string requestUrl)
+        {
+            HttpClient client = new HttpClient();
+            Task<string> result = client.GetStringAsync(requestUrl);
+            Console.WriteLine($"Request was sent to {requestUrl}.");
+            return result;
         }
     }
 }
