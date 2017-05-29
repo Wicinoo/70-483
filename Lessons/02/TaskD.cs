@@ -1,4 +1,7 @@
 ﻿using System;
+using System.Diagnostics;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Lessons._02
 {
@@ -10,7 +13,40 @@ namespace Lessons._02
     {
         public static void Run()
         {
-            throw new NotImplementedException();
+            var watch = new Stopwatch();
+            ThreadPool.SetMaxThreads(10, 10);
+
+            watch.Start();
+            Task taskPool = Task.Run(() =>
+            {
+                TaskFactory factory = new TaskFactory(TaskCreationOptions.AttachedToParent, TaskContinuationOptions.None);
+                factory.StartNew(() => PrintTaskCreationTime(watch));
+                factory.StartNew(() => PrintTaskCreationTime(watch));
+                factory.StartNew(() => PrintTaskCreationTime(watch));
+                factory.StartNew(() => PrintTaskCreationTime(watch));
+                factory.StartNew(() => PrintTaskCreationTime(watch));
+                factory.StartNew(() => PrintTaskCreationTime(watch));
+                factory.StartNew(() => PrintTaskCreationTime(watch));
+                factory.StartNew(() => PrintTaskCreationTime(watch));
+                factory.StartNew(() => PrintTaskCreationTime(watch));
+                factory.StartNew(() => PrintTaskCreationTime(watch));
+                factory.StartNew(() => PrintTaskCreationTime(watch));
+                factory.StartNew(() => PrintTaskCreationTime(watch));
+                factory.StartNew(() => PrintTaskCreationTime(watch));
+                factory.StartNew(() => PrintTaskCreationTime(watch));
+                factory.StartNew(() => PrintTaskCreationTime(watch));
+            });
+
+            taskPool.Wait();
+            watch.Stop();
+            Console.WriteLine("all tasks completed at " + watch.Elapsed);
+        }
+
+        private static void PrintTaskCreationTime(Stopwatch watch)
+        {
+            Console.WriteLine("Task " + Task.CurrentId + " created at " + watch.Elapsed);
+            Thread.Sleep(1000);
+            //await Task.Delay(1000);
         }
     }
 }
