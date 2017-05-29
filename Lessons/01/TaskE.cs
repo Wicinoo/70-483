@@ -1,4 +1,8 @@
 ﻿using System;
+using System.Data;
+using System.Runtime.CompilerServices;
+using System.Text;
+using System.Text.RegularExpressions;
 
 namespace Lessons._01
 {
@@ -24,9 +28,62 @@ namespace Lessons._01
     {
         public static void Run()
         {
-            // E.g. Action<DateTime> problem42 = dt => { Console.WriteLine(dt...)};
+            #region HelperMethods
 
-            throw new NotImplementedException();
+            Func<int, char, string> filler = (number, character) =>
+            {
+                StringBuilder emptyString = new StringBuilder(string.Empty);
+
+                for (int i = 0; i < number; i++)
+                {
+                    emptyString.Append(character);
+                }
+
+                return emptyString.ToString();
+            };
+
+            #endregion
+
+            Action<string> firstChar = inputString => Console.WriteLine(inputString[0]);
+
+            Action<int[]> treePrinter = intArray =>
+            {
+                foreach (var number in intArray)
+                {
+                    Console.WriteLine(filler(number, ' ') + number);
+                }
+            };
+
+            Predicate<char> isLetterOrDigit = char.IsLetterOrDigit;
+
+            Action<string, string> joinAndPrint = (firstString, secondString) =>
+            {
+                Console.WriteLine($"{firstString}{secondString}");
+            };
+
+            Func<string> formatDate = () => DateTime.Now.ToString("yyyyMMdd");
+
+            //not X and Y, or X and not Y. X and Y and not X and not Y are eliminated
+            Func<bool, bool, bool> xor = (firstStatement, secondStatement) => ((!firstStatement) && secondStatement) || (firstStatement && (!secondStatement));
+
+            Action doNothing = () => { };
+
+            Action<Action> invokeAction = action => action.BeginInvoke(EndInvoke, null);
+
+            firstChar("Hello, world!");
+            treePrinter(new[] { 1,2,3,4,5,6 });
+            Console.WriteLine(isLetterOrDigit('*'));
+            joinAndPrint("Foo,", "Bar!");
+            Console.WriteLine(formatDate());
+            Console.WriteLine(xor(false, true));
+
+            BeginInvoke();
+            invokeAction(doNothing);
+            InvocationInProgress();
         }
+
+        private static void BeginInvoke() => Console.WriteLine("Invocation has begun. All hail Cthulhu.");
+        private static void InvocationInProgress() => Console.WriteLine("Chanters are sitting in a circle uttering words long forgotten...");
+        private static void EndInvoke(IAsyncResult result) => Console.WriteLine("Cthulhu has been summoned to this world. All will be dead.");
     }
 }

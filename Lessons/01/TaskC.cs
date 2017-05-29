@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Lessons._01
 {
@@ -13,7 +14,46 @@ namespace Lessons._01
     {
         public static void Run()
         {
-            throw new NotImplementedException();
+            ServiceCar changeVehicleTyres = ChangeTyres;
+
+            //All vehicles can have their tyres changed
+            changeVehicleTyres(new Car());
+            changeVehicleTyres(new Bus());
+
+            ServiceBus cleanVehicleInterior = CleanInterior;
+
+            //Only Buses can have their interior cleaned
+            cleanVehicleInterior(new Bus());
+            //cleanVehicleInterior(new Car()); 
+        }
+
+        private static void ChangeTyres(Car car)
+        {
+            car.TyresChanged = true;
+            Console.WriteLine($"Changed {car.GetType().Name} tyres");
+        }
+
+        private static void CleanInterior(Bus bus)
+        {
+            bus.InteriorCleaned = true;
+            Console.WriteLine($"Cleaned {bus.GetType().Name} interior");
         }
     }
+
+    delegate void ServiceCar(Car car);
+
+    class Car
+    {
+        public bool TyresChanged = false;
+    }
+
+    delegate void ServiceBus(Bus bus);
+
+    class Bus : Car
+    {
+        public bool InteriorCleaned = false;
+    }
+
+
+
 }

@@ -1,4 +1,7 @@
 ﻿using System;
+using System.Runtime.InteropServices.ComTypes;
+using System.Threading;
+using System.Timers;
 
 namespace Lessons._01
 {
@@ -14,7 +17,66 @@ namespace Lessons._01
     {
         public static void Run()
         {
-            throw new NotImplementedException();
+            var marketScanner = new MarketScanner();
+            marketScanner.MarketUpdated += PrintInputEvent;
+
+            marketScanner.Start();
+            marketScanner.MarketUpdated -= PrintInputEvent;
+            marketScanner.Start();           
+            Console.ReadKey();
         }
+
+        private static void PrintInputEvent(object o, OnMarketUpdatedArgs args)
+        {
+            Console.WriteLine(args.MarketPrice);
+        }
+    }
+
+    delegate void OnMarketUpdated(object sender, OnMarketUpdatedArgs args);
+
+    class MarketScanner
+    {      
+        public event OnMarketUpdated MarketUpdated;
+
+        private bool _running;
+
+        private Random _random;
+
+        public void Update(decimal price)
+        {
+            MarketUpdated?.Invoke(this, new OnMarketUpdatedArgs() { MarketPrice = price });
+        }
+
+        public void Start()
+        {
+            _running = true;
+            _random = new Random();
+            Run();
+        }
+
+        public void Yield()
+        {
+            _running = false;
+        }
+
+        public void Run()
+        {
+            while (_running)
+            {
+                Update(Convert.ToDecimal(_random.NextDouble() * 60) + 20);
+
+                Thread.Sleep(1000);
+
+                if (Console.KeyAvailable)
+                {
+                    Yield();
+                }
+            }
+        }
+    }
+
+    public class OnMarketUpdatedArgs : EventArgs
+    {
+        public decimal MarketPrice { get; set; }
     }
 }
