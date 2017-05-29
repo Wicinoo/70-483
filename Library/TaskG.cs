@@ -4,6 +4,8 @@ using Xunit;
 
 namespace Library
 {
+	//C:\Users\pavel\Source\Repos\70-483>packages\xunit.runner.console.2.2.0\tools\xunit.console Library\bin\Debug\Library.dll
+
     /// <summary>
     /// Complete the tests without implementation according to their names.
     /// Run the tests and check if the implementation of Thermostat is correct. If not, fix it.
