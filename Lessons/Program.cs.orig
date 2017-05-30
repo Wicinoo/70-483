@@ -6,9 +6,13 @@ namespace Lessons
     {
         static void Main(string[] args)
         {
+<<<<<<< HEAD
+            //_01.Runner.Run(); //uncomment this row for test
+            _01.Demo.Run();
+=======
             //_01.Runner.Run();
             //_02.Runner.Run();
-            _01.Demo.Run();
+>>>>>>> master
 
             Console.WriteLine();
             Console.WriteLine("Press a key ...");
