@@ -1,4 +1,7 @@
 ﻿using System;
+using System.Reflection;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Lessons._02
 {
@@ -9,7 +12,15 @@ namespace Lessons._02
     {
         public static void Run()
         {
-            throw new NotImplementedException();
+            var t = Task.Run(() =>
+            {
+                Console.WriteLine("Current Culture : {0}", Thread.CurrentThread.CurrentCulture);
+                Console.WriteLine("Is Alive : {0}", Thread.CurrentThread.IsAlive);
+                Console.WriteLine("Id IsBackground : {0}", Thread.CurrentThread.IsBackground);
+                Console.WriteLine("ThreadState : {0}", Thread.CurrentThread.ThreadState);
+            });
+
+            t.Wait();
         }
     }
 }
