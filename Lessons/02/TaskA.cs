@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Lessons._02
 {
@@ -9,7 +11,22 @@ namespace Lessons._02
     {
         public static void Run()
         {
-            throw new NotImplementedException();
+            var task = new Task(() =>
+            {
+                var currentThread = Thread.CurrentThread;
+
+                Console.WriteLine($"Name: {currentThread.Name}");
+                Console.WriteLine($"CurrentCulture: {currentThread.CurrentCulture}");
+                Console.WriteLine($"CurrentUICulture: {currentThread.CurrentUICulture}");
+                Console.WriteLine($"IsAlive: {currentThread.IsAlive}");
+                Console.WriteLine($"IsBackground: {currentThread.IsBackground}");
+                Console.WriteLine($"IsThreadPoolThread: {currentThread.IsThreadPoolThread}");
+                Console.WriteLine($"ManagedThreadId: {currentThread.ManagedThreadId}");
+                Console.WriteLine($"Priority: {currentThread.Priority}");
+                Console.WriteLine($"ThreadState: {currentThread.ThreadState}");
+            });
+            
+            task.Start();
         }
     }
 }
