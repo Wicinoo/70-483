@@ -1,6 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
+using System.Net.Http;
 using System.Threading;
+using System.Threading.Tasks;
 
 namespace Lessons._02
 {
@@ -11,9 +14,57 @@ namespace Lessons._02
     /// </summary>
     public class TaskB
     {
+        private static IEnumerable<string> _sites = new List<string> {"http://www.visualstudio.com", "http://www.microsoft.com", "http://www.google.com"};
+
         public static void Run()
         {
-            throw new NotImplementedException();
+            SequentialProcessing();
+            ParallelProcessing();
+        }
+
+        private static void SequentialProcessing()
+        {
+            var stopwatch = new Stopwatch();
+            stopwatch.Start();
+
+            foreach (var site in _sites)
+            {
+                var result = DownloadContent(site).Result;
+            }
+
+            stopwatch.Stop();
+
+            Console.WriteLine("sequential:");
+            WriteResult(stopwatch.ElapsedTicks);
+        }
+
+        private static void ParallelProcessing()
+        {
+            var stopwatch = new Stopwatch();
+            stopwatch.Start();
+
+            Parallel.ForEach(_sites, (site) =>
+            {
+                var result = DownloadContent(site);
+            });
+
+            stopwatch.Stop();
+
+            Console.WriteLine("parallel: ");
+            WriteResult(stopwatch.ElapsedTicks);
+        }
+
+        private async static Task<string> DownloadContent(string site)
+        {
+            using (HttpClient client = new HttpClient())
+            {
+                return await client.GetStringAsync(site);
+            }
+        }
+
+        private static void WriteResult(long elapsed)
+        {
+            Console.WriteLine(elapsed);
         }
     }
 }

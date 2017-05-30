@@ -22,8 +22,8 @@
             //_16_BlockingCollectionExample.Run();
 
             // Tasks
-            TaskA.Run();
-            //TaskB.Run();
+            //TaskA.Run();
+            TaskB.Run();
             //TaskC.Run();
             //TaskD.Run();
             //TaskE.Run();
