@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading;
 
 namespace Lessons._02
 {
@@ -12,7 +13,16 @@ namespace Lessons._02
     {
         public static void Run()
         {
-            throw new NotImplementedException();
+            ISiteReader reader = new SiteReader();
+            var content = reader.ReadAsync("http://www.google.com");
+            while (content.Status != System.Threading.Tasks.TaskStatus.RanToCompletion)
+            {
+                Console.Clear();
+                Console.WriteLine("Downloading");
+                Thread.Sleep(20);
+            }
+
+            Console.WriteLine(content.Result);
         }
     }
 }

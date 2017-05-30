@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Threading.Tasks;
+using System.Threading;
 
 namespace Lessons._02
 {
@@ -9,7 +11,19 @@ namespace Lessons._02
     {
         public static void Run()
         {
-            throw new NotImplementedException();
+            var task = new Task(
+                () =>
+                {
+                    foreach (var item in Thread.CurrentContext.ContextProperties)
+                    {
+                        Console.WriteLine($"{item.Name} {item}");
+                    }
+
+                }
+             );
+
+            task.Start();
+            task.Wait();
         }
     }
 }
