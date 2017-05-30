@@ -1,4 +1,6 @@
-﻿using System;
+﻿using System.Diagnostics;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Lessons._02
 {
@@ -10,7 +12,22 @@ namespace Lessons._02
     {
         public static void Run()
         {
-            throw new NotImplementedException();
+            ThreadPool.SetMaxThreads(10, 10);
+
+            var sw = new Stopwatch();
+
+            for (int i = 0; i < 15; i++)
+            {
+                sw.Restart();
+
+                var t = Task.Run(() =>
+                {
+                    Thread.Sleep(1000);
+                });
+
+                sw.Stop();
+                System.Console.WriteLine($"Elapsed ticks for thread {i}: {sw.ElapsedTicks}");
+            }
         }
     }
 }

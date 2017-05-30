@@ -8,11 +8,11 @@ namespace Lessons._02
     public static class _16_BlockingCollectionExample
     {
         private static readonly BlockingCollection<Action> _emailsQueue = new BlockingCollection<Action>();
-        
+
         public static void Run()
         {
             // Set to false to demonstrate no thread-safety processing
-            const bool ThreadSafetyProcessing = true;   
+            const bool ThreadSafetyProcessing = true;
 
             var recipients = new[] { "Recipient1", "Recipient2", "Recipient3" };
 

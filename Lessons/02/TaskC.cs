@@ -1,4 +1,6 @@
-﻿using System;
+﻿using System.Collections.Concurrent;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Lessons._02
 {
@@ -11,7 +13,24 @@ namespace Lessons._02
     {
         public static void Run()
         {
-            throw new NotImplementedException();
+            var nonSafeList = new List<int> { 1, 45, 53, 4, 47, 45, 2, 8, 9 };
+
+            var safeList = new ConcurrentBag<int> { 1, 45, 53, 4, 47, 45, 2, 8, 9 };
+
+
+            //foreach (var item in nonSafeList)
+            //{
+            //    nonSafeList.Remove(item);
+            //}
+
+            System.Console.WriteLine($"Safe list count before ForEach: {safeList.Count}");
+
+            Parallel.ForEach(safeList, x =>
+            {
+                safeList.TryTake(out x);
+            });
+
+            System.Console.WriteLine($"Safe list count after ForEeach: {safeList.Count}");
         }
     }
 }
