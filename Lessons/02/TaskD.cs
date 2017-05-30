@@ -16,6 +16,7 @@ namespace Lessons._02
             IEnumerable<int> ids = Enumerable.Range(1, 15);
 
             ThreadPool.SetMaxThreads(10, 10);
+            ThreadPool.SetMinThreads(10, 10);
             Stopwatch stopwatch = new Stopwatch();
             Thread.Sleep(1000);
             foreach (int id in ids) {
