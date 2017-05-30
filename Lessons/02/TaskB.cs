@@ -19,25 +19,35 @@ namespace Lessons._02
 
         public static void Run()
         {
-            string[] sites = { "https://www.visualstudio.com/cs/", "https://www.microsoft.com/cs-cz/", "https://www.google.cz/", "https://www.behej.com/forum/nejnovejsi-prispevky" };
-
-            Stopwatch sw = new Stopwatch();
+            string[] sites = {
+                "https://www.visualstudio.com/cs/", "https://www.microsoft.com/cs-cz/", "https://www.google.cz/", "https://slashdot.org/",
+                "http://www.idnes.cz/", "http://www.aspnet.cz/", "http://www.telegraph.co.uk/", "https://www.youtube.com/", "https://www.seznam.cz/"
+            };
 
             long elapsedAsync = 0;
             long elapsedSync = 0;
-            int count = 10;
+            int count = 5;
+            int oldLength = sites.Length;
 
-            for (int i = 0; i < count; i++)
+            if (sites.Length != count)
             {
-                elapsedSync += GetSites(sites, sw);
-                elapsedAsync += GetSitesAsync(sites, sw);
+                Array.Resize(ref sites, count);
+            }
+            
+            for (int i = oldLength; i < count; i++)
+            {
+                sites[i] = sites[i - oldLength];
             }
 
-            Console.WriteLine($"GetSitesAsync average: {Convert.ToInt64(elapsedAsync / count)}");
-            Console.WriteLine($"GetSitesSync average: {Convert.ToInt64(elapsedSync / count)}");
+            Stopwatch sw = new Stopwatch();
+            elapsedAsync += GetSitesAsync(sites, sw);
+            elapsedSync += GetSites(sites, sw);
+            
+
+            Console.WriteLine($"GetSitesAsync total: {elapsedAsync}, average: {Convert.ToInt64(elapsedAsync / count)}");
+            Console.WriteLine($"GetSitesSync total: {elapsedSync}, average: {Convert.ToInt64(elapsedSync / count)}");
             Console.ReadKey();
         }
-
         
         private static long GetSitesAsync(string[] sites, Stopwatch sw)
         {
@@ -54,7 +64,6 @@ namespace Lessons._02
             Task.WaitAll(tasks);
 
             sw.Stop();
-            Console.WriteLine($"GetSitesAsync, elapsed ms: {sw.ElapsedMilliseconds}");
             return sw.ElapsedMilliseconds;
         }
 
@@ -71,7 +80,6 @@ namespace Lessons._02
             }
 
             sw.Stop();
-            Console.WriteLine($"GetSites, elapsed ms: {sw.ElapsedMilliseconds}");
             return sw.ElapsedMilliseconds;
         }
 
