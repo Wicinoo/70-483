@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Concurrent;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Lessons._02
 {
@@ -15,37 +11,7 @@ namespace Lessons._02
     {
         public static void Run()
         {
-            //RunUnsafe();
-            RunSafe();
-
-            Console.WriteLine("Parallel processing finished!");
-        }
-
-        private static void RunUnsafe()
-        {
-            var queue = new Queue<int>();
-
-            try
-            {
-                Parallel.ForEach(Enumerable.Range(0, 10000), num =>
-                {
-                    queue.Enqueue(num);
-                });
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e);
-            }
-        }
-
-        private static void RunSafe()
-        {
-            var queue = new ConcurrentQueue<int>();
-
-            Parallel.ForEach(Enumerable.Range(0, 10000), num =>
-            {
-                queue.Enqueue(num);
-            });
+            throw new NotImplementedException();
         }
     }
 }
