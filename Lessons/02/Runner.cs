@@ -14,7 +14,7 @@
             //_08_TaskResultAndContinuation.Run();
             //_09_ChildTasks.Run();
             //_10_WaitingForTaskResults.RunWaitAnyExample();
-            //_11_ParallelExample.Run();
+            _11_ParallelExample.Run();
             //_12_AsyncAwaitExample.Run();
             //_13_ParallelLinqExample.Run();
             //_14_HandlingAggregateException.Run();
@@ -22,11 +22,11 @@
             //_16_BlockingCollectionExample.Run();
 
             // Tasks
-            //TaskA.Run();
-            //TaskB.Run();
+            TaskA.Run();
+            TaskB.Run();
             //TaskC.Run();
-            //TaskD.Run();
-            //TaskE.Run();
+            TaskD.Run();
+            TaskE.Run();
         }
     }
 }
