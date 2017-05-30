@@ -89,6 +89,28 @@
     <Compile Include="01\_06_DelegatesAdvancedTopics.cs" />
     <Compile Include="01\_07_SystemDelegates.cs" />
     <Compile Include="01\_08_Events.cs" />
+    <Compile Include="02\Runner.cs" />
+    <Compile Include="02\TaskA.cs" />
+    <Compile Include="02\TaskB.cs" />
+    <Compile Include="02\TaskC.cs" />
+    <Compile Include="02\TaskD.cs" />
+    <Compile Include="02\TaskE.cs" />
+    <Compile Include="02\_01_Threads.cs" />
+    <Compile Include="02\_02_BackgroundThread.cs" />
+    <Compile Include="02\_03_StoppingThread.cs" />
+    <Compile Include="02\_04_ThreadStaticExample.cs" />
+    <Compile Include="02\_05_ThreadLocalExample.cs" />
+    <Compile Include="02\_06_ThreadPoolUsage.cs" />
+    <Compile Include="02\_07_Tasks.cs" />
+    <Compile Include="02\_08_TaskResultAndContinuation.cs" />
+    <Compile Include="02\_09_ChildTasks.cs" />
+    <Compile Include="02\_10_WaitingForTaskResults.cs" />
+    <Compile Include="02\_11_ParallelExample.cs" />
+    <Compile Include="02\_12_AsyncAwaitExample.cs" />
+    <Compile Include="02\_13_ParallelLinqExample.cs" />
+    <Compile Include="02\_14_HandlingAggregateException.cs" />
+    <Compile Include="02\_15_ConcurrentCollections.cs" />
+    <Compile Include="02\_16_BlockingCollectionExample.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -98,6 +120,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="01\_Assignment.txt" />
+    <Content Include="02\_Assignment.txt" />
     <Content Include="lib\FluentAssertions.Core.dll" />
     <Content Include="lib\FluentAssertions.Core.pdb" />
     <Content Include="lib\FluentAssertions.Core.xml" />
