@@ -87,6 +87,7 @@
     <Compile Include="01\_06_DelegatesAdvancedTopics.cs" />
     <Compile Include="01\_07_SystemDelegates.cs" />
     <Compile Include="01\_08_Events.cs" />
+    <Compile Include="02\Demo.cs" />
     <Compile Include="02\Runner.cs" />
     <Compile Include="02\TaskA.cs" />
     <Compile Include="02\TaskB.cs" />
