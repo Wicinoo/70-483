@@ -1,4 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Lessons._02
 {
@@ -11,7 +15,23 @@ namespace Lessons._02
     {
         public static void Run()
         {
-            throw new NotImplementedException();
+            var numbers = Enumerable.Range(0, 100).ToList();
+            var specialNumbers = Enumerable.Range(0, 10).ToList();
+
+            try
+            {
+                Parallel.ForEach(numbers, i =>
+                {
+                    if (i % 3 == 0)
+                        specialNumbers.Add(i);
+                } );
+            }
+            catch (AggregateException ex)
+            {
+                Console.WriteLine($"There were {ex.InnerExceptions.Count} exceptions.");
+            }
+
+            specialNumbers.ForEach(Console.WriteLine);
         }
     }
 }
