@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
-using System.Threading;
+using System.Net.Http;
+using System.Threading.Tasks;
 
 namespace Lessons._02
 {
@@ -11,9 +12,51 @@ namespace Lessons._02
     /// </summary>
     public class TaskB
     {
+        private static string[] sites = new string[] { "www.visualstudio.com", "www.microsoft.com", "www.google.com" };
+
         public static void Run()
         {
-            throw new NotImplementedException();
+            Task<long> result = Task.Run(()=> ReadSitesSequentially());
+            Console.WriteLine($"Sequential reading took: {result?.Result} milliseconds");
+
+            long result2 = ReadSitesParallely();
+            Console.WriteLine($"Sequential reading took: {result2} milliseconds");
+        }
+
+        private static async Task<long> ReadSitesSequentially()
+        {
+            Console.WriteLine("Reading sites sequentially.");
+            Stopwatch stopwatch = new Stopwatch();
+            stopwatch.Start();
+
+            using (HttpClient client = new HttpClient())
+            {
+                foreach (string site in sites)
+                {
+                    var response = await client.GetStringAsync($"http://{site}");
+                }
+            }
+
+            stopwatch.Stop();
+            return stopwatch.ElapsedMilliseconds;
+        }
+
+        private static long ReadSitesParallely()
+        {
+            Console.WriteLine("Reading sites parallely.");
+            Stopwatch stopwatch = new Stopwatch();
+            stopwatch.Start();
+
+            Parallel.ForEach(sites, site =>
+            {
+                using (HttpClient client = new HttpClient())
+                {
+                    var response = client.GetStringAsync($"http://{site}");
+                }
+            });
+
+            stopwatch.Stop();
+            return stopwatch.ElapsedMilliseconds;
         }
     }
 }
