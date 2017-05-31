@@ -1,4 +1,6 @@
-﻿namespace Lessons._02
+﻿using System;
+
+namespace Lessons._02
 {
     public static class Runner
     {
@@ -6,7 +8,7 @@
         {
             //_01_Threads.Run();
             //_02_BackgroundThread.Run();
-            //_03_StoppingThread.RunWithUsingAbort();
+            //_03_StoppingThread.RunWithUsingSharedVariable();
             //_04_ThreadStaticExample.Run();
             //_05_ThreadLocalExample.Run();
             //_06_ThreadPoolUsage.Run();
@@ -24,7 +26,7 @@
             // Tasks
             //TaskA.Run();
             //TaskB.Run();
-            //TaskC.Run();
+            TaskC.Run();
             //TaskD.Run();
             //TaskE.Run();
         }

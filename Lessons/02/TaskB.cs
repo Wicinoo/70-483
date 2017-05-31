@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Net.Http;
 using System.Threading;
+using System.Threading.Tasks;
 
 namespace Lessons._02
 {
@@ -13,7 +15,52 @@ namespace Lessons._02
     {
         public static void Run()
         {
-            throw new NotImplementedException();
+            GetPagesContentSequentially();
+            GetPagesContentInParallel();
+        }
+
+        public static void GetPagesContentSequentially()
+        {
+            var stopWatch = Stopwatch.StartNew();
+
+            var webClient = new HttpClient();
+
+            Task task = Task.Run(() =>
+            {
+                var webTask = webClient.GetStringAsync("http://www.visualstudio.com");
+            }).ContinueWith((prev) =>
+            {
+                var webData = webClient.GetStringAsync("http://www.microsoft.com");
+            }).ContinueWith((prev) =>
+            {
+                var webData = webClient.GetStringAsync("http://www.google.com");
+            });
+
+            task.Wait();
+
+            Console.WriteLine($"Sequentail runtime: {stopWatch.Elapsed.TotalSeconds} seconds");
+        }
+
+        public static void GetPagesContentInParallel()
+        {
+            var stopWatch = Stopwatch.StartNew();
+
+            var webClient = new HttpClient();
+
+            Task[] tasks = new Task[3];
+            tasks[0] = Task.Run(() => {
+                var webTask = webClient.GetStringAsync("http://www.visualstudio.com");
+            });
+            tasks[1] = Task.Run(() => {
+                var webData = webClient.GetStringAsync("http://www.microsoft.com");
+            });
+            tasks[2] = Task.Run(() => {
+                var webData = webClient.GetStringAsync("http://www.google.com");
+            });
+
+            Task.WaitAll(tasks);
+
+            Console.WriteLine($"Parallel runtime: {stopWatch.Elapsed.TotalSeconds} seconds");
         }
     }
 }
