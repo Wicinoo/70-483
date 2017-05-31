@@ -16,7 +16,7 @@ namespace Lessons._02
         {
             for (int i = 0; i < 10; i++)
             {
-                Console.WriteLine("Other thread: {0}", i);
+                Console.WriteLine("Task 2: Other thread: {0}", i);
                 Thread.Sleep(1000);
             }
         }

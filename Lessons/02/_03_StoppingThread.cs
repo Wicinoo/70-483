@@ -13,7 +13,7 @@ namespace Lessons._02
             {
                 while (!stopped)
                 {
-                    Console.WriteLine("Running...");
+                    Console.WriteLine("Task 3A: Running...");
                     Thread.Sleep(1000);
                 }
             }));
@@ -28,7 +28,7 @@ namespace Lessons._02
         {
             Thread thread = new Thread(new ThreadStart(() =>
             {
-                Console.WriteLine("Running...");
+                Console.WriteLine("Task 3B: Running...");
                 Thread.Sleep(1000);
             }));
 

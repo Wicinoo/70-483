@@ -6,7 +6,7 @@ namespace Lessons._02
     public static class _04_ThreadStaticExample
     {
         // Switch off ThreadStatic to share _field between both threads.
-        [ThreadStatic]
+        //[ThreadStatic] //Indicates that the value of a static field is unique for each thread.
         private static int _field;
 
         public static void Run()
@@ -16,7 +16,7 @@ namespace Lessons._02
                 for (int x = 0; x < 10; x++)
                 {
                     _field++;
-                    Console.WriteLine("Thread A: {0}", _field);
+                    Console.WriteLine("Task4 Thread A: {0}", _field);
                 }
             }).Start();
 
@@ -25,7 +25,7 @@ namespace Lessons._02
                 for (int x = 0; x < 10; x++)
                 {
                     _field++;
-                    Console.WriteLine("Thread B: {0}", _field);
+                    Console.WriteLine("Task4 Thread B: {0}", _field);
                 }
             }).Start();
         }
