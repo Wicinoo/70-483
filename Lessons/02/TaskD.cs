@@ -1,4 +1,7 @@
 ﻿using System;
+using System.Diagnostics;
+using System.Threading;
+
 
 namespace Lessons._02
 {
@@ -10,7 +13,19 @@ namespace Lessons._02
     {
         public static void Run()
         {
-            throw new NotImplementedException();
+            ThreadPool.SetMaxThreads(10, 10);
+            Stopwatch sw = new Stopwatch();
+            for (int i = 0; i < 15; i++)
+            {
+                sw.Start();
+                ThreadPool.QueueUserWorkItem((s) =>
+                {
+                    Thread.Sleep(1000);
+                });
+                sw.Stop();
+                Console.WriteLine("Thread created in {0} ms", sw.ElapsedMilliseconds);
+                sw.Reset();
+            }
         }
     }
 }
