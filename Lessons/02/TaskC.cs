@@ -1,4 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace Lessons._02
 {
@@ -11,7 +14,35 @@ namespace Lessons._02
     {
         public static void Run()
         {
-            throw new NotImplementedException();
+            var nameAges = new NameAge[]
+            {
+                new NameAge {Name = "Alex", Age = 10},
+                new NameAge {Name = "Filip", Age = 20},
+                new NameAge {Name = "Alex", Age = 30},
+                new NameAge {Name = "Alex", Age = 30},
+                new NameAge {Name = "Alex", Age = 30},
+                new NameAge {Name = "Alex", Age = 30}
+            };
+
+            var dict = new Dictionary<string, int>();
+
+            Parallel.ForEach(nameAges, new ParallelOptions
+            {
+                MaxDegreeOfParallelism = 6
+            }, item =>
+            {
+                if (!dict.ContainsKey(item.Name))
+                {
+                    dict.Add(item.Name, item.Age);
+                }
+            });
+        }
+
+        class NameAge
+        {
+            public string Name { get; set; }
+
+            public int Age { get; set; }
         }
     }
 }
