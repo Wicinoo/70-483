@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
-using System.Threading;
+using System.Net.Http;
+using System.Threading.Tasks;
 
 namespace Lessons._02
 {
@@ -13,7 +14,45 @@ namespace Lessons._02
     {
         public static void Run()
         {
-            throw new NotImplementedException();
+            var sites = new[] {"http://www.visualstudio.com", "http://www.microsoft.com", "http://www.google.com"};
+
+            MeasureAndPrintActionDuration("Sequential Processing", () => ReadSitesSequentially(sites));
+
+            MeasureAndPrintActionDuration("Parallel Processing", () => ReadSitesParallely(sites));
+        }
+
+        private static void MeasureAndPrintActionDuration(string actionName, Action action)
+        {
+            var s = new Stopwatch();
+
+            s.Start();
+
+            action();
+
+            s.Stop();
+
+            Console.WriteLine($"{actionName}: {s.Elapsed}");
+        }
+
+        private static void ReadSitesSequentially(string[] sites)
+        {
+            foreach (var site in sites)
+            {
+                ReadSite(site);
+            }
+        }
+
+        private static void ReadSite(string site)
+        {
+            using (var httpClient = new HttpClient())
+            {
+                httpClient.GetStringAsync(site).Wait();
+            }
+        }
+
+        private static void ReadSitesParallely(string[] sites)
+        {
+            Parallel.ForEach(sites, ReadSite);
         }
     }
 }
