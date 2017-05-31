@@ -23,9 +23,9 @@
 
             // Tasks
             //TaskA.Run();
-            TaskB.Run();
-            //TaskC.Run();
-            //TaskD.Run();
+            //TaskB.Run();
+            //new TaskC().Run();
+            new TaskD().Run();
             //TaskE.Run();
         }
     }
