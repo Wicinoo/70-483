@@ -1,4 +1,7 @@
 ﻿using System;
+using System.Reflection;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Lessons._02
 {
@@ -9,7 +12,24 @@ namespace Lessons._02
     {
         public static void Run()
         {
-            throw new NotImplementedException();
+            Task task = Task.Run(() =>
+            {
+                foreach (var member in Thread.CurrentThread.GetType().GetMembers())
+                {
+                    if (member.MemberType == MemberTypes.Property)
+                    {
+                        var propertyValue =
+                            Thread.CurrentThread.GetType().GetProperty(member.Name).GetValue(Thread.CurrentThread);
+
+                        if (propertyValue != null)
+                        {
+                            Console.WriteLine(member.Name + " : " + propertyValue);
+                        }
+                    }
+                }
+            });
+
+            task.Wait();
         }
     }
 }

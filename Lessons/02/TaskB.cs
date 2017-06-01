@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Net.Http;
 using System.Threading;
+using System.Threading.Tasks;
 
 namespace Lessons._02
 {
@@ -13,7 +15,40 @@ namespace Lessons._02
     {
         public static void Run()
         {
-            throw new NotImplementedException();
+            var clockDevice = new Stopwatch();
+
+
+            clockDevice.Start();
+            Task<string> sequential1 = DownloadContentSite("http://www.visualstudio.com");
+            sequential1.Wait();
+            Task<string> sequential2 = DownloadContentSite("http://www.microsoft.com");
+            sequential2.Wait();
+            Task<string> sequential3 = DownloadContentSite("http://www.google.com");
+            sequential3.Wait();
+            clockDevice.Stop();
+
+            Console.WriteLine("Sequential took " + clockDevice.Elapsed.TotalMilliseconds + "miliseconds");
+
+
+            clockDevice.Restart();
+            Task<string> parallel1 = DownloadContentSite("http://www.visualstudio.com");
+            Task<string> parallel2 = DownloadContentSite("http://www.microsoft.com");
+            Task<string> parallel3 = DownloadContentSite("http://www.google.com");
+            Task.WaitAll(parallel1, parallel2, parallel3);
+            clockDevice.Stop();
+
+            Console.WriteLine("Parallel took " + clockDevice.Elapsed.TotalMilliseconds + "miliseconds");
+
+        }
+
+
+        private static async Task<string> DownloadContentSite(string url)
+        {
+            using (HttpClient client = new HttpClient())
+            {
+                string result = await client.GetStringAsync(url);
+                return result;
+            }
         }
     }
 }
