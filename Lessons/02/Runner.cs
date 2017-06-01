@@ -12,7 +12,7 @@
             //_06_ThreadPoolUsage.Run();
             //_07_Tasks.Run();
             //_08_TaskResultAndContinuation.Run();
-            //_09_ChildTasks.Run();
+            _09_ChildTasks.Run();
             //_10_WaitingForTaskResults.RunWaitAnyExample();
             //_11_ParallelExample.Run();
             //_12_AsyncAwaitExample.Run();
@@ -23,9 +23,9 @@
 
             // Tasks
             //TaskA.Run();
-            //TaskB.Run();
+            TaskB.Run();
             //new TaskC().Run();
-            new TaskD().Run();
+            //new TaskD().Run();
             //TaskE.Run();
         }
     }

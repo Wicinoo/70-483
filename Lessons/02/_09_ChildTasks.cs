@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Lessons._02
@@ -19,9 +20,21 @@ namespace Lessons._02
 
                 TaskFactory taskFactory = new TaskFactory(TaskCreationOptions.AttachedToParent, TaskContinuationOptions.ExecuteSynchronously);
 
-                taskFactory.StartNew(() => results[3] = 3);
-                taskFactory.StartNew(() => results[4] = 4);
-                taskFactory.StartNew(() => results[5] = 5);
+                taskFactory.StartNew(() =>
+                {
+                    Thread.Sleep(1000);
+                    results[3] = 3;
+                });
+                taskFactory.StartNew(() =>
+                {
+                    Thread.Sleep(1000);
+                    results[4] = 4;
+                });
+                taskFactory.StartNew(() =>
+                {
+                    Thread.Sleep(1000);
+                    results[5] = 5;
+                });
 
                 return results;
             });

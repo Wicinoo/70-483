@@ -26,18 +26,17 @@ namespace Lessons._02
         public static void Run()
         {
             var urls = new List<string> { "www.visualstudion.com", "www.microsoft.com", "www.google.com", "www.seznam.cz", "www.centrum.cz" };
-            SequenceProcessing(urls);
-            ParralelProcessingByThreads(urls);
-            ParralelProcessingByThreadPool(urls);
-            ParralelProcessingByTasks(urls);
-            ParralelProcessingByTaskWhatUsesTasksFactory(urls);
-            ParralelProcessingByTaskWhatUsesTasksFactory(urls);
-            ParralelProcessingByTasksFactorySingleVersion(urls);
-            ParralelProcessingByParallelForEach(urls);
-            ParallelProcessingByParallelFor(urls);
-            ParallelProcessingByAsyncAwait(urls);
+            //SequenceProcessing(urls);
+            //ParralelProcessingByThreads(urls);
+            //ParralelProcessingByThreadPool(urls);
+            //ParralelProcessingByTasks(urls);
 
-
+            ParralelProcessingByTaskWhatUsesTasksFactory(urls);
+            
+            //ParralelProcessingByTasksFactorySingleVersion(urls);
+            //ParralelProcessingByParallelForEach(urls);
+            //ParallelProcessingByParallelFor(urls);
+            //ParallelProcessingByAsyncAwait(urls);
         }
 
         private static void ParallelProcessingByAsyncAwait(List<string> urls)
@@ -84,7 +83,7 @@ namespace Lessons._02
 
         private static void ParralelProcessingByTaskWhatUsesTasksFactory(List<string> urls)
         {
-            var results = new string[urls.Count];
+           
             var events = new ManualResetEvent[urls.Count];
             for (var i = 0; i < urls.Count; i++)
             {
@@ -95,11 +94,11 @@ namespace Lessons._02
             stopWatch.Start();
             Task<string[]> parentTask = Task.Run(() =>
             {
+                var results = new string[urls.Count];
+                TaskFactory tf = new TaskFactory(TaskCreationOptions.AttachedToParent,
+                   TaskContinuationOptions.ExecuteSynchronously);
                 for (var i = 0; i < urls.Count; i++)
                 {
-                    TaskFactory tf = new TaskFactory(TaskCreationOptions.AttachedToParent,
-                    TaskContinuationOptions.ExecuteSynchronously);
-
                     var url = urls[i];
                     var resultItem = i;
 
@@ -112,6 +111,17 @@ namespace Lessons._02
 
                 return results;
             });
+
+
+            //didn't work
+            //var finalTask = parentTask.ContinueWith(parent =>
+            //    {
+            //        foreach (string particularTaskResult in parent.Result)
+            //        {
+            //            Console.WriteLine(particularTaskResult.Length);
+            //        }
+            //    }, TaskContinuationOptions.OnlyOnRanToCompletion);
+            //finalTask.Wait();
 
             //parentTask.Wait(); // doesn't work - why? the child threads is attached to parent
             var handles = events.ToArray();
@@ -227,11 +237,11 @@ namespace Lessons._02
 
         private static string GetHttpResult(string urlAddress)
         {
-            //Thread.Sleep(1000);
-            //return "test";
-            var request = (HttpWebRequest)WebRequest.Create("http://" + urlAddress);
-            var response = (HttpWebResponse)request.GetResponse();
-            return new StreamReader(response.GetResponseStream()).ReadToEnd();
+            Thread.Sleep(1000);
+            return "test";
+            //var request = (HttpWebRequest)WebRequest.Create("http://" + urlAddress);
+            //var response = (HttpWebResponse)request.GetResponse();
+            //return new StreamReader(response.GetResponseStream()).ReadToEnd();
         }
 
         private static async Task<string> GetHttpResultAsync(string url)
