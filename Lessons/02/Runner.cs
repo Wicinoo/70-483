@@ -22,11 +22,11 @@
             //_16_BlockingCollectionExample.Run();
 
             // Tasks
-            //TaskA.Run();
-            //TaskB.Run();
-            //TaskC.Run();
+            TaskA.Run();
+            TaskB.Run();
+            TaskC.Run();
             TaskD.Run();
-            //TaskE.Run();
+            TaskE.Run();
         }
     }
 }

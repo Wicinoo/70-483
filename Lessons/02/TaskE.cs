@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Net;
+using System.Threading.Tasks;
 
 namespace Lessons._02
 {
@@ -12,7 +14,26 @@ namespace Lessons._02
     {
         public static void Run()
         {
-            throw new NotImplementedException();
+            ISiteReader reader = new SiteReader();
+            Console.WriteLine(reader.ReadAsync("http://www.google.com").Result);
+        }
+    }
+
+
+    public interface ISiteReader
+    {
+        Task<string> ReadAsync(string requestUrl);
+    }
+
+    public class SiteReader : ISiteReader
+    {
+        public async Task<string> ReadAsync(string requestUrl)
+        {
+
+            WebClient client = new WebClient();
+            Task<string> task = Task.Run(() => client.DownloadString(requestUrl));
+
+            return await task;
         }
     }
 }
