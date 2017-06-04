@@ -4,9 +4,9 @@
     {
         public static void Run()
         {
-            //_01_Threads.Run();
+            _01_Threads.Run();
             //_02_BackgroundThread.Run();
-            //_03_StoppingThread.RunWithUsingAbort();
+            //_03_StoppingThread.RunWithUsingSharedVariable();//.RunWithUsingAbort();
             //_04_ThreadStaticExample.Run();
             //_05_ThreadLocalExample.Run();
             //_06_ThreadPoolUsage.Run();
@@ -22,7 +22,7 @@
             //_16_BlockingCollectionExample.Run();
 
             // Tasks
-            //TaskA.Run();
+            TaskA.Run();
             //TaskB.Run();
             //TaskC.Run();
             //TaskD.Run();

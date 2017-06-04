@@ -24,7 +24,13 @@ namespace Lessons._02
             for (int i = 0; i < 10; i++)
             {
                 Console.WriteLine("Other thread: {0}", i);
+                //foreach (var cp in Thread.CurrentContext.ContextProperties)
+                //{
+                //    Console.WriteLine(cp.Name);
+                //}
+
                 Thread.Sleep(0);
+                //Console.WriteLine(Thread.CurrentContext.ContextProperties[0].ToString());
             }
         }
     }
