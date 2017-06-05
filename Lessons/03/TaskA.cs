@@ -42,19 +42,37 @@ namespace Lessons._03
     public class StartableSingleton
     {
         private bool _isStarted;
+        private object @lock = new object();
 
         public void Start()
         {
-            Console.WriteLine("Starting ...");
-            Thread.Sleep(10);
-            _isStarted = true;
+            lock (@lock)
+            {
+                if (_isStarted)
+                    Console.WriteLine("Refused as it has been already started.");
+                else
+                {
+                    Console.WriteLine("Starting ...");
+                    Thread.Sleep(10);
+                    _isStarted = true;
+                }
+            }
+
         }
 
         public void Stop()
         {
-            Console.WriteLine("Stopping ...");
-            Thread.Sleep(10);
-            _isStarted = false;
+            lock (@lock)
+            {
+                if (_isStarted == false)
+                    Console.WriteLine("Refused as it has been already stopped.");
+                else
+                {
+                    Console.WriteLine("Stopping ...");
+                    Thread.Sleep(10);
+                    _isStarted = false;
+                }
+            }
         }
     }
 }
