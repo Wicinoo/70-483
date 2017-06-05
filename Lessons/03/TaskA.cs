@@ -39,22 +39,63 @@ namespace Lessons._03
         }
     }
 
+    
+
     public class StartableSingleton
     {
+
+        //private static StartableSingleton _instance { get; set; }
+        //private static object _lockObj = new object();
+        //private StartableSingleton()
+        //{
+
+        //}
+
+        //public static StartableSingleton GetInstance()
+        //{
+        //    if (_lockObj == null)
+        //    {
+        //        lock (_lockObj)
+        //        {
+        //            if (_instance == null)
+        //            {
+        //                _instance = new StartableSingleton();
+        //            }
+        //        }
+        //    }
+            
+        //    return _instance;
+        //}
+
         private bool _isStarted;
+        private object _lock = new object();
 
         public void Start()
         {
             Console.WriteLine("Starting ...");
             Thread.Sleep(10);
-            _isStarted = true;
+            lock (_lock)
+            {
+                if (_isStarted)
+                    Console.WriteLine("Refused as it has been already started.");
+                else
+                    _isStarted = true;
+                
+            }
+            
         }
 
         public void Stop()
         {
             Console.WriteLine("Stopping ...");
             Thread.Sleep(10);
-            _isStarted = false;
+            lock (_lock)
+            {
+                if (!_isStarted)
+                    Console.WriteLine("Refused as it is not started yet.");
+                else
+                _isStarted = false;
+            }
         }
     }
 }
