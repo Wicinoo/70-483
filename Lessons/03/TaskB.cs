@@ -1,4 +1,6 @@
-﻿using Xunit;
+﻿using System;
+using System.Diagnostics;
+using Xunit;
 
 namespace Lessons._03
 {
@@ -24,7 +26,12 @@ namespace Lessons._03
 
         private bool IsPowerOfTwo(int number)
         {
-            throw new System.NotImplementedException();
+            // bitwise & calculation means that numbers are compared based on their binary representation.
+            // i.e. 8 or 10000000 & 7 or 01110000 == 0; returns true
+            // bits in each position are compared one against each other and the condition is:
+            // if they are both 1, result is 1, else 0.
+            // The result of the & operation is then the sum of all operations against each bit.
+            return number != 0 && (number & (number - 1)) == 0;
         }
     }
 }

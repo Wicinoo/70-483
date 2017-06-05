@@ -17,6 +17,7 @@ namespace Lessons._03
         public static void Run()
         {
             var startableSingleton = new StartableSingleton();
+            var startableSingletonWithLocks = new StartableSingletonWithLocks();
             var randomGenerator = new Random();
 
             Parallel.For(0, 20, _ =>
@@ -29,32 +30,103 @@ namespace Lessons._03
                 if (start)
                 {
                     startableSingleton.Start();
+                    //startableSingletonWithLocks.Start();
                 }
                 else
                 {
                     startableSingleton.Stop();
-
+                    //startableSingletonWithLocks.Stop();
                 }
             });
         }
     }
 
-    public class StartableSingleton
+    public class StartableSingletonWithLocks
     {
-        private bool _isStarted;
+        private SingletonState SingletonState;
+
+        public StartableSingletonWithLocks()
+        {
+            SingletonState = new SingletonState(false);
+        }
 
         public void Start()
         {
-            Console.WriteLine("Starting ...");
-            Thread.Sleep(10);
-            _isStarted = true;
+            lock (SingletonState)
+            {
+                if (!SingletonState.HasStarted)
+                {
+                    Console.WriteLine("Starting ... From singleton with locks");
+                    Thread.Sleep(10);
+                    SingletonState.HasStarted = true;
+                }
+                else
+                {
+                    Console.WriteLine("Refused as it has already been started. From singleton with locks");
+                }
+
+                return;
+            } 
         }
 
         public void Stop()
         {
-            Console.WriteLine("Stopping ...");
-            Thread.Sleep(10);
-            _isStarted = false;
+            lock (SingletonState)
+            {
+                if (SingletonState.HasStarted)
+                {
+                    Console.WriteLine("Stopping ... From singleton with locks");
+                    Thread.Sleep(10);
+                    SingletonState.HasStarted = false;
+                } else
+                {
+                    Console.WriteLine("Refused as it has not started yet. From singleton with locks");
+                }
+            }
+        }
+    }
+
+
+    public class StartableSingleton
+    {
+        private bool _hasStarted;
+
+        public void Start()
+        {
+            if (!_hasStarted)
+            {
+                Console.WriteLine("Starting ...");
+                Thread.Sleep(10);
+                _hasStarted = true;
+            }
+            else 
+            {
+                Console.WriteLine("Refused as it has already been started.");
+            }        
+        }
+
+        public void Stop()
+        {
+            if (_hasStarted)
+            {
+                Console.WriteLine("Stopping ...");
+                Thread.Sleep(10);
+                _hasStarted = false;
+            }
+            else
+            {
+                Console.WriteLine("Refused as it has not started yet.");
+            }
+        }
+    }
+
+    public class SingletonState
+    {
+        public bool HasStarted { get; set; }
+
+        public SingletonState(bool hasStarted)
+        {
+            HasStarted = hasStarted;
         }
     }
 }

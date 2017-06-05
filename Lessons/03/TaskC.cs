@@ -12,18 +12,26 @@ namespace Lessons._03
 
         public static void Run()
         {
-            Console.WriteLine(_foo);
-            Console.WriteLine(Foo);
+            Console.WriteLine(_foo + " is null");
+            Console.WriteLine(Foo.Result);
         }
 
         public static Foo Foo
         {
             get
             {
-                throw new System.NotImplementedException();
+                return _foo ?? (_foo = new Foo("hello, world"));
             }
         }
     }
 
-    public class Foo { }
+    public class Foo
+    {
+        public string Result { get; set; }
+
+        public Foo(string result)
+        {
+            Result = result;
+        }
+    }
 }
