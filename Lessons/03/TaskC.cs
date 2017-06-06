@@ -18,10 +18,7 @@ namespace Lessons._03
 
         public static Foo Foo
         {
-            get
-            {
-                throw new System.NotImplementedException();
-            }
+            get { return _foo ?? new Foo(); }
         }
     }
 
