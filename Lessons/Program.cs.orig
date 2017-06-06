@@ -6,16 +6,19 @@ namespace Lessons
     {
         static void Main(string[] args)
         {
-<<<<<<< HEAD
-            //_01.Runner.Run(); //uncomment this row for test
-            _01.Demo.Run();
-=======
             //_01.Runner.Run();
+            //_01.Demo.Run();
             //_02.Runner.Run();
->>>>>>> master
+<<<<<<< HEAD
+            _02.Demo.Run();
 
             Console.WriteLine();
             Console.WriteLine("Press a key ...");
+=======
+            //_03.Runner.Run();
+
+            Console.WriteLine("Press any key ...");
+>>>>>>> master
             Console.ReadKey(); 
         }
     }
