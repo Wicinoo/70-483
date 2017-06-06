@@ -110,6 +110,7 @@
     <Compile Include="02\_14_HandlingAggregateException.cs" />
     <Compile Include="02\_15_ConcurrentCollections.cs" />
     <Compile Include="02\_16_BlockingCollectionExample.cs" />
+    <Compile Include="03\Demo.cs" />
     <Compile Include="03\Runner.cs" />
     <Compile Include="03\TaskA.cs" />
     <Compile Include="03\TaskB.cs" />

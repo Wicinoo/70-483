@@ -9,8 +9,9 @@ namespace Lessons
             //_01.Runner.Run();
             //_01.Demo.Run();
             //_02.Runner.Run();
+            //_02.Demo.Run();
             //_03.Runner.Run();
-            _02.Demo.Run();
+            _03.Demo.Run();
 
             Console.WriteLine();
             Console.WriteLine("Press a key ...");
