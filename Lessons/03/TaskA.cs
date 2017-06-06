@@ -24,7 +24,7 @@ namespace Lessons._03
                 var randomNumber = randomGenerator.Next(100);
                 Thread.Sleep(randomNumber);
 
-                var start = randomNumber % 2 == 0;
+                var start = randomNumber%2 == 0;
 
                 if (start)
                 {
@@ -41,20 +41,42 @@ namespace Lessons._03
 
     public class StartableSingleton
     {
+        private object @lock = new object();
         private bool _isStarted;
 
         public void Start()
         {
-            Console.WriteLine("Starting ...");
-            Thread.Sleep(10);
-            _isStarted = true;
+            lock (@lock)
+            {
+                if (_isStarted)
+                {
+                    Console.WriteLine("Refused as it has been already started.");
+                }
+                else
+                {
+                    Console.WriteLine("Starting ...");
+                    Thread.Sleep(10);
+                    _isStarted = true;
+                }
+            }
         }
 
         public void Stop()
         {
-            Console.WriteLine("Stopping ...");
-            Thread.Sleep(10);
-            _isStarted = false;
+            lock (@lock)
+            {
+                if (_isStarted)
+                {
+                    Console.WriteLine("Stopping ...");
+                    Thread.Sleep(10);
+                    _isStarted = false;
+                }
+                else
+                {
+                    Console.WriteLine("Refused as it is not started yet.");
+                }
+
+            }
         }
     }
 }

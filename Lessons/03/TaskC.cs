@@ -16,13 +16,7 @@ namespace Lessons._03
             Console.WriteLine(Foo);
         }
 
-        public static Foo Foo
-        {
-            get
-            {
-                throw new System.NotImplementedException();
-            }
-        }
+        private static Foo Foo => _foo ?? (_foo = new Foo());
     }
 
     public class Foo { }
