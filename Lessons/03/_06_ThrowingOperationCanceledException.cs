@@ -24,7 +24,7 @@ namespace Lessons._03
             try
             {
                 Console.WriteLine("Press any key to stop the task");
-                Console.ReadLine();
+                Console.ReadKey();
                 cancellationTokenSource.Cancel();
 
                 task.Wait();

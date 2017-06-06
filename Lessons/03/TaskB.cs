@@ -1,4 +1,7 @@
-﻿using Xunit;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using Xunit;
 
 namespace Lessons._03
 {
@@ -24,7 +27,29 @@ namespace Lessons._03
 
         private bool IsPowerOfTwo(int number)
         {
-            throw new System.NotImplementedException();
+            if (number <= 0) return false;
+            return (number & (number - 1)) == 0 ? true : false;
+        }
+
+        public static void TestIsPowerOfTwo()
+        {
+            var test = new TaskB();
+
+            var nums = new List<int>(Enumerable.Range(-1, 33));
+            nums.AddRange(new int[] {
+                255, 
+                256,
+                257,
+                int.MaxValue,
+                Convert.ToInt32(Math.Pow(2, 30)),
+                Convert.ToInt32(Math.Pow(2, 30)) - 1
+            });
+
+            nums.ForEach(x =>
+            {
+                string yesNo = test.IsPowerOfTwo(x) ? "is" : "is not";
+                Console.WriteLine($"{x} {yesNo} the power of two.");
+            });
         }
     }
 }

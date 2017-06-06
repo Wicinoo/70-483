@@ -12,15 +12,16 @@ namespace Lessons._03
 
         public static void Run()
         {
-            Console.WriteLine(_foo);
-            Console.WriteLine(Foo);
+            Console.WriteLine($"_foo: {_foo}");
+            Console.WriteLine($"_foo: {Foo}");
         }
 
         public static Foo Foo
         {
             get
             {
-                throw new System.NotImplementedException();
+                _foo = _foo ?? new Foo();
+                return _foo;
             }
         }
     }

@@ -14,7 +14,10 @@
 
             //TaskA.Run();
             //TaskB should be run as XUnit test.
-            //TaskC.Run();
+            //TaskB.TestIsPowerOfTwo();
+            TaskC.Run();
+
+
         }
     }
 }
