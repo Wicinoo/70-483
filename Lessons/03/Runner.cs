@@ -12,7 +12,7 @@
             //_06_ThrowingOperationCanceledException.Run();
             //_07_TaskWaitAny.Run();
 
-            //TaskA.Run();
+            TaskA.Run();
             //TaskB should be run as XUnit test.
             //TaskC.Run();
         }
