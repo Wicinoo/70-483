@@ -1,4 +1,7 @@
 ﻿using System;
+using System.Diagnostics;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Lessons._02
 {
@@ -8,9 +11,25 @@ namespace Lessons._02
     /// </summary>
     public class TaskD
     {
+        private static readonly Stopwatch Stopwatch = new Stopwatch();
         public static void Run()
         {
-            throw new NotImplementedException();
+            ThreadPool.SetMaxThreads(10, 10);
+
+            Stopwatch.Start();
+
+            for (var i = 0; i < 15; i++)
+            {
+                var startOfCreation = Stopwatch.ElapsedMilliseconds;
+                Task.Run(() => { TaskThatTakes1000MsAndPrintsTimeItTookToAllocate(startOfCreation); });
+            }
+        }
+
+        public static void TaskThatTakes1000MsAndPrintsTimeItTookToAllocate(long startOfCreation)
+        {
+            Console.WriteLine($"Task waited for execution {Stopwatch.ElapsedMilliseconds - startOfCreation} milliseconds");
+
+            Thread.Sleep(1000);
         }
     }
 }

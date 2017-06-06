@@ -24,7 +24,20 @@ namespace Lessons._03
 
         private bool IsPowerOfTwo(int number)
         {
-            throw new System.NotImplementedException();
+            while (true)
+            {
+                if (number <= 0)
+                {
+                    return false;
+                }
+
+                if (number%2 != 0)
+                {
+                    return number == 1;
+                }
+
+                number = number/2;
+            }
         }
     }
 }

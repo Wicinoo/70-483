@@ -23,17 +23,17 @@ namespace Lessons._02
         {
             var stopWatch = Stopwatch.StartNew();
 
-            var webClient = new HttpClient();
+            var httpClient = new HttpClient();
 
             Task task = Task.Run(() =>
             {
-                var webTask = webClient.GetStringAsync("http://www.visualstudio.com");
+                var webTask = httpClient.GetStringAsync("http://www.visualstudio.com");
             }).ContinueWith((prev) =>
             {
-                var webData = webClient.GetStringAsync("http://www.microsoft.com");
+                var webData = httpClient.GetStringAsync("http://www.microsoft.com");
             }).ContinueWith((prev) =>
             {
-                var webData = webClient.GetStringAsync("http://www.google.com");
+                var webData = httpClient.GetStringAsync("http://www.google.com");
             });
 
             task.Wait();
@@ -45,17 +45,17 @@ namespace Lessons._02
         {
             var stopWatch = Stopwatch.StartNew();
 
-            var webClient = new HttpClient();
+            var httpClient = new HttpClient();
 
             Task[] tasks = new Task[3];
             tasks[0] = Task.Run(() => {
-                var webTask = webClient.GetStringAsync("http://www.visualstudio.com");
+                var webTask = httpClient.GetStringAsync("http://www.visualstudio.com");
             });
             tasks[1] = Task.Run(() => {
-                var webData = webClient.GetStringAsync("http://www.microsoft.com");
+                var webData = httpClient.GetStringAsync("http://www.microsoft.com");
             });
             tasks[2] = Task.Run(() => {
-                var webData = webClient.GetStringAsync("http://www.google.com");
+                var webData = httpClient.GetStringAsync("http://www.google.com");
             });
 
             Task.WaitAll(tasks);

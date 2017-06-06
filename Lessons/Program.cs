@@ -8,7 +8,7 @@ namespace Lessons
         {
             //_01.Runner.Run();
             //_02.Runner.Run();
-            //_03.Runner.Run();
+            _03.Runner.Run();
 
             Console.WriteLine("Press any key ...");
             Console.ReadKey(); 

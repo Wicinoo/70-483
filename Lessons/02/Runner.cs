@@ -26,9 +26,9 @@ namespace Lessons._02
             // Tasks
             //TaskA.Run();
             //TaskB.Run();
-            TaskC.Run();
+            //TaskC.Run();
             //TaskD.Run();
-            //TaskE.Run();
+            TaskE.Run();
         }
     }
 }
