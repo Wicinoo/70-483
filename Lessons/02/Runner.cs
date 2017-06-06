@@ -7,7 +7,6 @@
             //_01_Threads.Run();
             //_02_BackgroundThread.Run();
             //_03_StoppingThread.RunWithUsingAbort();
-            //_03_StoppingThread.RunWithUsingSharedVariable();
             //_04_ThreadStaticExample.Run();
             //_05_ThreadLocalExample.Run();
             //_06_ThreadPoolUsage.Run();
@@ -15,10 +14,8 @@
             //_08_TaskResultAndContinuation.Run();
             //_09_ChildTasks.Run();
             //_10_WaitingForTaskResults.RunWaitAnyExample();
-            //_10_WaitingForTaskResults.RunWaitAllExample();
             //_11_ParallelExample.Run();
             //_12_AsyncAwaitExample.Run();
-            //_12_AsyncAwaitExample.RunWithAnonymousMethod();
             //_13_ParallelLinqExample.Run();
             //_14_HandlingAggregateException.Run();
             //_15_ConcurrentCollections.Run();
