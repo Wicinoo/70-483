@@ -14,13 +14,14 @@ namespace Lessons._03
         {
             Console.WriteLine(_foo);
             Console.WriteLine(Foo);
+            Console.WriteLine(_foo);
         }
 
         public static Foo Foo
         {
             get
             {
-                throw new System.NotImplementedException();
+                return _foo ?? (_foo = new Foo());
             }
         }
     }

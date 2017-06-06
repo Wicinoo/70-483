@@ -14,7 +14,7 @@
 
             //TaskA.Run();
             //TaskB should be run as XUnit test.
-            //TaskC.Run();
+            TaskC.Run();
         }
     }
 }
