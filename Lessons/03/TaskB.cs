@@ -24,11 +24,7 @@ namespace Lessons._03
 
         private bool IsPowerOfTwo(int number)
         {
-            while (x%2==0 && x>1)
-            {
-                x /= 2;
-            }
-            return x == 1;
+            return number != 0 && (number & (number -1)) == 0;
         }
     }
 }
