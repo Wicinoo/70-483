@@ -24,7 +24,7 @@ namespace Lessons._03
 
         private bool IsPowerOfTwo(int number)
         {
-            return number != 0 && (number & (number -1)) == 0;
+            return number != 0 && (number & (number - 1)) == 0;
         }
     }
 }
