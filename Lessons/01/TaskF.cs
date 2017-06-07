@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading;
 
 namespace Lessons._01
 {
@@ -14,7 +15,44 @@ namespace Lessons._01
     {
         public static void Run()
         {
-            throw new NotImplementedException();
+            Action getRandomNumber = () => Console.WriteLine(new Random().Next(20, 80)); // TODO consume random number from some function via event arg
+            bool tickGeneratorStopped = false;
+
+            MarketPublisher marketPublisher = new MarketPublisher();
+
+            Thread tickGenerator = new Thread(
+                new ThreadStart(
+                    () =>
+                    {
+                        while (!tickGeneratorStopped)
+                        {
+                            marketPublisher.Raise();
+                            Thread.Sleep(1000);
+                        }
+                    }));
+
+            marketPublisher.OnEvent += getRandomNumber; // subscribe
+
+            tickGenerator.Start();
+
+            Console.ReadKey();
+
+            marketPublisher.OnEvent -= getRandomNumber; // unsubscribe
+
+
+            Console.ReadKey();
+            tickGeneratorStopped = true;
+            tickGenerator.Join();
+        }
+    }
+
+    public class MarketPublisher
+    {
+        public event Action OnEvent;
+
+        public void Raise()
+        {
+            OnEvent?.Invoke();
         }
     }
 }
