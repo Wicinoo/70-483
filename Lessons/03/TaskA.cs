@@ -44,52 +44,36 @@ namespace Lessons._03
         private static object @lock = new object();
         private static bool _isStarted;
 
-
-        public static bool IsStarted
-        {
-            get
-            {
-                lock (@lock)
-                {
-                    return _isStarted;
-                }
-            }
-            set
-            {
-                lock (@lock)
-                {
-                    _isStarted = value;
-                }
-            }
-        }
-
-
         public void Start()
         {
-            if (IsStarted)
+            lock (@lock)
             {
-                Console.WriteLine("Refused as it has been already started.");
-                return;
+                if (_isStarted)
+                {
+                    Console.WriteLine("Refused as it has been already started.");
+                    return;
+                }
+                Console.WriteLine("Starting ...");
+                Thread.Sleep(10);
+
+
+                _isStarted = true;
             }
-            Console.WriteLine("Starting ...");
-            Thread.Sleep(10);
-
-
-            IsStarted = true;
-
         }
 
         public void Stop()
         {
-            if (!IsStarted)
+            lock (@lock)
             {
-                Console.WriteLine("Refused as it is not started yet.");
-                return;
+                if (!_isStarted)
+                {
+                    Console.WriteLine("Refused as it is not started yet.");
+                    return;
+                }
+                Console.WriteLine("Stopping ...");
+                Thread.Sleep(10);
+                _isStarted = false;
             }
-            Console.WriteLine("Stopping ...");
-            Thread.Sleep(10);
-            IsStarted = false;
-
         }
     }
 }
