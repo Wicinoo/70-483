@@ -45,16 +45,41 @@ namespace Lessons._03
 
         public void Start()
         {
-            Console.WriteLine("Starting ...");
-            Thread.Sleep(10);
-            _isStarted = true;
+            var @lock = new object();
+            lock (@lock)
+            {
+                if (!_isStarted)
+                {
+                    Console.WriteLine("Starting ...");
+                    Thread.Sleep(10);
+
+                    _isStarted = true;
+
+                }
+                else
+                {
+                    Console.WriteLine("Refused as it has been already started.");
+                }
+            }
         }
 
         public void Stop()
         {
-            Console.WriteLine("Stopping ...");
-            Thread.Sleep(10);
-            _isStarted = false;
+            var @lock = new object();
+            lock (@lock)
+            {
+                if (_isStarted)
+                {
+                    Console.WriteLine("Stopping ...");
+                    Thread.Sleep(10);
+                    _isStarted = false;
+
+                }
+                else
+                {
+                    Console.WriteLine("Refused as it is not started yet");
+                }
+            }
         }
     }
 }
