@@ -20,7 +20,8 @@ namespace Lessons._03
         {
             get
             {
-                return _foo ?? new Foo();
+                _foo = _foo ?? new Foo();
+                return _foo;
             }
         }
     }
