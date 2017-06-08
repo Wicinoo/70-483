@@ -13,7 +13,31 @@ namespace Lessons._04
         [Fact]
         public void ParseUnsignedInteger_WhenNull_ShouldThrowArgumentNullException()
         {
-            throw new NotImplementedException();
+            Assert.Throws<ArgumentNullException>(() => ParseUnsignedInteger(null));
+        }
+
+        [Fact]
+        public void ParseUnsignedInteger_WhenIncorrectFormat_ShouldThrowFormatException()
+        {
+            Assert.Throws<FormatException>(() => ParseUnsignedInteger("My name is Inigo Montoya. Prepare to be parsed"));
+        }
+
+        [Fact]
+        public void ParseUnsignedInteger_WhenNumberIsLessThanZero_ShouldThrowOverflowException()
+        {
+            Assert.Throws<OverflowException>(() => ParseUnsignedInteger("-1"));
+        }
+
+        [Fact]
+        public void ParseUnsignedInteger_WhenNumberIsMoreThanUint32Max_ShouldThrowOverflowException()
+        {
+            Assert.Throws<OverflowException>(() => ParseUnsignedInteger("4294967296"));
+        }
+
+        [Fact]
+        public void ParseUnsignedInteger_WhenNumberIsJustRight_ShouldReturnNumber()
+        {
+            Assert.True(ParseUnsignedInteger("5") == 5);
         }
 
         ///
@@ -38,9 +62,13 @@ namespace Lessons._04
         ///   T:System.OverflowException:
         ///     The s parameter represents a number that is less than System.UInt32.MinValue
         ///     or greater than System.UInt32.MaxValue.
-        public uint ParseUnsignedInteger(string s)
+        public uint ParseUnsignedInteger(string value)
         {
-            throw new NotImplementedException();
+            if (value == null) {
+                throw new ArgumentNullException();
+            }
+
+            return Convert.ToUInt32(value);
         }
     }
 }

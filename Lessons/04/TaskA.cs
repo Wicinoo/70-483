@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 
 namespace Lessons._04
 {
@@ -13,12 +14,39 @@ namespace Lessons._04
     {
         public static void Run()
         {
-            throw new NotImplementedException();
+
+            try
+            {
+                throw new NotImplementedException("Test");
+            }
+            catch (Exception ex)
+            {
+                PrintExceptionDetails(ex);
+            }
+
+            try
+            {
+                ThrowWithInnerException();
+            }
+            catch (Exception ex)
+            {
+                PrintExceptionDetails(ex);
+            }
+
         }
 
-        private void PrintExceptionDetails(Exception exception)
+        private static void ThrowWithInnerException()
         {
-            throw new NotImplementedException();
+
+            throw new Exception("See my inner beauty", new NotSupportedException("God damn you are ugly"));
+        }
+
+        private static void PrintExceptionDetails(Exception exception)
+        {
+            foreach (PropertyDescriptor descriptor in TypeDescriptor.GetProperties(exception))
+            {
+                Console.WriteLine("{0}: {1}", descriptor.Name, descriptor.GetValue(exception));
+            }
         }
     }
 }
