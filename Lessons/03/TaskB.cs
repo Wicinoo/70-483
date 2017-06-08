@@ -1,4 +1,6 @@
-﻿using Xunit;
+﻿using System;
+
+using Xunit;
 
 namespace Lessons._03
 {
@@ -24,7 +26,17 @@ namespace Lessons._03
 
         private bool IsPowerOfTwo(int number)
         {
-            throw new System.NotImplementedException();
+            //solution using binary:
+            //return (number != 0) && ((number & (number - 1)) == 0);
+            
+            //return (number % 2 == 0) && (number != 0); //works apart from for 1
+
+            while ((number % 2 == 0) && number > 1)
+            {
+                number /= 2;
+            }
+
+            return (number == 1);
         }
     }
 }
