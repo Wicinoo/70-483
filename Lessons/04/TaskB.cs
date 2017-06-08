@@ -13,7 +13,31 @@ namespace Lessons._04
         [Fact]
         public void ParseUnsignedInteger_WhenNull_ShouldThrowArgumentNullException()
         {
-            throw new NotImplementedException();
+            string nullStringInput = null;
+
+            var exception = Record.Exception(() => ParseUnsignedInteger(nullStringInput));
+            Assert.NotNull(exception);
+            Assert.IsType<ArgumentNullException>(exception);
+        }
+
+        [Fact]
+        public void ParseUnsignedInteger_WhenNotInCorrectFormat_ShouldThrowAFormatException()
+        {
+            var invalidFormatString = "hello";
+
+            var exception = Record.Exception(() => ParseUnsignedInteger(invalidFormatString));
+            Assert.NotNull(exception);
+            Assert.IsType<FormatException>(exception);
+        }
+
+        [Fact]
+        public void ParseUnsignedInteger_WhenStringValueIsLessThanMinimumValueOfUnsignedInteger_ShouldThrowOverflowException()
+        {
+            var unsingedIntegerOverflowString = "-10";
+
+            var exception = Record.Exception(() => ParseUnsignedInteger(unsingedIntegerOverflowString));
+            Assert.NotNull(exception);
+            Assert.IsType<OverflowException>(exception);
         }
 
         ///
@@ -40,7 +64,12 @@ namespace Lessons._04
         ///     or greater than System.UInt32.MaxValue.
         public uint ParseUnsignedInteger(string s)
         {
-            throw new NotImplementedException();
+            if (s == null)
+            {
+                throw new ArgumentNullException();
+            }
+
+            return uint.Parse(s);
         }
     }
 }

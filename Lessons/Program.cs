@@ -1,4 +1,5 @@
 ﻿using System;
+using Lessons._04;
 
 namespace Lessons
 {
@@ -10,6 +11,8 @@ namespace Lessons
             //_02.Runner.Run();
             //_03.Runner.Run();
             //_04.Runner.Run();
+
+            TaskE.Run2();
 
             Console.WriteLine("Press any key ...");
             Console.ReadKey(); 

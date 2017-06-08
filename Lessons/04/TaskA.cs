@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 
 namespace Lessons._04
 {
@@ -13,12 +14,34 @@ namespace Lessons._04
     {
         public static void Run()
         {
-            throw new NotImplementedException();
+            try
+            {
+                throw new NotImplementedException("Missing Build");
+            }
+            catch (NotImplementedException ex)
+            {
+                PrintExceptionDetails(ex);
+            }
+
+            try
+            {
+                throw new InvalidOperationException("This operation is not supported", new ArithmeticException("Cannot calculate 2 x 2"));
+            }
+            catch (InvalidOperationException exception)
+            {
+                PrintExceptionDetails(exception);
+            }
+
         }
 
-        private void PrintExceptionDetails(Exception exception)
+        private static void PrintExceptionDetails(Exception exception)
         {
-            throw new NotImplementedException();
+            foreach (var propertyInfo in exception.GetType().GetProperties())
+            {
+                var value = propertyInfo.GetValue(exception, null) ?? "(null)";
+                var name = propertyInfo.Name;
+                Console.WriteLine("{0} : {1}", name, value);
+            }
         }
     }
 }
