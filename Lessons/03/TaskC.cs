@@ -20,7 +20,8 @@ namespace Lessons._03
         {
             get
             {
-                throw new System.NotImplementedException();
+                _foo = _foo ?? new Foo();
+                return _foo;
             }
         }
     }
