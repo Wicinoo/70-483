@@ -43,30 +43,6 @@ namespace Lessons._03
 
     public class StartableSingleton
     {
-
-        //private static StartableSingleton _instance { get; set; }
-        //private static object _lockObj = new object();
-        //private StartableSingleton()
-        //{
-
-        //}
-
-        //public static StartableSingleton GetInstance()
-        //{
-        //    if (_lockObj == null)
-        //    {
-        //        lock (_lockObj)
-        //        {
-        //            if (_instance == null)
-        //            {
-        //                _instance = new StartableSingleton();
-        //            }
-        //        }
-        //    }
-            
-        //    return _instance;
-        //}
-
         private bool _isStarted;
         private object _lock = new object();
 
@@ -80,9 +56,7 @@ namespace Lessons._03
                     Console.WriteLine("Refused as it has been already started.");
                 else
                     _isStarted = true;
-                
-            }
-            
+            }     
         }
 
         public void Stop()
