@@ -10,7 +10,20 @@ namespace Lessons._04
     {
         public static void Run()
         {
-            throw new NotImplementedException();
+            try
+            {
+                int.Parse("NaN");
+            }
+            catch (FormatException exception)
+            {
+                Console.WriteLine("An FormatException was caught.");
+
+                //w/o changes on callstack
+                //throw;
+
+                //change callstack
+                throw exception;
+            }
         }
     }
 }

@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections;
+using System.IO;
 
 namespace Lessons._04
 {
@@ -13,12 +15,56 @@ namespace Lessons._04
     {
         public static void Run()
         {
-            throw new NotImplementedException();
+            try
+            {
+                throw new NotImplementedException();
+            }
+            catch (Exception inner)
+            {
+                try
+                {
+                    inner.Data.Add("Additional1", "My Additional information");
+                    inner.Data["Additional2"] = "My another Additional information";
+                    throw new FileNotFoundException("File for logging exception wasn't found", inner);
+                }
+                catch (Exception outter)
+                {
+                    PrintExceptionDetails(outter);
+                }
+            }
         }
 
-        private void PrintExceptionDetails(Exception exception)
+        private static void PrintExceptionDetails(Exception exception)
         {
-            throw new NotImplementedException();
+            foreach (var property in exception.GetType().GetProperties())
+            {
+                if (property.Name == "Data")
+                {
+                    PrintExceptionData(exception.Data);
+                }
+                else if (property.Name == "InnerException" && exception.InnerException != null)
+                {
+                    Console.WriteLine("[Inner Exception]: ");
+                    PrintExceptionDetails((Exception) property.GetValue(exception));
+                }
+                else
+                {
+                    Console.WriteLine($"[{property.Name}]: {property.GetValue(exception)}");
+                }
+
+            }
+        }
+
+        private static void PrintExceptionData(IDictionary data)
+        {
+            if (data.Count > 0)
+            {
+                foreach (var key in data.Keys)
+                {
+                    Console.WriteLine($"[Data]: {key} : {data[key]}");
+                }
+            }
+
         }
     }
 }
