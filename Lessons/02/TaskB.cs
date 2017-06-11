@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Net;
 using System.Threading;
 
 namespace Lessons._02
@@ -13,7 +14,9 @@ namespace Lessons._02
     {
         public static void Run()
         {
-            throw new NotImplementedException();
+            var client = new WebClient();
+            var text = client.DownloadString("https://www.microsoft.com");
+            Console.Write(text);
         }
     }
 }
