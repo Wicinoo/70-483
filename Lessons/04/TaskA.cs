@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Reflection;
 
 namespace Lessons._04
 {
@@ -11,14 +13,45 @@ namespace Lessons._04
     /// </summary>
     public class TaskA
     {
-        public static void Run()
+        [Serializable]
+        public class NotANumberException : Exception
         {
-            throw new NotImplementedException();
+            public NotANumberException(string message, object functionArgument, Exception innerException) 
+                : base(message, innerException)
+            {
+                PopulateDataProperty(functionArgument);
+            }
+
+            private void PopulateDataProperty(object functionArgument)
+            {
+                Data.Add("Function Argument", functionArgument.ToString());
+                // only for demo purposes
+                Console.WriteLine(Data["Function Argument"]);
+            }
         }
 
-        private void PrintExceptionDetails(Exception exception)
+        public static void Run()
         {
-            throw new NotImplementedException();
+            var stringToParse = "NaN";
+
+            try
+            {
+                Int32.Parse(stringToParse);
+            }
+            catch (Exception exception)
+            {
+                var NaNException = new NotANumberException(exception.Message, stringToParse, exception);
+                PrintExceptionDetails(NaNException);
+            }
+        }
+
+        private static void PrintExceptionDetails(Exception exception)
+        {
+            var properties = exception.GetType().GetProperties();
+            foreach (var property in properties)
+            {
+                Console.WriteLine(property.Name + ": " + property.GetValue(exception));
+            }
         }
     }
 }

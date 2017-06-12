@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Runtime.ExceptionServices;
 
 namespace Lessons._04
 {
@@ -10,7 +11,19 @@ namespace Lessons._04
     {
         public static void Run()
         {
-            throw new NotImplementedException();
+            try
+            {
+                Int32.Parse("NaN");
+            }
+            catch (Exception exception)
+            {
+                Console.WriteLine("Stack trace of exception in variable");
+                Console.WriteLine(exception.StackTrace);
+                var originalException = ExceptionDispatchInfo.Capture(exception);
+                Console.WriteLine("");
+                Console.WriteLine("Stack trace of original exception from ExceptionDispatchInfo");
+                originalException.Throw();
+            }
         }
     }
 }

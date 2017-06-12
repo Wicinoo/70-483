@@ -13,9 +13,30 @@ namespace Lessons._04
         [Fact]
         public void ParseUnsignedInteger_WhenNull_ShouldThrowArgumentNullException()
         {
-            throw new NotImplementedException();
+            Assert.Throws<ArgumentNullException>(() => ParseUnsignedInteger(null));
         }
 
+        [Fact]
+        public void ParseUnsignedInteger_WhenHasInvalidFormat_ShouldThrowFormatException()
+        {
+            Assert.Throws<FormatException>(() => ParseUnsignedInteger("A1"));
+        }
+
+        [Fact]
+        public void ParseUnsignedInteger_WhenIsLessThanMinValue_ShouldThrowOverflowException()
+        {
+            var minValue = UInt32.MinValue;
+
+            Assert.Throws<OverflowException>(() => ParseUnsignedInteger(checked(minValue - 10).ToString()));
+        }
+
+        [Fact]
+        public void ParseUnsignedInteger_WhenIsMoreThanMaxValue_ShouldThrowOverflowException()
+        {
+            var maxValue = UInt32.MaxValue;
+
+            Assert.Throws<OverflowException>(() => ParseUnsignedInteger(checked(maxValue + 10).ToString()));
+        }
         ///
         /// Summary:
         ///     Converts the string representation of a number to its 32-bit unsigned integer
@@ -38,9 +59,10 @@ namespace Lessons._04
         ///   T:System.OverflowException:
         ///     The s parameter represents a number that is less than System.UInt32.MinValue
         ///     or greater than System.UInt32.MaxValue.
-        public uint ParseUnsignedInteger(string s)
+        public UInt32 ParseUnsignedInteger(string s)
         {
-            throw new NotImplementedException();
+            Console.WriteLine(s);
+            return UInt32.Parse(s);
         }
     }
 }
