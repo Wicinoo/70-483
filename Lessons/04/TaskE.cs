@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Runtime.ExceptionServices;
 using System.Threading.Tasks;
 
 namespace Lessons._04
@@ -13,19 +14,45 @@ namespace Lessons._04
         public static void Run1()
         {
             // Implement global exception handling here ...
-
-            throw new InvalidOperationException("Unhandled exception on the main thread.");
-        }
+            try
+            {
+                throw new InvalidOperationException("Unhandled exception on the main thread.");
+            }
+            catch (Exception ex)
+            {
+                Print(ex.Message);
+                throw;
+            }
         
+        }
+
+        private static void Print(string value)
+        {
+            Console.WriteLine(value);
+        }
+
         public static void Run2()
         {
             // Implement global exception handling for all threads here ...
-
+            ExceptionDispatchInfo posibleException = null;
             Task.Run(() =>
             {
-                throw new InvalidOperationException("Unhandled exception on a task.");
+                try
+                {
+                    throw new InvalidOperationException("Unhandled exception on a task.");
+                }
+                catch (Exception ex)
+                {
+                    posibleException = ExceptionDispatchInfo.Capture(ex);
+                }
             })
             .Wait();
+
+            if (posibleException != null)
+            {
+                Print(posibleException.SourceException.Message);
+                posibleException.Throw();
+            }
         }
     }
 }
