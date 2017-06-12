@@ -1,0 +1,20 @@
+﻿* Read "Objective 1.5: Implement exception handling" to be able to:
+	- compare using exceptions and error codes.
+	- explain an unhandled exception.
+	- handle an exception by using try ... catch in an efficient way.
+	- understand all properties of System.Exception type - StackTrace, InnerException, Message, HelpLink, HResult, Source, TargetSite, Data.
+	- understand main exception types from .Net framework.
+	- use "finally" block in an efficient way.
+	- use Environment.FailFast() method.
+	- throw an exception.
+	- explain a difference between try { } catch(<ExceptionType>) { throw; } and try { } catch(<ExceptionType> exception) { throw exception; }
+	- create a custom exception and throw it. Why use [Serializable]?
+	- use ExceptionDispatchInfo type to move exception handling to another thread.
+	- understand why direct usage of Exception is not a good practice.
+
+* Walk through examples _01_ManyCatchBranches to _04_ExceptionDispatchInfo.
+
+* Solve TaskA - TaskE.
+	 
+* Commit all changes into your branch in the respository.
+* Update your lesson record on confluence.
