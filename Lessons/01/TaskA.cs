@@ -16,7 +16,30 @@ namespace Lessons._01
     {
         public static void Run()
         {
-            throw new NotImplementedException();
+            M2(DateTime.Today.AddDays(1).AddMinutes(23));
+        }
+
+        public delegate void PrintDateTimeFunnyInfo(DateTime time);
+
+        public static void M1(DateTime time) {
+            var minutesToNextLunch = 0;
+            DateTime nextLunchTime;
+            if (time.Hour > 11)
+            {
+                nextLunchTime = DateTime.Today.AddDays(1).AddHours(12);
+                minutesToNextLunch = (24 - (time.Hour - nextLunchTime.Hour)) * 60 - time.Minute;
+            } else
+            {
+                nextLunchTime = DateTime.Today.AddHours(12);
+                minutesToNextLunch = (nextLunchTime.Hour - time.Hour) * 60 - time.Minute;
+            }
+            Console.WriteLine($"Next lunch is in {minutesToNextLunch} minutes");   
+        }
+
+        public static void M2(DateTime time)
+        {
+            var dayNumber = (int) time.DayOfWeek;
+            Console.WriteLine($"Today is the day number {dayNumber} in this week");
         }
     }
 }

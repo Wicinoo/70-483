@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 
 namespace Lessons._02
 {
@@ -11,7 +12,14 @@ namespace Lessons._02
     {
         public static void Run()
         {
-            throw new NotImplementedException();
+            var numbers =  new int[] { 1, 2, 3 };
+
+            Parallel.ForEach(numbers, number =>
+            {
+                number++;
+            });
+
+            Console.ReadKey();
         }
     }
 }

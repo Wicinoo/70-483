@@ -13,7 +13,8 @@ namespace Lessons._04
         [Fact]
         public void ParseUnsignedInteger_WhenNull_ShouldThrowArgumentNullException()
         {
-            throw new NotImplementedException();
+            var exception = Record.Exception(() => ParseUnsignedInteger(null));
+            Assert.IsType(typeof(ArgumentNullException), exception);
         }
 
         ///

@@ -1,4 +1,7 @@
 ﻿using System;
+using System.Diagnostics;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Lessons._02
 {
@@ -10,7 +13,20 @@ namespace Lessons._02
     {
         public static void Run()
         {
-            throw new NotImplementedException();
+            ThreadPool.SetMaxThreads(10, 10);
+
+            var tasks = new Task[15];
+
+            Parallel.ForEach(tasks, task => {
+                var stopWatch = new Stopwatch();
+                stopWatch.Start();
+                Task.Run(() =>
+                {
+                });
+                stopWatch.Stop();
+                TimeSpan elapsed = stopWatch.Elapsed;
+                Console.WriteLine(String.Format("{0:00}:{1:0000}", elapsed.Seconds, elapsed.Milliseconds));
+            });
         }
     }
 }
