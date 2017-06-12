@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Security.Permissions;
 using System.Threading.Tasks;
 
 namespace Lessons._04
@@ -10,22 +11,31 @@ namespace Lessons._04
     /// </summary>
     public class TaskE
     {
+        [SecurityPermission(SecurityAction.Demand, Flags = SecurityPermissionFlag.ControlAppDomain)]
         public static void Run1()
         {
-            // Implement global exception handling here ...
+            AppDomain domain = AppDomain.CurrentDomain;
+            domain.UnhandledException += ErrorLogger;
 
             throw new InvalidOperationException("Unhandled exception on the main thread.");
         }
-        
+
         public static void Run2()
         {
-            // Implement global exception handling for all threads here ...
+            AppDomain domain = AppDomain.CurrentDomain;
+            domain.UnhandledException += ErrorLogger;
 
             Task.Run(() =>
             {
+                domain.UnhandledException += ErrorLogger;
                 throw new InvalidOperationException("Unhandled exception on a task.");
             })
             .Wait();
+        }
+
+        private static void ErrorLogger(object sender, UnhandledExceptionEventArgs args)
+        {
+            Console.WriteLine(((Exception)args.ExceptionObject).Message);
         }
     }
 }

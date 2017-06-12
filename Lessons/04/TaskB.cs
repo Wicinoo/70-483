@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Linq;
+using System.Text.RegularExpressions;
 using Xunit;
 
 namespace Lessons._04
@@ -13,7 +15,28 @@ namespace Lessons._04
         [Fact]
         public void ParseUnsignedInteger_WhenNull_ShouldThrowArgumentNullException()
         {
-            throw new NotImplementedException();
+            string s = null;
+
+            Action testTrigger = () => ParseUnsignedInteger(s);
+            Assert.Throws<ArgumentNullException>(testTrigger);
+        }
+
+        [Fact]
+        public void ParseUnsignedInteger_WhenNaN_ShouldThrowFormatException()
+        {
+            string s = "canOfBeans";
+
+            Action testTrigger = () => ParseUnsignedInteger(s);
+            Assert.Throws<FormatException>(testTrigger);
+        }
+
+        [Fact]
+        public void ParseUnsignedInteger_WhenBiggerThanUIntAllows_ShouldThrowOverflowException()
+        {
+            string s = "999999999999999999";
+
+            Action testTrigger = () => ParseUnsignedInteger(s);
+            Assert.Throws<OverflowException>(testTrigger);
         }
 
         ///
@@ -38,9 +61,19 @@ namespace Lessons._04
         ///   T:System.OverflowException:
         ///     The s parameter represents a number that is less than System.UInt32.MinValue
         ///     or greater than System.UInt32.MaxValue.
-        public uint ParseUnsignedInteger(string s)
+        public static uint ParseUnsignedInteger(string s)
         {
-            throw new NotImplementedException();
+            if (s == null)
+            {
+                throw new ArgumentNullException(nameof(s), "Parameter s cannot be null");
+            }
+
+            if (!s.Any(c => c >= '0' && c <= '9'))
+            {
+                throw new FormatException("Input string is not a number.");
+            }
+
+            return uint.Parse(s);
         }
     }
 }
