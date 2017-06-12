@@ -1,4 +1,6 @@
-﻿namespace Lessons._01
+﻿using System;
+
+namespace Lessons._01
 {
     public static class Runner
     {

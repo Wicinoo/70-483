@@ -2,6 +2,10 @@
 
 namespace Lessons._01
 {
+    delegate void ServiceCar(Car car);
+
+    delegate void ServiceBus(Bus bus);
+
     /// <summary>
     /// Have a class Car and its descendant Bus. 
     /// Declare delegates "void ServiceCar(Car car)" and "void ServiceBus(Bus bus)". 
@@ -13,7 +17,27 @@ namespace Lessons._01
     {
         public static void Run()
         {
-            throw new NotImplementedException();
+            ServiceCar changeCarTyre = ChangeTyre;
+            changeCarTyre(new Car());
+            changeCarTyre(new Bus());
+
+            ServiceBus changeBusTyre = ChangeTyre;
+            changeBusTyre(new Bus());
+
+            ServiceBus cleanBusInterior = CleanInterior;
+            cleanBusInterior(new Bus());
+        }
+
+        private static void ChangeTyre(Car car)
+        {
+        }
+
+        private static void CleanInterior(Bus bus)
+        {
         }
     }
+
+    class Car { }
+
+    class Bus : Car { }
 }

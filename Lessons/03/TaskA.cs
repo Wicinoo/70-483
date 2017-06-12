@@ -39,22 +39,49 @@ namespace Lessons._03
         }
     }
 
+    // even read/write to bool is atomic, because of delay in Stop we need to handle whole block as a critical section
     public class StartableSingleton
     {
         private bool _isStarted;
 
+        private object @lock;
+
+        public StartableSingleton()
+        {
+            @lock = new object();
+        }
+
         public void Start()
         {
+            lock (@lock)
+            {
+                if (_isStarted)
+                {
+                    Console.WriteLine("Refused as it has been already started.");
+                    return;
+                }
+
+                _isStarted = true;
+            }
+
             Console.WriteLine("Starting ...");
             Thread.Sleep(10);
-            _isStarted = true;
         }
 
         public void Stop()
         {
-            Console.WriteLine("Stopping ...");
-            Thread.Sleep(10);
-            _isStarted = false;
+            lock (@lock)
+            {
+                if (!_isStarted)
+                {
+                    Console.WriteLine("Refused as it is not started yet.");
+                    return;
+                }
+
+                Console.WriteLine("Stopping ...");
+                Thread.Sleep(10);
+                _isStarted = false;
+            }
         }
     }
 }
