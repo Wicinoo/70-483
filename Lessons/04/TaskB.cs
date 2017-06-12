@@ -16,6 +16,25 @@ namespace Lessons._04
             throw new NotImplementedException();
         }
 
+        [Fact]
+        public void ParseUnsignedInteger_WhenAlphaNumber_ShouldThrowFormatException()
+        {
+            
+        }
+
+        [Fact]
+        public void ParseUnsignedInteger_WhenLessThanMinValue_ShouldThrowOverflowException()
+        {
+
+        }
+
+        [Fact]
+        public void ParseUnsignedInteger_WhenMoreThanMaxValue_ShouldThrowOverflowException()
+        {
+
+        }
+        
+
         ///
         /// Summary:
         ///     Converts the string representation of a number to its 32-bit unsigned integer
@@ -40,7 +59,24 @@ namespace Lessons._04
         ///     or greater than System.UInt32.MaxValue.
         public uint ParseUnsignedInteger(string s)
         {
-            throw new NotImplementedException();
+            if (s == null)
+            {
+                throw new ArgumentNullException();
+            }
+
+            uint result;
+
+            if ( !UInt32.TryParse(s, out result) )
+            {
+                throw new FormatException();
+            }
+
+            if (result < System.UInt32.MinValue || result > System.UInt32.MaxValue )
+            {
+                throw new OverflowException();
+            }
+
+            return result;
         }
     }
 }

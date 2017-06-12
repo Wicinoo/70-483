@@ -10,7 +10,55 @@ namespace Lessons._04
     {
         public static void Run()
         {
-            throw new NotImplementedException();
+            Console.WriteLine("Throw without throw ex:");
+            try
+            {
+                ExampleThrow();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.StackTrace);
+            }
+
+            Console.WriteLine();
+            Console.WriteLine("Throw with throw ex:");
+            try
+            {
+                ExampleThrowEx();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.StackTrace);
+            }
+
+        }
+
+        public static void ExampleThrow()
+        {
+            try
+            {
+                GenerateException();
+            } catch (Exception ex)
+            {
+                throw;
+            }
+        }
+
+        public static void ExampleThrowEx()
+        {
+            try
+            {
+                GenerateException();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public static void GenerateException()
+        {
+            throw new ArgumentException();
         }
     }
 }
