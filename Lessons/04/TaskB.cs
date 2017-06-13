@@ -13,7 +13,41 @@ namespace Lessons._04
         [Fact]
         public void ParseUnsignedInteger_WhenNull_ShouldThrowArgumentNullException()
         {
-            throw new NotImplementedException();
+            Assert.Throws<ArgumentNullException>(() => ParseUnsignedInteger(null));
+        }
+
+        [Fact]
+        public void ParseUnsignedInteger_WhenInvalidFormat_ShouldThrowIFormatException()
+        {
+            Assert.Throws<FormatException>(() => ParseUnsignedInteger("bla bla"));
+        }
+
+        [Fact]
+        public void ParseUnsignedInteger_WhenOutOfRange_ShouldThrowOverflowException()
+        {
+            long value = (long)uint.MinValue - 1;
+            Assert.Throws<OverflowException>(() => ParseUnsignedInteger(value.ToString()));
+        }
+
+        [Fact]
+        public void ParseUnsignedInteger_WhenOutOfRange_ShouldThrowOverflowException2()
+        {
+            long value = (long)uint.MaxValue + 1;
+            Assert.Throws<OverflowException>(() => ParseUnsignedInteger(value.ToString()));
+        }
+
+        [Fact]
+        public void ParseUnsignedInteger_MinValue()
+        {
+            uint value = ParseUnsignedInteger(uint.MinValue.ToString());
+            Assert.Equal<uint>(value, uint.MinValue);
+        }
+
+        [Fact]
+        public void ParseUnsignedInteger_MaxValue()
+        {
+            uint value = ParseUnsignedInteger(uint.MaxValue.ToString());
+            Assert.Equal<uint>(value, uint.MaxValue);
         }
 
         ///
@@ -40,7 +74,23 @@ namespace Lessons._04
         ///     or greater than System.UInt32.MaxValue.
         public uint ParseUnsignedInteger(string s)
         {
-            throw new NotImplementedException();
+            if (s == null)
+            {
+                throw new ArgumentNullException(nameof(s), "Input string cannot be null.");
+            }
+
+            long result;
+            if (!long.TryParse(s, out result))
+            {
+                throw new FormatException("Invalid format of input string.");
+            }
+
+            if (result < uint.MinValue || result > uint.MaxValue)
+            {
+                throw new OverflowException($"Valid range if from {uint.MinValue} to {uint.MaxValue}");
+            }
+
+            return (uint)result;
         }
     }
 }
