@@ -34,7 +34,7 @@ namespace Lessons._04
             }
         }
 
-        private static void PrintExceptionDetails(Exception exception)
+        public static void PrintExceptionDetails(Exception exception)
         {
             foreach (var propertyInfo in exception.GetType().GetProperties())
             {
