@@ -10,7 +10,29 @@ namespace Lessons._04
     {
         public static void Run()
         {
-            throw new NotImplementedException();
+            try
+            {
+                try
+                {
+                    DivideByZero(10);
+                }
+                catch (DivideByZeroException exception)
+                {
+                    throw;
+                }
+            }
+            catch (Exception exception)
+            {
+                Console.WriteLine(exception);
+                throw exception;
+            }
+        }
+
+        public static void DivideByZero(int i)
+        {
+            int j = 0;
+            int k = i / j;
+            Console.WriteLine(k);
         }
     }
 }
