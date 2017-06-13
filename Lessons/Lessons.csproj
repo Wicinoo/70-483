@@ -119,6 +119,16 @@
     <Compile Include="03\_05_CancellationToken.cs" />
     <Compile Include="03\_06_ThrowingOperationCanceledException.cs" />
     <Compile Include="03\_07_TaskWaitAny.cs" />
+    <Compile Include="04\Runner.cs" />
+    <Compile Include="04\TaskA.cs" />
+    <Compile Include="04\TaskB.cs" />
+    <Compile Include="04\TaskC.cs" />
+    <Compile Include="04\TaskD.cs" />
+    <Compile Include="04\TaskE.cs" />
+    <Compile Include="04\_01_ManyCatchBranches.cs" />
+    <Compile Include="04\_02_MostImportantExceptionTypes.cs" />
+    <Compile Include="04\_03_RethrowingException.cs" />
+    <Compile Include="04\_04_ExceptionDispatchInfo.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -130,6 +140,7 @@
     <Content Include="01\_Assignment.txt" />
     <Content Include="02\_Assignment.txt" />
     <Content Include="03\_Assignment.txt" />
+    <Content Include="04\_Assignment.txt" />
     <Content Include="lib\FluentAssertions.Core.dll" />
     <Content Include="lib\FluentAssertions.Core.pdb" />
     <Content Include="lib\FluentAssertions.Core.xml" />
