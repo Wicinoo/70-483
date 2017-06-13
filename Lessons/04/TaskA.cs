@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 
 namespace Lessons._04
 {
@@ -13,12 +14,30 @@ namespace Lessons._04
     {
         public static void Run()
         {
-            throw new NotImplementedException();
+            try
+            {
+                var nre = new NullReferenceException();
+                var argNullEx = new ArgumentNullException("Exception message", nre);
+                argNullEx.Data["Foo"] = "Bar";
+                throw argNullEx;
+            }
+            catch (ArgumentNullException ex)
+            {
+                PrintExceptionDetails(ex);
+            }
+
         }
 
-        private void PrintExceptionDetails(Exception exception)
+        private static void PrintExceptionDetails(Exception exception)
         {
-            throw new NotImplementedException();
+            foreach (var propertyInfo in exception.GetType().GetProperties())
+            {
+                Console.WriteLine($"[{propertyInfo.Name}]: [{propertyInfo.GetValue(exception, null)}]");
+            }
+            foreach (DictionaryEntry data in exception.Data)
+            {
+                Console.WriteLine($"{data.Key} : {data.Value}");
+            }
         }
     }
 }
