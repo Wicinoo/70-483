@@ -13,6 +13,7 @@ namespace Lessons._04
         public static void Run1()
         {
             // Implement global exception handling here ...
+            System.AppDomain.CurrentDomain.UnhandledException += UnhandledExceptionHandler;
 
             throw new InvalidOperationException("Unhandled exception on the main thread.");
         }
@@ -20,12 +21,21 @@ namespace Lessons._04
         public static void Run2()
         {
             // Implement global exception handling for all threads here ...
+            System.AppDomain.CurrentDomain.UnhandledException += UnhandledExceptionHandler;
 
             Task.Run(() =>
             {
                 throw new InvalidOperationException("Unhandled exception on a task.");
             })
             .Wait();
+        }
+
+        public static void UnhandledExceptionHandler(object sender, UnhandledExceptionEventArgs e)
+        {
+            Console.WriteLine("caught");
+            Console.WriteLine(sender.ToString());
+            Console.ReadKey();
+            Environment.FailFast("Vsecko spatne");
         }
     }
 }
