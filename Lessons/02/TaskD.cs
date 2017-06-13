@@ -1,4 +1,7 @@
 ﻿using System;
+using System.Diagnostics;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Lessons._02
 {
@@ -10,7 +13,18 @@ namespace Lessons._02
     {
         public static void Run()
         {
-            throw new NotImplementedException();
+            ThreadPool.SetMaxThreads(10,10);
+
+            Stopwatch watch = new Stopwatch();
+            ;
+            for (int i = 0; i < 15; i++)
+            {
+                watch.Start();
+                ThreadPool.QueueUserWorkItem(x => { Thread.Sleep(1000); });
+                watch.Stop();
+                Console.WriteLine("Elapsed: {0}",watch.ElapsedMilliseconds);
+                watch.Restart();
+            }
         }
     }
 }
