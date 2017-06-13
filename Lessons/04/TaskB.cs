@@ -13,7 +13,36 @@ namespace Lessons._04
         [Fact]
         public void ParseUnsignedInteger_WhenNull_ShouldThrowArgumentNullException()
         {
-            throw new NotImplementedException();
+            Assert.Throws<ArgumentException>(() => ParseUnsignedInteger(null));
+        }
+
+        [Fact]
+        public void ParseUnsignedInteger_WhenAbc_ShouldThrowFormatExceptionException()
+        {
+            Assert.Throws<FormatException>(() => ParseUnsignedInteger("abc"));
+        }
+
+        [Fact]
+        public void ParseUnsignedInteger_WhenNegative_ShouldThrowOverflowExceptionException()
+        {
+            Assert.Throws<OverflowException>(() => ParseUnsignedInteger("-5"));
+        }
+
+        [Fact]
+        public void ParseUnsignedInteger_WhenDecimal_ShouldThrowFormatExceptionException()
+        {
+            Assert.Throws<FormatException>(() => ParseUnsignedInteger("0.555"));
+        }
+
+        public void ParseUnsignedInteger_WhenLongValue_ShouldThrowOverflowExceptionnException()
+        {
+            long maxValue = (long)UInt32.MaxValue + 1;
+            Assert.Throws<OverflowException>(() => ParseUnsignedInteger(maxValue.ToString()));
+        }
+
+        public void ParseUnsignedInteger_WhenTwo_ShouldReturnTwo()
+        {
+            Assert.True(2 == ParseUnsignedInteger("2"));
         }
 
         ///
@@ -40,7 +69,9 @@ namespace Lessons._04
         ///     or greater than System.UInt32.MaxValue.
         public uint ParseUnsignedInteger(string s)
         {
-            throw new NotImplementedException();
+            if(s == null)
+                throw new ArgumentException();
+            return Convert.ToUInt32(s);
         }
     }
 }

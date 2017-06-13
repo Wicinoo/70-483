@@ -10,7 +10,43 @@ namespace Lessons._04
     {
         public static void Run()
         {
-            throw new NotImplementedException();
+            try
+            {
+                try
+                {
+                    ThrowException();
+                }
+                catch (Exception)
+                {
+                    throw;
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.StackTrace);
+            }
+
+            try
+            {
+                try
+                {
+                    ThrowException();
+                }
+                catch (Exception e)
+                {
+                    throw e;
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.StackTrace);
+            }
+
+        }
+
+        public static void ThrowException()
+        {
+            throw new ArgumentException("Exception");
         }
     }
 }

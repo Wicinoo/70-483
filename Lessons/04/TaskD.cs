@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Runtime.Serialization;
 
 namespace Lessons._04
 {
@@ -10,7 +11,33 @@ namespace Lessons._04
     {
         public static void Run()
         {
-            throw new NotImplementedException();
+            try
+            {
+                ThrowMyException();
+            }
+            catch (MyException e)
+            {
+                Console.WriteLine(e.StackTrace);
+            }
         }
+
+        public static void ThrowMyException()
+        {
+           throw new MyException("bla",new ArgumentException()); 
+        }
+    }
+
+    public class MyException : Exception
+    {
+        public MyException(string message) : base(message)
+        {}
+
+        public MyException() { }
+
+        public MyException(string message, Exception innerException) : base(message,innerException)
+        { }
+
+        public MyException(SerializationInfo info,StreamingContext context) : base(info,context)
+        { }
     }
 }

@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
 
 namespace Lessons._04
 {
@@ -13,12 +15,44 @@ namespace Lessons._04
     {
         public static void Run()
         {
-            throw new NotImplementedException();
+            try
+            {
+                throw new ArgumentException();
+            }
+            catch (Exception e)
+            {
+                PrintExceptionDetails(e);
+            }
+
+            try
+            {
+               throw new ArgumentException("Exception 2", new ArgumentException("Exception1"));
+                
+            }
+            catch (Exception e)
+            {
+                PrintExceptionDetails(e.InnerException);
+            }
+
+            try
+            {
+                Dictionary<int, int> dic = new Dictionary<int, int>();
+                dic.Add(1, 1);
+                dic.Add(1, 1);
+            }
+            catch (Exception e)
+            {
+                PrintExceptionDetails(e);
+            }
+            
         }
 
-        private void PrintExceptionDetails(Exception exception)
+        private static void PrintExceptionDetails(Exception exception)
         {
-            throw new NotImplementedException();
+            foreach (PropertyDescriptor descriptor in TypeDescriptor.GetProperties(exception))
+            {
+                Console.WriteLine("[{0}]: [{1}]",descriptor.Name,descriptor.GetValue(exception));
+            }
         }
     }
 }
