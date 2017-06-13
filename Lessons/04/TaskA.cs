@@ -13,12 +13,47 @@ namespace Lessons._04
     {
         public static void Run()
         {
-            throw new NotImplementedException();
+            TaskA ex = new TaskA();
+
+            try
+            {
+                ex.CatchInner();
+            }
+            catch (Exception e)
+            {
+                PrintExceptionDetails(e);
+            }
         }
 
-        private void PrintExceptionDetails(Exception exception)
+        public void ThrowInner()
         {
-            throw new NotImplementedException();
+            throw new Exception("Exception in ThrowInner method.");
         }
+
+        public void CatchInner()
+        {
+            try
+            {
+                this.ThrowInner();
+            }
+            catch (Exception e)
+            {
+                throw new Exception("Error in CatchInner caused by calling the ThrowInner method.", e);
+            }
+        }
+
+        private static void PrintExceptionDetails(Exception exception)
+        {
+            Console.WriteLine($"[Message]: [{exception.Message}]");
+            Console.WriteLine($"[Data]: [{exception.Data}]");
+            Console.WriteLine($"[InnerException]: [{exception.InnerException}]");
+            Console.WriteLine($"[HResult]: [{exception.HResult}]");
+            Console.WriteLine($"[Source]: [{exception.Source}]");
+            Console.WriteLine($"[TargetSite]: [{exception.TargetSite}]");
+            Console.WriteLine($"[HelpLink]: [{exception.HelpLink}]");
+            Console.WriteLine($"[StackTrace]: [{exception.StackTrace}]");
+        }
+
+
     }
 }
