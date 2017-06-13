@@ -122,6 +122,7 @@
     <Compile Include="03\_05_CancellationToken.cs" />
     <Compile Include="03\_06_ThrowingOperationCanceledException.cs" />
     <Compile Include="03\_07_TaskWaitAny.cs" />
+    <Compile Include="04\Demo.cs" />
     <Compile Include="04\Runner.cs" />
     <Compile Include="04\TaskA.cs" />
     <Compile Include="04\TaskB.cs" />
