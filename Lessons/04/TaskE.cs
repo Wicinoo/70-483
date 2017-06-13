@@ -14,18 +14,32 @@ namespace Lessons._04
         {
             // Implement global exception handling here ...
 
-            throw new InvalidOperationException("Unhandled exception on the main thread.");
+            try
+            {
+                throw new InvalidOperationException("Unhandled exception on the main thread.");
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+            }
         }
         
         public static void Run2()
         {
             // Implement global exception handling for all threads here ...
 
-            Task.Run(() =>
+            try
             {
-                throw new InvalidOperationException("Unhandled exception on a task.");
-            })
-            .Wait();
+                Task.Run(() =>
+                {
+                    throw new InvalidOperationException("Unhandled exception on a task.");
+                })
+                    .Wait();
+            }
+            catch (AggregateException e)
+            {
+                Console.WriteLine($"There were {e.InnerExceptions.Count} exceptions");
+            }
         }
     }
 }
