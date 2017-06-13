@@ -12,7 +12,7 @@ namespace Lessons._02
         public static void Run()
         {
             // Set to false to demonstrate no thread-safety processing
-            const bool ThreadSafetyProcessing = true;   
+            const bool ThreadSafetyProcessing = false;   
 
             var recipients = new[] { "Recipient1", "Recipient2", "Recipient3" };
 

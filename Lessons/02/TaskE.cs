@@ -1,4 +1,7 @@
 ﻿using System;
+using System.Net.Http;
+using System.Threading.Tasks;
+using Rhino.Mocks.Constraints;
 
 namespace Lessons._02
 {
@@ -10,9 +13,31 @@ namespace Lessons._02
     /// </summary>
     public class TaskE
     {
-        public static void Run()
+        public static async Task Run()
         {
-            throw new NotImplementedException();
+            var reader = new SiteReader();
+
+            var pageContent = await reader.ReadAsync("http://www.google.com");
+
+            Console.WriteLine("Page content: {0}", pageContent);
+        }
+    }
+
+    public interface ISiteReader
+    {
+        Task<string> ReadAsync(string requestUrl);
+    }
+
+    public class SiteReader : ISiteReader
+    {
+        public async Task<string> ReadAsync(string requestUrl)
+        {
+            using (HttpClient client = new HttpClient())
+            {
+                string result = await client.GetStringAsync(requestUrl);
+                Console.WriteLine("Request was sent.");
+                return result;
+            }
         }
     }
 }
