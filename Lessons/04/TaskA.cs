@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections;
+using System.Reflection;
 
 namespace Lessons._04
 {
@@ -13,12 +15,58 @@ namespace Lessons._04
     {
         public static void Run()
         {
-            throw new NotImplementedException();
+            try
+            {
+                InnerException();
+            }
+            catch (Exception ex)
+            {   
+                Console.WriteLine("Exception with inner exception caught.");
+                PrintExceptionDetails(ex);
+            }
+
+            try
+            {
+                DataException();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Data exception caught.");
+                PrintExceptionDetails(ex);
+            }
         }
 
-        private void PrintExceptionDetails(Exception exception)
+        public static void InnerException()
         {
-            throw new NotImplementedException();
+            var e = new Exception("This statement is the original exception message.",
+                new Exception("This statement is inner exception message"));
+
+            throw e;
+        }
+
+        public static void DataException()
+        {
+            var e = new Exception("This statement is the original exception message.");
+
+            var info = "Data exception data";
+            var errorCode = -875;
+            var thrown = DateTime.Now;
+            e.Data.Add("DataException", info);
+            e.Data["ErrorCode"] = errorCode;
+            e.Data["DateTimeInfo"] = thrown;
+
+            throw e;
+        }
+
+        private static void PrintExceptionDetails(Exception exception)
+        {
+            var properties = exception.GetType().GetProperties();
+
+            foreach (var propertyInfo in properties)
+            {
+                var value = propertyInfo.GetValue(exception, null) ?? "(null)";
+                Console.WriteLine("[{0}]:[{1}]", propertyInfo.Name, value);
+            }
         }
     }
 }
