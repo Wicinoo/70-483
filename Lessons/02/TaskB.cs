@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Threading;
 
@@ -11,9 +12,22 @@ namespace Lessons._02
     /// </summary>
     public class TaskB
     {
+        protected static Stopwatch watch = new Stopwatch();
+
         public static void Run()
         {
-            throw new NotImplementedException();
+            var urls = new List<string>
+            {
+                "www.visualstudio.com",
+                "www.microsoft.com",
+                "www.google.com"
+            };
+
+            Console.WriteLine("Sequential processing");
+
+
+
+            Console.WriteLine("Parallel processing");
         }
     }
 }
