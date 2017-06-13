@@ -9,16 +9,16 @@ namespace Lessons
             //_01.Runner.Run();
             //_01.Demo.Run();
             //_02.Runner.Run();
+            //_02.Demo.Run();
+            //_03.Runner.Run();
 <<<<<<< HEAD
-            _02.Demo.Run();
+            _03.Demo.Run();
+=======
+            //_04.Runner.Run();
+>>>>>>> master
 
             Console.WriteLine();
             Console.WriteLine("Press a key ...");
-=======
-            //_03.Runner.Run();
-
-            Console.WriteLine("Press any key ...");
->>>>>>> master
             Console.ReadKey(); 
         }
     }
