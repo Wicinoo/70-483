@@ -18,9 +18,9 @@ namespace Lessons._04
             {
                 var x = 1 / (a * b % 6);
             }
-            catch (DivisibleBySixException ex)
+            catch (Exception ex)
             {
-
+                throw new DivisibleBySixException("The product was divisible by six", ex);
             }
         }
     }
@@ -29,5 +29,10 @@ namespace Lessons._04
     public class DivisibleBySixException : Exception, ISerializable
     {
         public DivisibleBySixException() { }
+
+        public DivisibleBySixException(string message, Exception innerException) : base(message, innerException)
+        {
+
+        }
     }
 }
