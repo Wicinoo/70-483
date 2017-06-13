@@ -43,18 +43,42 @@ namespace Lessons._03
     {
         private bool _isStarted;
 
+        private object _lock = new Object();
+
         public void Start()
         {
-            Console.WriteLine("Starting ...");
-            Thread.Sleep(10);
-            _isStarted = true;
+            lock (_lock)
+            {
+                if (_isStarted)
+                {
+                    Console.WriteLine("Singleton already runs, cannot be started.");
+                }
+                else
+                {
+                    Console.WriteLine("Starting ...");
+                    Thread.Sleep(10);
+                    _isStarted = true;
+                }
+            }
         }
 
         public void Stop()
         {
-            Console.WriteLine("Stopping ...");
-            Thread.Sleep(10);
-            _isStarted = false;
+            lock (_lock)
+            {
+                if (_isStarted)
+                {
+                    Console.WriteLine("Stopping ...");
+                    Thread.Sleep(10);
+                    _isStarted = false;
+                }
+                else
+                {
+                    Console.WriteLine("Singleton already stopped, cannot be stopped.");
+                }
+            }
+
+
         }
     }
 }
