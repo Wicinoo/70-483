@@ -13,25 +13,28 @@ namespace Lessons._04
         [Fact]
         public void ParseUnsignedInteger_WhenNull_ShouldThrowArgumentNullException()
         {
-            throw new NotImplementedException();
+            Exception ex = Assert.Throws<ArgumentNullException>(() => ParseUnsignedInteger(null));
         }
 
         [Fact]
         public void ParseUnsignedInteger_WhenAlphaNumber_ShouldThrowFormatException()
         {
-            
+            Exception ex = Assert.Throws<FormatException>(() => ParseUnsignedInteger("abc1234"));
         }
 
         [Fact]
         public void ParseUnsignedInteger_WhenLessThanMinValue_ShouldThrowOverflowException()
         {
+            int x = (int)System.UInt32.MinValue - 1;
+            Exception ex = Assert.Throws<OverflowException>(() => ParseUnsignedInteger(x.ToString()));
 
         }
 
         [Fact]
         public void ParseUnsignedInteger_WhenMoreThanMaxValue_ShouldThrowOverflowException()
         {
-
+            UInt64 x = (UInt64)System.UInt32.MaxValue + 1;
+            Exception ex = Assert.Throws<OverflowException>(() => ParseUnsignedInteger(x.ToString()));
         }
         
 
@@ -65,15 +68,18 @@ namespace Lessons._04
             }
 
             uint result;
+            double dResult;
+
+            double.TryParse(s, out dResult);
+
+            if (dResult < System.UInt32.MinValue || dResult > System.UInt32.MaxValue)
+            {
+                throw new OverflowException();
+            }
 
             if ( !UInt32.TryParse(s, out result) )
             {
                 throw new FormatException();
-            }
-
-            if (result < System.UInt32.MinValue || result > System.UInt32.MaxValue )
-            {
-                throw new OverflowException();
             }
 
             return result;
