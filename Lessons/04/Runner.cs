@@ -9,9 +9,9 @@
             //_03_RethrowingException.Run();
             //_04_ExceptionDispatchInfo.Run();
 
-            new TaskA().Run();
+            //new TaskA().Run();
             // TaskB contains xunit tests;
-            //TaskC.Run();
+            TaskC.Run();
             //TaskD.Run();
 
             //TaskE.Run1();
