@@ -1,6 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
-
+using System.Collections.Generic;
 namespace Lessons._04
 {
     /// <summary>
@@ -32,6 +32,23 @@ namespace Lessons._04
             {
                 PrintExceptionDetails(ex);
             }
+
+            try
+            {
+                DictionaryException();
+            }
+            catch (Exception ex)
+            {
+                PrintExceptionDetails(ex);
+            }
+
+        }
+
+        private static int DictionaryException()
+        {
+            Dictionary<int, int> dict = new Dictionary<int, int>() { { 1, 1 } };
+
+            return dict[2];
 
         }
 

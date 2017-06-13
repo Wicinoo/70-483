@@ -14,14 +14,17 @@ namespace Lessons._04
 
         public static void Run()
         {
-            try
+            ReadFile("");
+        }
+
+        public static void ReadFile(string fileName)
+        {
+            if (string.IsNullOrEmpty(fileName))
             {
                 throw new YourOwnCustomException();
             }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-            }
+
+            //some other important stuff
         }
     }
 }
