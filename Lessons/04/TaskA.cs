@@ -1,4 +1,9 @@
 ﻿using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.Runtime.InteropServices;
+using System.Threading.Tasks;
 using Lessons._03;
 using Rhino.Mocks.Constraints;
 
@@ -21,6 +26,7 @@ namespace Lessons._04
         }
         public void Run()
         {
+            _ui.Print("------ Standard exception----------------------------");
             try
             {
                 throw new ArgumentException("test");
@@ -29,22 +35,61 @@ namespace Lessons._04
             {
                 PrintExceptionDetails(ex);
             }
+
+            _ui.Print("------ Inner exception -------------------------------");
+
+            var task = Task.Run(() =>
+            {
+                throw  new ArgumentNullException("Argument is empty");
+            });
+
+            try
+            {
+                task.Wait();
+            }
+            catch (Exception ex)
+            {
+                PrintExceptionDetails(ex);
+            }
+            _ui.Print("------- Data --------------------------------");
+
+            try
+            {
+                var exeption = new ArgumentNullException(); 
+                exeption.Data.Add("Important", "This is important information");
+                throw exeption;
+            }
+            catch (Exception ex)
+            {
+                PrintExceptionDetails(ex);
+            }
+
         }
 
         private void PrintExceptionDetails(Exception exception)
         {
             var properties = exception.GetType().GetProperties();
+            _ui.Print("=> Properties:");
             foreach (var propertyInfo in properties)
             {
                 _ui.Print($"{propertyInfo.Name}:{propertyInfo.GetValue(exception)}");
-
             }
-            //_ui.Print($"{nameof(exception.HResult)}:{exception.HResult}");
 
-            //_ui.Print($"{nameof(exception.Data)}:{exception.Data}");
-            //_ui.Print($"{nameof(exception.HResult)}:{exception.HResult}");
-            //_ui.Print($"{nameof(exception.HResult)}:{exception.HResult}");
-            //throw new NotImplementedException();
+            _ui.Print("=> data:");
+            if (exception.Data.Count > 0)
+            {
+                foreach (DictionaryEntry dictionaryEntry in exception.Data)
+                {
+                    _ui.Print($"Data {dictionaryEntry.Key}:{dictionaryEntry.Value} ");
+                }
+            }
+
+            _ui.Print("=> Inner exception:");
+
+            if (exception.InnerException != null)
+            {
+                PrintExceptionDetails(exception.InnerException);
+            }
         }
     }
 
