@@ -1,5 +1,6 @@
 ﻿using System;
 using Xunit;
+using Xunit.Sdk;
 
 namespace Lessons._04
 {
@@ -13,9 +14,23 @@ namespace Lessons._04
         [Fact]
         public void ParseUnsignedInteger_WhenNull_ShouldThrowArgumentNullException()
         {
-            throw new NotImplementedException();
+            string input = null;
+            Assert.Throws<ArgumentNullException>(() => { ParseUnsignedInteger(input); });
         }
 
+        [Fact]
+        public void ParseUnsignedInteger_WhenNull_ShouldThrowFormatException()
+        {
+            string input = "test";
+            Assert.Throws<FormatException>(() => { ParseUnsignedInteger(input); });
+        }
+
+        [Fact]
+        public void ParseUnsignedInteger_WhenNull_ShouldThrowOverflowException()
+        {
+            var input = (UInt64) UInt32.MaxValue + 1;
+            Assert.Throws<OverflowException>(() => { ParseUnsignedInteger(input.ToString()); });
+        }
         ///
         /// Summary:
         ///     Converts the string representation of a number to its 32-bit unsigned integer
@@ -40,7 +55,7 @@ namespace Lessons._04
         ///     or greater than System.UInt32.MaxValue.
         public uint ParseUnsignedInteger(string s)
         {
-            throw new NotImplementedException();
+           return UInt32.Parse(s);
         }
     }
 }

@@ -11,11 +11,11 @@
 
             //new TaskA().Run();
             // TaskB contains xunit tests;
-            TaskC.Run();
+            //TaskC.Run();
             //TaskD.Run();
 
             //TaskE.Run1();
-            //TaskE.Run2();
+            TaskE.Run2();
         }
     }
 }

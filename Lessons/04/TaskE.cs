@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Net.Mime;
 using System.Runtime.ExceptionServices;
 using System.Threading.Tasks;
 
@@ -14,16 +15,9 @@ namespace Lessons._04
         public static void Run1()
         {
             // Implement global exception handling here ...
-            try
-            {
-                throw new InvalidOperationException("Unhandled exception on the main thread.");
-            }
-            catch (Exception ex)
-            {
-                Print(ex.Message);
-                throw;
-            }
-        
+            System.AppDomain.CurrentDomain.UnhandledException += UnhandledExceptionHandler;
+
+            throw new InvalidOperationException("Unhandled exception on the main thread.");
         }
 
         private static void Print(string value)
@@ -34,25 +28,22 @@ namespace Lessons._04
         public static void Run2()
         {
             // Implement global exception handling for all threads here ...
-            ExceptionDispatchInfo posibleException = null;
+            //Application.ThreadException += UnhandledThreadExceptionCatcher
+
+            System.AppDomain.CurrentDomain.UnhandledException += UnhandledExceptionHandler;
             Task.Run(() =>
             {
-                try
-                {
-                    throw new InvalidOperationException("Unhandled exception on a task.");
-                }
-                catch (Exception ex)
-                {
-                    posibleException = ExceptionDispatchInfo.Capture(ex);
-                }
+                throw new InvalidOperationException("Unhandled exception on a task.");
+
             })
             .Wait();
+        }
 
-            if (posibleException != null)
-            {
-                Print(posibleException.SourceException.Message);
-                posibleException.Throw();
-            }
+        private static void UnhandledExceptionHandler(object sender, UnhandledExceptionEventArgs e)
+        {
+            Exception ex = (Exception) e.ExceptionObject;
+            Print(ex.Message);
+            Console.WriteLine("Runtime terminating: {0}", e.IsTerminating);
         }
     }
 }
