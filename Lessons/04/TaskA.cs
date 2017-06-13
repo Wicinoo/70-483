@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Lessons._04
 {
@@ -13,12 +14,58 @@ namespace Lessons._04
     {
         public static void Run()
         {
-            throw new NotImplementedException();
+            try
+            {
+                RunWithInnerException();
+            }
+            catch (Exception exception)
+            {
+                PrintExceptionDetails(exception);
+            }
+
+            try
+            {
+                RunWithData();
+            }
+            catch (Exception exception)
+            {
+
+                PrintExceptionDetails(exception);
+            }
+
         }
 
-        private void PrintExceptionDetails(Exception exception)
+        private static void RunWithInnerException()
         {
-            throw new NotImplementedException();
+            try
+            {
+                var dictionary = new Dictionary<int, string>()[1];
+            }
+            catch (Exception exception)
+            {
+                throw new Exception("Failed to read from dictionary", exception);
+            }
+        }
+
+        private static void RunWithData()
+        {
+            try
+            {
+                var queue = new Queue<string>().Peek();
+            }
+            catch (Exception exception)
+            {
+                exception.Data.Add("Failed to read from queue", exception);
+                throw;
+            }
+        }
+
+        private static void PrintExceptionDetails(Exception exception)
+        {
+            foreach (var prop in exception.GetType().GetProperties())
+            {
+                Console.WriteLine($"{prop.Name}: {prop.GetValue(exception)}");
+            }
         }
     }
 }
