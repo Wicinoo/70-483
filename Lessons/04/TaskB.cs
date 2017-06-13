@@ -13,7 +13,20 @@ namespace Lessons._04
         [Fact]
         public void ParseUnsignedInteger_WhenNull_ShouldThrowArgumentNullException()
         {
-            throw new NotImplementedException();
+            Assert.Throws<ArgumentNullException>(() => ParseUnsignedInteger(null));
+        }
+
+        [Fact]
+        public void ParseUnsignedInteger_WhenNaN_ShouldThrowFormatException()
+        {
+            Assert.Throws<FormatException>(() => ParseUnsignedInteger("NaN"));
+        }
+
+        [Fact]
+        public void ParseUnsignedInteger_WhenOutOfRange_ShouldThrowOverflowExceptionException()
+        {
+            Assert.Throws<OverflowException>(() => ParseUnsignedInteger("-1"));
+            Assert.Throws<OverflowException>(() => ParseUnsignedInteger("4294967296"));
         }
 
         ///
@@ -40,7 +53,10 @@ namespace Lessons._04
         ///     or greater than System.UInt32.MaxValue.
         public uint ParseUnsignedInteger(string s)
         {
-            throw new NotImplementedException();
+            if (string.IsNullOrWhiteSpace(s))
+                throw new ArgumentNullException();
+
+            return Convert.ToUInt32(s);
         }
     }
 }
