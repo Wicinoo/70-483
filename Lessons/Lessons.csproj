@@ -1,5 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\xunit.runner.visualstudio.2.2.0\build\net20\xunit.runner.visualstudio.props" Condition="Exists('..\packages\xunit.runner.visualstudio.2.2.0\build\net20\xunit.runner.visualstudio.props')" />
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -12,6 +13,8 @@
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -119,16 +122,28 @@
     <Compile Include="03\_05_CancellationToken.cs" />
     <Compile Include="03\_06_ThrowingOperationCanceledException.cs" />
     <Compile Include="03\_07_TaskWaitAny.cs" />
+    <Compile Include="04\Runner.cs" />
+    <Compile Include="04\TaskA.cs" />
+    <Compile Include="04\TaskB.cs" />
+    <Compile Include="04\TaskC.cs" />
+    <Compile Include="04\TaskD.cs" />
+    <Compile Include="04\TaskE.cs" />
+    <Compile Include="04\_01_ManyCatchBranches.cs" />
+    <Compile Include="04\_02_MostImportantExceptionTypes.cs" />
+    <Compile Include="04\_03_RethrowingException.cs" />
+    <Compile Include="04\_04_ExceptionDispatchInfo.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="01\_Assignment.txt" />
     <Content Include="02\_Assignment.txt" />
     <Content Include="03\_Assignment.txt" />
+    <Content Include="04\_Assignment.txt" />
     <Content Include="lib\FluentAssertions.Core.dll" />
     <Content Include="lib\FluentAssertions.Core.pdb" />
     <Content Include="lib\FluentAssertions.Core.xml" />
@@ -147,7 +162,16 @@
     <Content Include="lib\xunit.execution.desktop.pdb" />
     <Content Include="lib\xunit.execution.desktop.xml" />
   </ItemGroup>
+  <ItemGroup>
+    <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\xunit.runner.visualstudio.2.2.0\build\net20\xunit.runner.visualstudio.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\xunit.runner.visualstudio.2.2.0\build\net20\xunit.runner.visualstudio.props'))" />
+  </Target>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
