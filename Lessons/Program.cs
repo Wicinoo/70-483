@@ -9,6 +9,11 @@ namespace Lessons
             //_01.Runner.Run();
 
             //_02.Runner.Run();
+<<<<<<< HEAD
+=======
+            //_03.Runner.Run();
+            //_04.Runner.Run();
+>>>>>>> refs/remotes/origin/master
 
             _03.Runner.Run();
 
