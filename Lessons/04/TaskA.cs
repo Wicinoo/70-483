@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 
 namespace Lessons._04
 {
@@ -18,7 +19,10 @@ namespace Lessons._04
 
         private void PrintExceptionDetails(Exception exception)
         {
-            throw new NotImplementedException();
+            foreach (PropertyDescriptor property in TypeDescriptor.GetProperties(exception))
+            {
+                Console.WriteLine("{0}: {1}", property.Name, property.GetValue(exception));
+            }
         }
     }
 }
