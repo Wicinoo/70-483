@@ -16,24 +16,21 @@ namespace Lessons._04
     {
         public static void Run()
         {
+            Wallet w0 = new Wallet(0);
             Wallet w = new Wallet(90);
             Wallet w2 = new Wallet(45);
-            Wallet w3 = new Wallet(12);
+            Wallet w3 = new Wallet(36);
             Wallet w4 = new Wallet(36);
-            Wallet w5 = new Wallet(36);
 
+            BuyOctan(ref w0);
             BuyPilsner(ref w);
             BuyPilsner(ref w);
             BuyPilsner(ref w2);
-            BuyPilsner(ref w3);
+            BuyOctan(ref w3);
+            BuyOctan(ref w3);
+            BuyOctan(ref w3);
+            BuyOctan(ref w3);
             BuyOctan(ref w4);
-            BuyOctan(ref w4);
-            BuyOctan(ref w4);
-            BuyOctan(ref w4);
-            BuyOctan(ref w4);
-            BuyOctan(ref w4);
-            BuyOctan(ref w5);
-            BuyOctan(ref w5);
         }
 
         public static void BuyPilsner(ref Wallet w)
