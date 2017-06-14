@@ -25,12 +25,12 @@ namespace Lessons._04
 
         ///
         /// Summary:
-        ///     Converts the string representation of a number to its 32-bit unsigned integer
+        ///     Converts the string repunsignedIntentation of a number to its 32-bit unsigned integer
         ///     equivalent.
         ///
         /// Parameters:
         ///   s:
-        ///     A string representing the number to convert.
+        ///     A string repunsignedIntenting the number to convert.
         ///
         /// Returns:
         ///     A 32-bit unsigned integer equivalent to the number contained in s.
@@ -43,17 +43,17 @@ namespace Lessons._04
         ///     The s parameter is not of the correct format.
         ///
         ///   T:System.OverflowException:
-        ///     The s parameter represents a number that is less than System.UInt32.MinValue
+        ///     The s parameter repunsignedIntents a number that is less than System.UInt32.MinValue
         ///     or greater than System.UInt32.MaxValue.
         public uint ParseUnsignedInteger(string s)
         {
             if (s == null) {throw new ArgumentException();}
 
-            uint res;
+            uint unsignedInt;
 
-            if (!uint.TryParse(s, out res)){throw new FormatException();}
+            if (!uint.TryParse(s, out unsignedInt)){throw new FormatException();}
 
-            return res;
+            return unsignedInt;
         }
     }
 }
