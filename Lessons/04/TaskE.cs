@@ -15,12 +15,14 @@ namespace Lessons._04
             // Implement global exception handling here ...
 
             System.AppDomain.CurrentDomain.UnhandledException += UnhandledExceptionTrapper;
+
             throw new Exception("Kaboom");
         }
 
         public static void Run2()
         {
             // Implement global exception handling for all threads here ...
+            System.AppDomain.CurrentDomain.UnhandledException += UnhandledExceptionTrapper;
 
             Task.Run(() =>
             {
