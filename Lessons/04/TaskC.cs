@@ -10,7 +10,40 @@ namespace Lessons._04
     {
         public static void Run()
         {
-            throw new NotImplementedException();
+            ThrowAndPrint(true);
+
+            ThrowAndPrint(false);
+        }
+
+        private static void ThrowAndPrint(bool saveStackTrace)
+        {
+            try
+            {
+                Throw(saveStackTrace);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine($"SaveStackTrace: {saveStackTrace} Exception: {e}");
+            }
+        }
+
+        private static void Throw(bool saveStackTrace)
+        {
+            try
+            {
+                throw new Exception("This is my exception. Look at stacktraces !");
+            }
+            catch (Exception e)
+            {
+                if (saveStackTrace)
+                {
+                    throw;
+                }
+                else
+                {
+                    throw e;
+                }
+            }
         }
     }
 }

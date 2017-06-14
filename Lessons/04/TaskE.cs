@@ -12,14 +12,25 @@ namespace Lessons._04
     {
         public static void Run1()
         {
-            // Implement global exception handling here ...
+            AppDomain.CurrentDomain.UnhandledException += GlobalExceptionHandler;
 
             throw new InvalidOperationException("Unhandled exception on the main thread.");
         }
-        
+
+        private static void GlobalExceptionHandler(object sender, UnhandledExceptionEventArgs e)
+        {
+            Console.WriteLine("Global Exception Handler:");
+
+            Console.WriteLine(e.ExceptionObject);
+
+            Console.ReadLine();
+
+            Environment.Exit(1);
+        }
+
         public static void Run2()
         {
-            // Implement global exception handling for all threads here ...
+            AppDomain.CurrentDomain.UnhandledException += GlobalExceptionHandler;
 
             Task.Run(() =>
             {
