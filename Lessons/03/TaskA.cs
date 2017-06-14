@@ -45,6 +45,12 @@ namespace Lessons._03
 
         public void Start()
         {
+            if (_isStarted)
+            {
+                Console.WriteLine("Refused as it has been already started.");
+                return;
+            }
+
             Console.WriteLine("Starting ...");
             Thread.Sleep(10);
             _isStarted = true;
@@ -52,6 +58,12 @@ namespace Lessons._03
 
         public void Stop()
         {
+            if (!_isStarted)
+            {
+                Console.WriteLine("Refused as it is not started yet.");
+                return;
+            }
+
             Console.WriteLine("Stopping ...");
             Thread.Sleep(10);
             _isStarted = false;
