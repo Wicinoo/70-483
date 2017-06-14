@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Security.Permissions;
 using System.Threading.Tasks;
 
 namespace Lessons._04
@@ -8,24 +9,36 @@ namespace Lessons._04
     /// and print them out in the console.
     /// Processing should not continue after handling.
     /// </summary>
-    public class TaskE
+    public static class TaskE
     {
+        [SecurityPermission(SecurityAction.Demand, Flags = SecurityPermissionFlag.ControlAppDomain)]
         public static void Run1()
         {
             // Implement global exception handling here ...
+            AppDomain.CurrentDomain.UnhandledException += new UnhandledExceptionEventHandler((sender, e) => { Console.WriteLine("Handling uncaught exception + " + e.ToString()); });
 
             throw new InvalidOperationException("Unhandled exception on the main thread.");
         }
-        
+
+        [SecurityPermission(SecurityAction.Demand, Flags = SecurityPermissionFlag.ControlAppDomain)]
         public static void Run2()
         {
-            // Implement global exception handling for all threads here ...
+            AppDomain.CurrentDomain.UnhandledException += new UnhandledExceptionEventHandler((sender, e) => { Console.WriteLine("Handling uncaught exception + " + e.ToString()); });
 
-            Task.Run(() =>
+            try
             {
-                throw new InvalidOperationException("Unhandled exception on a task.");
-            })
-            .Wait();
+                Task.Run(() =>
+                {
+                    throw new InvalidOperationException("Unhandled exception on a task.");
+                })
+                   .ContinueWith(t => { throw t.Exception; }, TaskScheduler.FromCurrentSynchronizationContext()).Wait();
+            }
+            catch (AggregateException e)
+            {
+                e.Flatten();
+            }
+
+
         }
     }
 }

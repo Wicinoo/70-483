@@ -10,7 +10,60 @@ namespace Lessons._04
     {
         public static void Run()
         {
-            throw new NotImplementedException();
+            try
+            {
+                SubMethodThrows();
+            }
+            catch (Exception e)
+            {                
+                Console.WriteLine("Using Throw :");
+                Console.WriteLine(e.StackTrace);
+            }
+
+            try
+            {
+                SubMethodThrowException();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Using Throw Exception :");
+                Console.WriteLine(e.StackTrace);
+            }
+        }
+
+
+        private static void SubMethodCore()
+        {
+            var someThing = int.Parse("abcd");
+        }
+
+        private static void SubMethodOne()
+        {
+            SubMethodCore();
+        }
+
+        private static void SubMethodThrows()
+        {
+            try
+            {
+                SubMethodOne();
+            }
+            catch (Exception)
+            { 
+                throw;
+            }
+        }
+
+        private static void SubMethodThrowException()
+        {
+            try
+            {
+                SubMethodOne();
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
         }
     }
 }

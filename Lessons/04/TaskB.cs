@@ -1,5 +1,7 @@
 ﻿using System;
+using Rhino.Mocks;
 using Xunit;
+using Xunit.Sdk;
 
 namespace Lessons._04
 {
@@ -13,7 +15,19 @@ namespace Lessons._04
         [Fact]
         public void ParseUnsignedInteger_WhenNull_ShouldThrowArgumentNullException()
         {
-            throw new NotImplementedException();
+            Assert.Throws(typeof (ArgumentNullException), () => ParseUnsignedInteger(null));
+        }
+
+        [Fact]
+        public void ParseUnsignedInteger_WhenNull_FormatException()
+        {
+            Assert.Throws(typeof(FormatException), () => ParseUnsignedInteger("not a number"));
+        }
+
+        [Fact]
+        public void ParseUnsignedInteger_WhenNull_OverflowException()
+        {
+            Assert.Throws(typeof(OverflowException), () => ParseUnsignedInteger("861687186768686846468468468416841614684684"));
         }
 
         ///
@@ -40,7 +54,13 @@ namespace Lessons._04
         ///     or greater than System.UInt32.MaxValue.
         public uint ParseUnsignedInteger(string s)
         {
-            throw new NotImplementedException();
+            if (s == null)
+            {
+                throw new ArgumentNullException(nameof(s), "The s parameter is null.");
+            }
+
+            return uint.Parse(s);
+ 
         }
     }
 }
