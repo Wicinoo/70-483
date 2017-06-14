@@ -20,6 +20,8 @@ namespace Lessons._04
             Wallet w2 = new Wallet(45);
             Wallet w3 = new Wallet(12);
             Wallet w4 = new Wallet(36);
+            Wallet w5 = new Wallet(36);
+
             BuyPilsner(ref w);
             BuyPilsner(ref w);
             BuyPilsner(ref w2);
@@ -28,6 +30,10 @@ namespace Lessons._04
             BuyOctan(ref w4);
             BuyOctan(ref w4);
             BuyOctan(ref w4);
+            BuyOctan(ref w4);
+            BuyOctan(ref w4);
+            BuyOctan(ref w5);
+            BuyOctan(ref w5);
         }
 
         public static void BuyPilsner(ref Wallet w)
