@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Threading.Tasks;
 
 namespace Lessons._04
@@ -14,9 +14,10 @@ namespace Lessons._04
         {
             // Implement global exception handling here ...
 
-            throw new InvalidOperationException("Unhandled exception on the main thread.");
+            System.AppDomain.CurrentDomain.UnhandledException += UnhandledExceptionTrapper;
+            throw new Exception("Kaboom");
         }
-        
+
         public static void Run2()
         {
             // Implement global exception handling for all threads here ...
@@ -26,6 +27,14 @@ namespace Lessons._04
                 throw new InvalidOperationException("Unhandled exception on a task.");
             })
             .Wait();
+        }
+
+        static void UnhandledExceptionTrapper(object sender, UnhandledExceptionEventArgs e)
+        {
+            Console.WriteLine(e.ExceptionObject.ToString());
+            Console.WriteLine("Press Enter to continue");
+            Console.ReadLine();
+            Environment.Exit(1);
         }
     }
 }
