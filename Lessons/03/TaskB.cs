@@ -16,6 +16,8 @@ namespace Lessons._03
         [InlineData(4, true)]
         [InlineData(5, false)]
         [InlineData(8, true)]
+        [InlineData(1024, true)]
+        [InlineData(int.MaxValue, false)]
         public void IsPowerOfTwo_ForGivenNumber_ShouldReturnExpected(int number, bool expectedIsPowerOfTwo)
         {
             var isPowerOfTwo = IsPowerOfTwo(number);
@@ -24,7 +26,13 @@ namespace Lessons._03
 
         private bool IsPowerOfTwo(int number)
         {
-            throw new System.NotImplementedException();
+            if (number <= 0)
+                return false;
+
+            number -= 1;
+            var greaterNumber = number*2 + 1;
+            var bitComparison = greaterNumber & number;
+            return bitComparison == number;
         }
     }
 }
