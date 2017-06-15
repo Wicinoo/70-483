@@ -1,4 +1,6 @@
-﻿namespace Lessons._05
+﻿using System;
+
+namespace Lessons._05
 {
     /// <summary>
     /// Print the ancestors of FooClass and FooStruct.
@@ -8,8 +10,9 @@
     {
         public static void Run()
         {
-            // Print "The ancestor type of FooClass is ?."
-            // Print "The ancestor type of FooStruct is ?."
+            Console.WriteLine($"The ancestor type of FooClass is {typeof(FooClass).BaseType.Name}.");
+
+            Console.WriteLine($"The ancestor type of FooStruct is {typeof(FooStruct).BaseType.Name}.");
         }
     }
 
