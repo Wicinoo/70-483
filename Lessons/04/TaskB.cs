@@ -13,7 +13,21 @@ namespace Lessons._04
         [Fact]
         public void ParseUnsignedInteger_WhenNull_ShouldThrowArgumentNullException()
         {
-            throw new NotImplementedException();
+            Assert.Throws(typeof (ArgumentNullException), () => ParseUnsignedInteger(null));
+        }
+
+        [Fact]
+        public void ParseUnsignedInteger_WhenInvalidFormat_ShouldThrowFormatException()
+        {
+            Assert.Throws(typeof(FormatException), () => ParseUnsignedInteger("3.0"));
+        }
+
+        [Fact]
+        public void ParseUnsignedInteger_WhenNotUInt32_ShouldThrowOverflowException()
+        {
+            var veryBigInt = (ulong) uint.MaxValue;
+            veryBigInt += 50;
+            Assert.Throws(typeof(OverflowException), () => ParseUnsignedInteger(veryBigInt.ToString()));
         }
 
         ///
@@ -40,7 +54,10 @@ namespace Lessons._04
         ///     or greater than System.UInt32.MaxValue.
         public uint ParseUnsignedInteger(string s)
         {
-            throw new NotImplementedException();
+            if (s == null)
+                throw new ArgumentNullException(nameof(s));
+
+            return uint.Parse(s);
         }
     }
 }
