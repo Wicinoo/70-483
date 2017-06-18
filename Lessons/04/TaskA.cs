@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Linq;
+using System.Runtime.InteropServices;
 
 namespace Lessons._04
 {
@@ -13,12 +15,14 @@ namespace Lessons._04
     {
         public static void Run()
         {
-            throw new NotImplementedException();
+            PrintExceptionDetails(new ArgumentNullException());
         }
 
-        private void PrintExceptionDetails(Exception exception)
+        private static void PrintExceptionDetails(Exception exception)
         {
-            throw new NotImplementedException();
+            var properties = exception.GetType().GetProperties().ToList();
+
+            properties.ForEach(prop => Console.WriteLine($"{prop.Name}: {prop.GetValue(exception, null)}"));
         }
     }
 }

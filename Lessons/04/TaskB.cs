@@ -1,5 +1,6 @@
 ﻿using System;
 using Xunit;
+using Xunit.Sdk;
 
 namespace Lessons._04
 {
@@ -13,7 +14,9 @@ namespace Lessons._04
         [Fact]
         public void ParseUnsignedInteger_WhenNull_ShouldThrowArgumentNullException()
         {
-            throw new NotImplementedException();
+            Assert.ThrowsAny<ArgumentNullException>(() => ParseUnsignedInteger(null));
+            Assert.ThrowsAny<FormatException>(() => ParseUnsignedInteger("Three"));
+            Assert.ThrowsAny<OverflowException>(() => ParseUnsignedInteger(((decimal)uint.MaxValue + 1).ToString()));
         }
 
         ///
@@ -40,7 +43,9 @@ namespace Lessons._04
         ///     or greater than System.UInt32.MaxValue.
         public uint ParseUnsignedInteger(string s)
         {
-            throw new NotImplementedException();
+            if (string.IsNullOrEmpty(s)) throw new ArgumentNullException("Value cannot be null or empty.", nameof(s));
+
+            return uint.Parse(s);
         }
     }
 }

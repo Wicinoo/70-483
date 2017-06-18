@@ -10,7 +10,16 @@ namespace Lessons._04
     {
         public static void Run()
         {
-            throw new NotImplementedException();
+            try
+            {
+                var s = int.Parse("Three");
+            }
+            catch (Exception exception)
+            {
+                
+                //throw exception;
+                throw;
+            }
         }
     }
 }
