@@ -16,6 +16,23 @@ namespace Lessons._05
             });
 
             Console.WriteLine(googleContentLazy.Value);
+
+            var googleContentUnsafe = new LazyThreadUnsafe<string>(() => 
+            new WebClient().DownloadString("http://www.google.com"));
+
+            Console.WriteLine(googleContentUnsafe.Value);
+        }
+
+        public class LazyThreadUnsafe<T>
+        {
+            private readonly Func<T> _valueFactory;
+
+            public LazyThreadUnsafe(Func<T> valueFactory)
+            {
+                _valueFactory = valueFactory;
+            }
+
+            public T Value => _valueFactory.Invoke();
         }
     }
 }
