@@ -10,12 +10,17 @@ namespace Lessons._05
     {
         public static void Run()
         {
-            Lazy<string> googleContentLazy = new Lazy<string>(() =>
+            var googleLazyUnsafe = new LazyThreadUnsafe<string>(() =>
             {
                 return new WebClient().DownloadString("http://www.google.com");
             });
 
-            Console.WriteLine(googleContentLazy.Value);
+            Console.WriteLine(googleLazyUnsafe.Value);
         }
+
+		public class LazyThreadUnsafe<T> : System.Lazy<T> {
+			public LazyThreadUnsafe(Func<T> valueFactory): base(valueFactory, false) {
+			}
+		}
     }
 }
