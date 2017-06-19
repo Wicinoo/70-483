@@ -13,11 +13,12 @@ namespace Lessons._05
         {
             var week = new Week();
 
-            var allDaysOfWeek = new DayOfWeek[0]; // #3 get all DayOfWeek values 
+            var allDaysOfWeek = Enum.GetValues(typeof(DayOfWeek)); // #3 get all DayOfWeek values 
 
             foreach (var dayOfWeek in allDaysOfWeek)
             {
                 // #4 Console.WriteLine(week[dayOfWeek]);
+                Console.WriteLine(week[(int)dayOfWeek]);
             }
         }
     }
@@ -30,9 +31,25 @@ namespace Lessons._05
             new DayMessageRule(day => day == DateTime.Now.DayOfWeek, day => $"{day} is today."),
 
             // #1 add a rule for "Day is coming."
+            new DayMessageRule(day => day > DateTime.Now.DayOfWeek, day => $"{day} is coming.")
         };
 
         // #2 add an indexer that returns a message for a DayOfWeek value
+        public string this[int index]
+        {
+            get
+            {
+                foreach (var dayMessageRole in dayMessageRules)
+                {
+                    if (dayMessageRole.Predicate((DayOfWeek)index))
+                    {
+                        return dayMessageRole.Message((DayOfWeek)index);
+                    }
+
+                }
+                return string.Empty;
+            }
+        }
 
         struct DayMessageRule
         {
