@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Net;
+using System.Threading.Tasks;
 
 namespace Lessons._05
 {
@@ -16,6 +17,26 @@ namespace Lessons._05
             });
 
             Console.WriteLine(googleContentLazy.Value);
+
+            LazyThreadUnsafe<string> googleContentLazyThreadUnsafe = new LazyThreadUnsafe<string>(() =>
+            {
+                return new WebClient().DownloadString("http://www.google.com");
+            });
+
+            Parallel.For(1, 10, (i) =>
+            {
+                Console.WriteLine(googleContentLazyThreadUnsafe.Value);
+            });
+        }
+    }
+
+    public class LazyThreadUnsafe<T>
+    {
+        public Func<T> Value; 
+
+        public LazyThreadUnsafe(Func<T> valueFactory)
+        {
+            Value = valueFactory;
         }
     }
 }
