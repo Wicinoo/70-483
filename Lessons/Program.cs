@@ -13,7 +13,8 @@ namespace Lessons
             //_03.Runner.Run();
             //_03.Demo.Run();
             //_04.Runner.Run();
-            _05.Runner.Run();
+            //_05.Runner.Run();
+            _05.Demo.Run();
 
             Console.WriteLine();
             Console.WriteLine("Press a key ...");

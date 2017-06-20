@@ -133,6 +133,8 @@
     <Compile Include="04\_02_MostImportantExceptionTypes.cs" />
     <Compile Include="04\_03_RethrowingException.cs" />
     <Compile Include="04\_04_ExceptionDispatchInfo.cs" />
+    <Compile Include="05\Demo.cs" />
+    <Compile Include="05\DemoSolid.cs" />
     <Compile Include="05\Runner.cs" />
     <Compile Include="05\TaskA.cs" />
     <Compile Include="05\TaskB.cs" />
