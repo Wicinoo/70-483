@@ -10,12 +10,42 @@ namespace Lessons._05
     {
         public static void Run()
         {
-            Lazy<string> googleContentLazy = new Lazy<string>(() =>
+            //Lazy<string> googleContentLazy = new Lazy<string>(() =>
+            //{
+            //    return new WebClient().DownloadString("http://www.google.com");
+            //});
+
+            //Console.WriteLine(googleContentLazy.Value);
+
+            LazyThreadUnsafe<string> googleContentLazyThreadUnsafe = new LazyThreadUnsafe<string>(() =>
             {
                 return new WebClient().DownloadString("http://www.google.com");
             });
 
-            Console.WriteLine(googleContentLazy.Value);
+            Console.WriteLine(googleContentLazyThreadUnsafe.Value);
+        }
+    }
+
+    public class LazyThreadUnsafe<T>
+        where T : class
+    {
+        private Func<T> valueFactory;
+
+        private T value;
+
+        public T Value
+        {
+            get
+            {
+                return value ?? (value = this.valueFactory());
+            }
+        }
+
+        public LazyThreadUnsafe(Func<T> valueFactory)
+        {
+            if (valueFactory == null)
+                throw new ArgumentNullException(nameof(valueFactory));
+            this.valueFactory = valueFactory;
         }
     }
 }
