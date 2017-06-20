@@ -14,7 +14,7 @@
             //TaskC.Run();
             //TaskD.Run();
 
-            //TaskE.Run1();
+            TaskE.Run1();
             //TaskE.Run2();
         }
     }
