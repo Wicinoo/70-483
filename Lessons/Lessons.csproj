@@ -41,6 +41,7 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>lib\FluentAssertions.Core.dll</HintPath>
     </Reference>
+    <Reference Include="PresentationFramework" />
     <Reference Include="Rhino.Mocks">
       <HintPath>lib\Rhino.Mocks.dll</HintPath>
     </Reference>
