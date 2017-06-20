@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Lessons._05
 {
@@ -13,11 +14,11 @@ namespace Lessons._05
         {
             var week = new Week();
 
-            var allDaysOfWeek = new DayOfWeek[0]; // #3 get all DayOfWeek values 
+            var allDaysOfWeek = Enum.GetValues(typeof(DayOfWeek)).Cast<DayOfWeek>().ToList(); // #3 get all DayOfWeek values - done
 
             foreach (var dayOfWeek in allDaysOfWeek)
             {
-                // #4 Console.WriteLine(week[dayOfWeek]);
+                Console.WriteLine(week[dayOfWeek]);
             }
         }
     }
@@ -28,11 +29,16 @@ namespace Lessons._05
         {
             new DayMessageRule(day => day < DateTime.Now.DayOfWeek, day => $"{day} is gone."),
             new DayMessageRule(day => day == DateTime.Now.DayOfWeek, day => $"{day} is today."),
-
-            // #1 add a rule for "Day is coming."
+            new DayMessageRule(day => day > DateTime.Now.DayOfWeek, day => $"{day} is comming.")
+            // #1 add a rule for "Day is coming." - done
         };
 
-        // #2 add an indexer that returns a message for a DayOfWeek value
+        // #2 add an indexer that returns a message for a DayOfWeek value - done
+
+        public string this[DayOfWeek dayOfWeek]
+        {
+            get { return dayMessageRules.First(x => x.Predicate.Invoke(dayOfWeek)).Message.Invoke(dayOfWeek); }
+        }
 
         struct DayMessageRule
         {
