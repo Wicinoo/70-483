@@ -1,0 +1,30 @@
+﻿* Read "Objective 2.1: Create types" to be able to:
+	- know all main kinds of types in C# (value, reference, pointer) and explain main differences.
+	- explain differences between the heap and the stack.
+	- decide when it is better to use a value type instead of a reference one.
+	- explain what is System.Object and its properties/methods.
+	- create a value type.
+	- understand difference between "function" and "method". 
+	- create an enum, set indexes, use [Flags] 
+	- explain Law of Demeter on an example.
+	- understand optional parameters and named arguments.
+	- explain overloading methods.
+	- understand access modificators - public, protected, private, internal, internal protected.
+	- understand "readonly" field modificator.
+	- understand using indexers.
+	- create a custom constructor, use this() and base() keywords and know best practices for constructors.
+	- explain High cohesion and Low coupling.
+	- explain the acronym SOLID and each of its principles on basic level.
+	- explain what is generic.
+	- create a generic class.
+	- explain possible constraints applied on generic parameters.
+	- understand how Nullable<T> is implemented.
+	- create an extension method.
+	- explain an example of creating an extension method for an interface.
+
+* Check images ValueAndReferenceTypes?.png.
+
+* Solve TaskA - TaskD.
+	 
+* Commit all changes into your branch in the respository.
+* Update your lesson record on confluence.
