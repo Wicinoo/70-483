@@ -13,12 +13,31 @@ namespace Lessons._04
     {
         public static void Run()
         {
-            throw new NotImplementedException();
+            try
+            {
+                throw new NotImplementedException("Missing implementation");
+            }
+            catch (NotImplementedException ex)
+            {
+                PrintExceptionDetails(ex);
+            }
+
+            try
+            {
+                throw new InvalidOperationException("This operation is not supported", new ArithmeticException("Cannot calculate this"));
+            }
+            catch (InvalidOperationException exception)
+            {
+                PrintExceptionDetails(exception);
+            }
         }
 
-        private void PrintExceptionDetails(Exception exception)
+        private static void PrintExceptionDetails(Exception exception)
         {
-            throw new NotImplementedException();
+            foreach (var property in exception.GetType().GetProperties())
+            {
+                Console.WriteLine($"{property.Name}: {property.GetValue(exception)}");
+            }
         }
     }
 }

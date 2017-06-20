@@ -10,7 +10,27 @@ namespace Lessons._04
     {
         public static void Run()
         {
-            throw new NotImplementedException();
+            try
+            {
+                int number = 0;
+
+                decimal result = Divide(1, number);
+            }
+            catch (DivideByZeroException exception)
+            {
+                Console.WriteLine("You don't divide by zero");
+
+                //Doesn't reset the stacktrace
+                //throw;
+
+                //Resets the stacktrace
+                throw exception;
+            }
+        }
+
+        private static decimal Divide(int x, int y)
+        {
+            return (decimal)x / y;
         }
     }
 }

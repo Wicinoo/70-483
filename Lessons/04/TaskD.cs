@@ -10,7 +10,28 @@ namespace Lessons._04
     {
         public static void Run()
         {
-            throw new NotImplementedException();
+            decimal number = 2;
+            
+            try
+            {
+                PrintOddNumber(number);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+        }
+
+        public static void PrintOddNumber(decimal number)
+        {
+            if (number % 2 == 0)
+            {
+                throw new EvenNumberException();
+            }
+            
+            Console.WriteLine($"Odd number you entered: {number}");
         }
     }
+
+    public class EvenNumberException : Exception { }
 }
