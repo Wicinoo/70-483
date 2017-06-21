@@ -12,10 +12,31 @@ namespace Lessons._05
         {
             Lazy<string> googleContentLazy = new Lazy<string>(() =>
             {
-                return new WebClient().DownloadString("http://www.google.com");
+                Console.WriteLine($"'Lazy' just called");
+                return new WebClient().DownloadString("http://www.google.com").Length.ToString();
             });
-
+            Console.WriteLine($"Lazy prepared");
             Console.WriteLine(googleContentLazy.Value);
+
+            LazyThreadUnsafe<string> googleContetnThreadUnsafe = new LazyThreadUnsafe<string>(() =>
+            {
+                Console.WriteLine($"'Own Lazy' just called");
+                return new WebClient().DownloadString("http://www.google.com").Length.ToString();
+            });
+            Console.WriteLine($"Own Lazy prepared");
+            Console.WriteLine(googleContetnThreadUnsafe.Value);
         }
+    }
+
+    public class LazyThreadUnsafe<T> where T : class
+    {
+        private readonly Func<T> _valueFactory;
+
+        public LazyThreadUnsafe(Func<T> valueFactory )
+        {
+            _valueFactory = valueFactory;
+        }
+
+        public T Value => (T)_valueFactory.Invoke();
     }
 }
