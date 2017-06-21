@@ -129,6 +129,11 @@
     <Compile Include="04\_02_MostImportantExceptionTypes.cs" />
     <Compile Include="04\_03_RethrowingException.cs" />
     <Compile Include="04\_04_ExceptionDispatchInfo.cs" />
+    <Compile Include="05\Runner.cs" />
+    <Compile Include="05\TaskA.cs" />
+    <Compile Include="05\TaskB.cs" />
+    <Compile Include="05\TaskC.cs" />
+    <Compile Include="05\TaskD.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -140,6 +145,11 @@
     <Content Include="02\_Assignment.txt" />
     <Content Include="03\_Assignment.txt" />
     <Content Include="04\_Assignment.txt" />
+    <Content Include="05\ValueAndReferenceTypes1.png" />
+    <Content Include="05\ValueAndReferenceTypes2.png" />
+    <Content Include="05\ValueAndReferenceTypes3.png" />
+    <Content Include="05\ValueAndReferenceTypes4.png" />
+    <Content Include="05\_Assignment.txt" />
     <Content Include="lib\FluentAssertions.Core.dll" />
     <Content Include="lib\FluentAssertions.Core.pdb" />
     <Content Include="lib\FluentAssertions.Core.xml" />
