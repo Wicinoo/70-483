@@ -1,4 +1,7 @@
 ﻿using System;
+using System.Linq;
+using System.Text;
+using System.Collections.Generic;
 using Xunit;
 
 namespace Lessons._06
@@ -51,67 +54,152 @@ namespace Lessons._06
             [InlineData("Keep@it@secret!", "-.-|.|.|.--.|.--.-.|..|-|.--.-.|...|.|-.-.|.-.|.|-|-.-.--")]
             public void Ctor_ForGivenTextAndDefaultDelimiter_ShouldReturnExpectedFromImplicitConversion(string text, string expectedMorseCodeText)
             {
-                throw new NotImplementedException();
+                
+                var morseCode = new MorseCode(text);
+                string morseCodeText = morseCode;
 
-                //var morseCode = new MorseCode(text);
-                //string morseCodeText = morseCode;
-
-                //Assert.Equal(expectedMorseCodeText, morseCodeText);
+                Assert.Equal(expectedMorseCodeText, morseCodeText);
             }
 
             [Fact]
             public void Ctor_ForGivenTextAndExplicitDelimiter_ShouldReturnExpectedFromImplicitConversion()
             {
-                throw new NotImplementedException();
+				var morseCode = new MorseCode("helpme", "*");
+				string morseCodeText = morseCode;
+				var expectedMorseCodeText = "....*.*.-..*.--.*--*.";
 
-                //var morseCode = new MorseCode("helpme", "*");
-                //string morseCodeText = morseCode;
-                //var expectedMorseCodeText = "....*.*.-..*.--.*--*.";
-
-                //Assert.Equal(expectedMorseCodeText, morseCodeText);
-            }
+				Assert.Equal(expectedMorseCodeText, morseCodeText);
+			}
 
             [Fact]
             public void ImplicitConversionFromString_ForGivenString_ShouldReturnExpectedFromImplicitConversion()
             {
-                throw new NotImplementedException();
+				MorseCode morseCode = "helpme";
+				string morseCodeText = morseCode;
+				var expectedMorseCodeText = "....|.|.-..|.--.|--|.";
 
-                //MorseCode morseCode = "helpme";
-                //string morseCodeText = morseCode;
-                //var expectedMorseCodeText = "....|.|.-..|.--.|--|.";
-
-                //Assert.Equal(expectedMorseCodeText, morseCodeText);
-            }
+				Assert.Equal(expectedMorseCodeText, morseCodeText);
+			}
         }
 
         public class MorseCode
         {
-            public MorseCode(string morseCodeWithDelimiters, string _morseDelimiter = MorseCodeConstants.MorseCodesSeparator)
+
+			public string TranslatedText { get; private set; }
+
+            public MorseCode(string morseCodeWithDelimiters, string _morseDelimiter = null)
             {
-                throw new NotImplementedException();
+				_morseDelimiter = _morseDelimiter ?? MorseCodeConstants.MorseCodesSeparator.ToString();
+				TranslatedText = MorseCodeConverter.ToMorseCode(morseCodeWithDelimiters, _morseDelimiter);
             }
 
-            // Implement implicit operator for converting from string to MorseCode.
-            // Implement implicit operator for converting from MorseCode to string.
-        }
+			public static implicit operator string(MorseCode mc)
+			{
+				return mc.TranslatedText;
+			}
+
+			public static implicit operator MorseCode(string @string)
+			{
+				return new MorseCode(@string);
+			}
+
+			// Implement implicit operator for converting from string to MorseCode.
+			// Implement implicit operator for converting from MorseCode to string.
+		}
 
         public static class MorseCodeConverter
         {
+			
+
             public static string ToMorseCode(string text)
             {
-                throw new NotImplementedException();
+				return ToMorseCode(text, MorseCodeConstants.MorseCodesSeparator);
             }
+
+			public static string ToMorseCode(string text, string delimiter = null)
+			{
+				delimiter = delimiter ?? MorseCodeConstants.MorseCodesSeparator.ToString();
+				return ToMorseCode(text, delimiter.First());
+			}
+
+			private static string ToMorseCode(string text, char delimiter)
+			{
+				StringBuilder sb = new StringBuilder();
+				text.ToList().ForEach(x => {
+					sb.Append(MorseCodeConstants.MorseCodeDict.FirstOrDefault(y => y.Key == char.ToLower(x)).Value ?? "").Append(delimiter);
+					}
+				);
+
+				return sb.ToString().TrimEnd(delimiter);
+			}
 
             public static string FromMorseCode(string morseCode)
             {
-                throw new NotImplementedException();
-            }
+				StringBuilder sb = new StringBuilder();
+				morseCode.Split(MorseCodeConstants.MorseCodesSeparator).ToList().ForEach(x => {
+					sb.Append(MorseCodeConstants.MorseCodeDict.FirstOrDefault(y => y.Value == x).Key);
+					}
+				);
+
+				return sb.ToString().TrimEnd('\0');
+			}
         }
 
         public class MorseCodeConstants
         {
-            public const string MorseCodesSeparator = "|";
+			//rewritten to use char instead of string. I really dont see any reason to use string as default delmiter
+            public const char MorseCodesSeparator = '|';
 
+			public static Dictionary<char, string> MorseCodeDict = new Dictionary<char, string>()
+			{
+				{'0', "-----"},
+				{'1', ".----"},
+				{'2', "..---"},
+				{'3', "...--"},
+				{'4', "....-"},
+				{'5', "....."},
+				{'6', "-...."},
+				{'7', "--..."},
+				{'8', "---.."},
+				{'9', "----."},
+				{'a', ".-"},
+				{'b', "-..."},
+				{'c', "-.-."},
+				{'d', "-.."},
+				{'e', "."},
+				{'f', "..-."},
+				{'g', "--."},
+				{'h', "...."},
+				{'i', ".."},
+				{'j', ".---"},
+				{'k', "-.-"},
+				{'l', ".-.."},
+				{'m', "--"},
+				{'n', "-."},
+				{'o', "---"},
+				{'p', ".--."},
+				{'q', "--.-"},
+				{'r', ".-."},
+				{'s', "..."},
+				{'t', "-"},
+				{'u', "..-"},
+				{'v', "...-"},
+				{'w', ".--"},
+				{'x', "-..-"},
+				{'y', "-.--"},
+				{'z', "--.."},
+				{'.', ".-.-.-"},
+				{',', "--..--"},
+				{'?', "..--.."},
+				{'!', "-.-.--"},
+				{'-', "-....-"},
+				{'/', "-..-."},
+				{'@', ".--.-."},
+				{'(', "-.--."},
+				{ ')', "-.--.-" }
+			};
+
+			//why? just why?
             public const string MorseAlphabetAsJson =
                 @"
 {
