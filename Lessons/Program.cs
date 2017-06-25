@@ -11,7 +11,8 @@ namespace Lessons
             //_02.Runner.Run();
             //_03.Runner.Run();
             //_04.Runner.Run();
-            _05.Runner.Run();
+            //_05.Runner.Run();
+            //_06.Runner.Run();
 
             TaskE.Run2();
 
