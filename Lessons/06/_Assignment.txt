@@ -1,0 +1,32 @@
+﻿* Read "Objective 2.2: Consume types" to be able to:
+	- explain boxing and unboxing by way on examples.
+	- explain implicit type conversion.
+	- explain explicit type conversion including InvalidCastException.
+	- explain implicit and explicit user-defined conversions.
+	- use System.Convert class to convert between values types. Difference between Parse() and TryParse().
+	- explain meaning of System.IConvertible.
+	- explain usage of "is" and "as" operators.
+	- describe when is an usage of "dynamic" keyword appropriate. Compile-time errors x Run-time errors.
+	- create a subclass of DynamicObject and get or set its content.
+	- explain how does ExpandoObject work (see ViewBag in MVC fmw).
+
+* Run _01_UserDefinedConversions.cs and _02_UsingDynamicToExportToExcel.cs
+
+* Check images Conversion?.png.
+
+* Read "Objective 2.3: Enforce encapsulation" to be able to:
+	- explain why we need "encapsulation" and how we can achieve it.
+	- explain all access modifiers for a class as well as for type members (private, protected, internal, protected internal, public).
+	- use InternalsVisibleTo attribute for an assembly.
+	- create a property with a backing field.
+	- set different access levels for get and set of a property.
+	- understand auto-implemented property.
+	- write read-only or write-only properties.
+	- use an explicit interface implementation.
+
+* Check images AccessModifiers?.png.
+
+* Solve TaskA - TaskC.
+	 
+* Commit all changes into your branch in the respository.
+* Update your lesson record on confluence.
