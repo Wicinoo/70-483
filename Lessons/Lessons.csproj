@@ -155,6 +155,7 @@
     <Compile Include="05\TaskB.cs" />
     <Compile Include="05\TaskC.cs" />
     <Compile Include="05\TaskD.cs" />
+    <Compile Include="06\MyDynamicSession.cs" />
     <Compile Include="06\Runner.cs" />
     <Compile Include="06\TaskA.cs" />
     <Compile Include="06\TaskB.cs" />
