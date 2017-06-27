@@ -15,19 +15,133 @@ namespace Lessons._06
     /// </summary>
     public class TaskB
     {
+        // Implement missing tests
         [Fact]
         public void ToDecimal_ForAnyValidMoney_ShouldReturnItsAmount()
         {
-            throw new NotImplementedException();
-            /// Convert.ToDecimal(new Money(1234.50M, "USD"));   // 1234.50M 
+            Assert.Equal(1234.50M, Convert.ToDecimal(new Money(1234.50M, "USD")));     
         }
 
-        // Implement missing tests
+        [Fact]
+        public void ToInt32_ForAnyValidNonIntegerMoney_ShouldThrowInvalidCastException()
+        {
+            Assert.Throws<InvalidCastException>(() => Convert.ToInt32(new Money(1234.50M, "USD")));
+        }
 
-        class Money
+        [Fact]
+        public void ToInt32_ForAnyValidIntegerMoney_ShouldReturnItsAmount()
+        {
+            Assert.Equal(1234, Convert.ToDecimal(new Money(1234, "USD")));
+        }
+
+        [Fact]
+        public void ToBoolean_ForAnyValidNonIntegerMoney_ShouldThrowInvalidCastException()
+        {
+            Assert.Throws<InvalidCastException>(() => Convert.ToBoolean(new Money(1234, "USD")));
+        }
+
+
+        class Money : IConvertible
         {
             decimal Amount { get; }
             string Currency { get; }
+
+            public Money(decimal amount, string currency)
+            {
+                Amount = amount;
+                Currency = currency;
+            }
+
+
+            public TypeCode GetTypeCode()
+            {
+                throw new NotImplementedException();
+            }
+
+            public bool ToBoolean(IFormatProvider provider)
+            {
+                throw new InvalidCastException();
+            }
+
+            public char ToChar(IFormatProvider provider)
+            {
+                throw new NotImplementedException();
+            }
+
+            public sbyte ToSByte(IFormatProvider provider)
+            {
+                throw new NotImplementedException();
+            }
+
+            public byte ToByte(IFormatProvider provider)
+            {
+                throw new NotImplementedException();
+            }
+
+            public short ToInt16(IFormatProvider provider)
+            {
+                throw new NotImplementedException();
+            }
+
+            public ushort ToUInt16(IFormatProvider provider)
+            {
+                throw new NotImplementedException();
+            }
+
+            public int ToInt32(IFormatProvider provider)
+            {
+                if (Amount == (int)Amount)
+                {
+                    return (int)Amount;
+                }
+
+                throw new InvalidCastException();
+            }
+
+            public uint ToUInt32(IFormatProvider provider)
+            {
+                throw new NotImplementedException();
+            }
+
+            public long ToInt64(IFormatProvider provider)
+            {
+                throw new NotImplementedException();
+            }
+
+            public ulong ToUInt64(IFormatProvider provider)
+            {
+                throw new NotImplementedException();
+            }
+
+            public float ToSingle(IFormatProvider provider)
+            {
+                throw new NotImplementedException();
+            }
+
+            public double ToDouble(IFormatProvider provider)
+            {
+                throw new NotImplementedException();
+            }
+
+            public decimal ToDecimal(IFormatProvider provider)
+            {
+                return Amount;
+            }
+
+            public DateTime ToDateTime(IFormatProvider provider)
+            {
+                throw new NotImplementedException();
+            }
+
+            public string ToString(IFormatProvider provider)
+            {
+                throw new NotImplementedException();
+            }
+
+            public object ToType(Type conversionType, IFormatProvider provider)
+            {
+                throw new NotImplementedException();
+            }
         }
     }
 }
