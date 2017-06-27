@@ -10,7 +10,33 @@ namespace Lessons._04
     {
         public static void Run()
         {
-            throw new NotImplementedException();
+            try
+            {
+                CheckTime();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+            }
+        }
+
+        private static void CheckTime()
+        {
+            for (int i = 50; i > 0; i--)
+            {
+                if (i < 30)
+                {
+                    throw new NotEnoughTimeExcpetion("Not enough time to finish assignment.");
+                }
+            }
+        }
+    }
+
+    public class NotEnoughTimeExcpetion : Exception
+    {
+        public NotEnoughTimeExcpetion(string msg) : base(msg)
+        {
+
         }
     }
 }

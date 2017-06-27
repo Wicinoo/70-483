@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Lessons._04
@@ -12,17 +13,26 @@ namespace Lessons._04
     {
         public static void Run1()
         {
-            // Implement global exception handling here ...
+            AppDomain.CurrentDomain.UnhandledException += new UnhandledExceptionEventHandler(UnhandledExceptionHandler);
 
             throw new InvalidOperationException("Unhandled exception on the main thread.");
         }
-        
+
+        private static void UnhandledExceptionHandler(object sender, UnhandledExceptionEventArgs e)
+        {
+            Console.WriteLine(e.ExceptionObject);
+            Console.ReadLine();
+            Environment.Exit(1);
+        }
+
         public static void Run2()
         {
-            // Implement global exception handling for all threads here ...
+            //AppDomain.CurrentDomain.UnhandledException += new UnhandledExceptionEventHandler(UnhandledExceptionHandler);
 
             Task.Run(() =>
             {
+                Thread.GetDomain().UnhandledException += new UnhandledExceptionEventHandler(UnhandledExceptionHandler);
+
                 throw new InvalidOperationException("Unhandled exception on a task.");
             })
             .Wait();
