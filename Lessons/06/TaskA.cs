@@ -136,40 +136,16 @@ namespace Lessons._06
 
             public static string ToMorseCode(string text, string delimiter = MorseCodeConstants.MorseCodesSeparator)
             {
-                if (String.IsNullOrEmpty(text)) return string.Empty;
-                string result = string.Empty;
-                System.Text.StringBuilder sb = new System.Text.StringBuilder();
-
-                foreach (char c in text.ToLower().ToCharArray())
-                {
-                    if (_alfaCodes.TryGetValue(c, out result))
-                    {
-                        if (sb.Length > 0)
-                        {
-                            sb.Append(delimiter);
-                        }
-                        sb.Append(result);
-                    }
-                }
-
-                return sb.ToString();
+                return string.Join(delimiter,
+                    text.ToLower().ToCharArray()
+                    .Select(x => _alfaCodes.ContainsKey(x) ? _alfaCodes[x] : string.Empty));
             }
 
             public static string FromMorseCode(string morseCode, string delimiter = MorseCodeConstants.MorseCodesSeparator)
             {
-                if (String.IsNullOrEmpty(morseCode)) return string.Empty;
-                char result;
-                System.Text.StringBuilder sb = new System.Text.StringBuilder();
-
-                foreach (string code in morseCode.Split(new string[] { delimiter }, StringSplitOptions.RemoveEmptyEntries))
-                {
-                    if (_morseCodes.TryGetValue(code, out result))
-                    {
-                        sb.Append(result);
-                    }
-                }
-
-                return sb.ToString();
+                return string.Join("",
+                    morseCode.Split(new string[] { delimiter }, StringSplitOptions.RemoveEmptyEntries)
+                    .Select(x => _morseCodes.ContainsKey(x) ? _morseCodes[x].ToString() : string.Empty));
             }
         }
 
