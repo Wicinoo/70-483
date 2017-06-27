@@ -7,7 +7,7 @@
             //_01_UserDefinedConversions.Run();
             TaskA.MorseCodeConverter.ToMorseCode("ahoj");
             //_02_UsingDynamicToExportToExcel.Run();
-            //TaskC.Run();
+            TaskC.Run();
         }
     }
 }

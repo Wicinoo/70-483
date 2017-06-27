@@ -22,15 +22,15 @@ namespace Lessons._06
         }
 
         [Fact]
-        public void ToInt32_ForAnyValidMoney_ShouldReturnItsAmount()
+        public void ToInt32_ForAnyValidMoney_ShouldThrowInvalidCastException()
         {
             Assert.Throws<InvalidCastException>(() => Convert.ToInt32(new Money(1234.50M, "USD")));
         }
 
         [Fact]
-        public void ToInt32_ForAnyValidMoney_ShouldThrowInvalidCastException()
+        public void ToInt32_ForAnyValidMoney_ShouldReturnItsAmount()
         {
-            Assert.True(Convert.ToDecimal(new Money(1234, "USD")) == (decimal)1234.50M);   // 1234.50M 
+            Assert.True(Convert.ToInt32(new Money(1234, "USD")) == (decimal)1234M);   // 1234.50M 
         }
 
         [Fact]
@@ -41,8 +41,8 @@ namespace Lessons._06
 
         class Money : IConvertible
         {
-            decimal Amount { get; }
-            string Currency { get; }
+            decimal Amount { get; set; }
+            string Currency { get; set; }
 
             public Money(decimal amount, string currency)
             {
@@ -57,7 +57,7 @@ namespace Lessons._06
 
             public bool ToBoolean(IFormatProvider provider)
             {
-                throw new NotImplementedException();
+                throw new InvalidCastException();
             }
 
             public byte ToByte(IFormatProvider provider)
@@ -92,6 +92,10 @@ namespace Lessons._06
 
             public int ToInt32(IFormatProvider provider)
             {
+                if (Math.Floor(this.Amount) - this.Amount != 0)
+                {
+                    throw new InvalidCastException();
+                }
                 return (Int32) this.Amount;
             }
 
