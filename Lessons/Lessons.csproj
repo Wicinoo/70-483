@@ -41,6 +41,15 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>lib\FluentAssertions.Core.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.Office.Interop.Excel, Version=14.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+      <HintPath>lib\Microsoft.Office.Interop.Excel.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>lib\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="Rhino.Mocks">
       <HintPath>lib\Rhino.Mocks.dll</HintPath>
     </Reference>
@@ -140,6 +149,12 @@
     <Compile Include="05\TaskB.cs" />
     <Compile Include="05\TaskC.cs" />
     <Compile Include="05\TaskD.cs" />
+    <Compile Include="06\Runner.cs" />
+    <Compile Include="06\TaskA.cs" />
+    <Compile Include="06\TaskB.cs" />
+    <Compile Include="06\TaskC.cs" />
+    <Compile Include="06\_01_UserDefinedConversions.cs" />
+    <Compile Include="06\_02_UsingDynamicToExportToExcel.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -156,12 +171,28 @@
     <Content Include="05\ValueAndReferenceTypes3.png" />
     <Content Include="05\ValueAndReferenceTypes4.png" />
     <Content Include="05\_Assignment.txt" />
+    <Content Include="06\AccessModifiers1.png" />
+    <Content Include="06\AccessModifiers2.png" />
+    <Content Include="06\Conversions1.png" />
+    <Content Include="06\Conversions2.png" />
+    <Content Include="06\Conversions3.png" />
+    <Content Include="06\Conversions4.png" />
+    <Content Include="06\Conversions5.png" />
+    <Content Include="06\Conversions6.png" />
+    <Content Include="06\Conversions7.png" />
+    <Content Include="06\_Assignment.txt" />
     <Content Include="lib\FluentAssertions.Core.dll" />
     <Content Include="lib\FluentAssertions.Core.pdb" />
     <Content Include="lib\FluentAssertions.Core.xml" />
     <Content Include="lib\FluentAssertions.dll" />
     <Content Include="lib\FluentAssertions.pdb" />
     <Content Include="lib\FluentAssertions.xml" />
+    <Content Include="lib\Microsoft.Office.Interop.Excel.dll" />
+    <Content Include="lib\Microsoft.Office.Interop.Excel.xml" />
+    <Content Include="lib\Newtonsoft.Json.dll" />
+    <Content Include="lib\Newtonsoft.Json.xml" />
+    <Content Include="lib\Rhino.Mocks.dll" />
+    <Content Include="lib\Rhino.Mocks.xml" />
     <Content Include="lib\xunit.abstractions.dll" />
     <Content Include="lib\xunit.abstractions.xml" />
     <Content Include="lib\xunit.assert.dll" />
