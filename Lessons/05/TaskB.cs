@@ -47,7 +47,7 @@ namespace Lessons._05
         {
             OpeningDays dayOfWeek;
             Enum.TryParse(Enum.GetName(typeof (DayOfWeek), DateTime.Now.DayOfWeek), out dayOfWeek);
-            return (dayOfWeek & day) != OpeningDays.None ? OpenClose.Open : OpenClose.Close;
+            return day.HasFlag(dayOfWeek) ? OpenClose.Open : OpenClose.Close;
         }
     }
 }
