@@ -18,16 +18,139 @@ namespace Lessons._06
         [Fact]
         public void ToDecimal_ForAnyValidMoney_ShouldReturnItsAmount()
         {
-            throw new NotImplementedException();
-            /// Convert.ToDecimal(new Money(1234.50M, "USD"));   // 1234.50M 
+            var actual = Convert.ToDecimal(new Money(1234.50M, "USD"));   // 1234.50M 
+            Assert.Equal(actual, 1234.50M);
+        }
+
+        [Fact]
+        public void ToInt_ForAnyValidMoney_ShouldReturnExceptionForNonWholeAmount()
+        {
+            Assert.Throws(typeof (InvalidCastException),
+                () => { var actual = Convert.ToInt32(new Money(1234.50M, "USD")); });
+        }
+
+        [Fact]
+        public void ToInt_ForAnyValidMoney_ShouldReturnItsAmountForWholeAmount()
+        {
+            var actual = Convert.ToInt32(new Money(1234, "USD"));
+
+            Assert.Equal(actual, 1234);
+        }
+
+        [Fact]
+        public void ToBoolean_ForAnyValidMoney_ShouldReturnExceptionForNonWholeAmount()
+        {
+            Assert.Throws(typeof(InvalidCastException),
+                () => { var actual = Convert.ToBoolean(new Money(1234, "USD")); });
         }
 
         // Implement missing tests
 
-        class Money
+
+        class Money : IConvertible
         {
+            public Money(decimal amount, string currency)
+            {
+                Amount = amount;
+                Currency = currency;
+            }
+
             decimal Amount { get; }
             string Currency { get; }
+
+            public bool ToBoolean(IFormatProvider provider)
+            {
+                throw new InvalidCastException();
+            }
+
+            public int ToInt32(IFormatProvider provider)
+            {
+                if (decimal.Floor(Amount) == Amount)
+                {
+                    return (int)Amount;
+                }
+                else
+                {
+                    throw new InvalidCastException();
+                }
+            }
+
+            public decimal ToDecimal(IFormatProvider provider)
+            {
+                return Amount;
+            }
+
+            public TypeCode GetTypeCode()
+            {
+                throw new NotImplementedException();
+            }
+
+            public char ToChar(IFormatProvider provider)
+            {
+                throw new NotImplementedException();
+            }
+
+            public sbyte ToSByte(IFormatProvider provider)
+            {
+                throw new NotImplementedException();
+            }
+
+            public byte ToByte(IFormatProvider provider)
+            {
+                throw new NotImplementedException();
+            }
+
+            public short ToInt16(IFormatProvider provider)
+            {
+                throw new NotImplementedException();
+            }
+
+            public ushort ToUInt16(IFormatProvider provider)
+            {
+                throw new NotImplementedException();
+            }
+
+            public uint ToUInt32(IFormatProvider provider)
+            {
+                throw new NotImplementedException();
+            }
+
+            public long ToInt64(IFormatProvider provider)
+            {
+                throw new NotImplementedException();
+            }
+
+            public ulong ToUInt64(IFormatProvider provider)
+            {
+                throw new NotImplementedException();
+            }
+
+            public float ToSingle(IFormatProvider provider)
+            {
+                throw new NotImplementedException();
+            }
+
+            public double ToDouble(IFormatProvider provider)
+            {
+                throw new NotImplementedException();
+            }
+
+            public DateTime ToDateTime(IFormatProvider provider)
+            {
+                throw new NotImplementedException();
+            }
+
+            public string ToString(IFormatProvider provider)
+            {
+                throw new NotImplementedException();
+            }
+
+            public object ToType(Type conversionType, IFormatProvider provider)
+            {
+                throw new NotImplementedException();
+            }
+
+
         }
     }
 }
