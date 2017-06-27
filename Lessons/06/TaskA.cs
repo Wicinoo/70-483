@@ -1,4 +1,7 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using Xunit;
 
 namespace Lessons._06
@@ -84,29 +87,78 @@ namespace Lessons._06
             }
         }
 
+
+
+
+
+
+
         public class MorseCode
         {
+            public string ReadableText;
+
             public MorseCode(string morseCodeWithDelimiters, string _morseDelimiter = MorseCodeConstants.MorseCodesSeparator)
             {
-                throw new NotImplementedException();
+                this.ReadableText = MorseCodeConverter.FromMorseCode(morseCodeWithDelimiters);
             }
 
             // Implement implicit operator for converting from string to MorseCode.
+            public static implicit operator string (MorseCode morseCode)
+            {
+                return morseCode.ReadableText;
+            }
+            
             // Implement implicit operator for converting from MorseCode to string.
+            public static implicit operator MorseCode (string text)
+            {
+                return new MorseCode(text);
+            }
         }
+
+
 
         public static class MorseCodeConverter
         {
             public static string ToMorseCode(string text)
             {
-                throw new NotImplementedException();
+                Dictionary<string, string> conversionTable = JsonConvert.DeserializeObject<Dictionary<string, string>>(MorseCodeConstants.MorseAlphabetAsJson);
+
+                string morse = "";
+
+                for (int i = 0; i < text.Length; i++)
+                {
+                    char c = text[i];
+                    morse += conversionTable[c.ToString()];
+
+                    if (i < text.Length - 1)
+                    {
+                        morse += MorseCodeConstants.MorseCodesSeparator;
+                    }
+                }
+
+                return morse;
             }
 
             public static string FromMorseCode(string morseCode)
             {
-                throw new NotImplementedException();
+                Dictionary<string, string> conversionTable = JsonConvert.DeserializeObject<Dictionary<string, string>>(MorseCodeConstants.MorseAlphabetAsJson);
+                var reversedTable = conversionTable.ToDictionary(x => x.Value, x => x.Key);
+
+                string text = "";
+                var codeList = morseCode.Split(MorseCodeConstants.MorseAlphabetAsJson[0]);
+
+                foreach (var singleCode in codeList)
+                {
+                    text += reversedTable[singleCode];
+                }
+
+                return text;
             }
         }
+
+
+
+
 
         public class MorseCodeConstants
         {

@@ -9,7 +9,9 @@
         public static void Run()
         {
             // Print "The ancestor type of FooClass is ?."
+            System.Console.WriteLine(typeof(FooClass).BaseType.ToString());
             // Print "The ancestor type of FooStruct is ?."
+            System.Console.WriteLine(typeof(FooStruct).BaseType.ToString());
         }
     }
 
