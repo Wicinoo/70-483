@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Security.Permissions;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace Lessons._04
 {
@@ -36,19 +34,19 @@ namespace Lessons._04
             //currentDomain.UnhandledException += new UnhandledExceptionEventHandler(MyHandler);
 
 
-            Application.ThreadException += new ThreadExceptionEventHandler(MyHandler);
+            //Application.ThreadException += new ThreadExceptionEventHandler(MyHandler);
 
-            try
-            {
-                Task.Run(() =>
-                {
-                    throw new InvalidOperationException("Unhandled exception on a task.");
-                }).Wait();
-            }
-            catch (AggregateException)
-            {
-                Console.WriteLine("handled exception in Run2");
-            }
+            //try
+            //{
+            //    Task.Run(() =>
+            //    {
+            //        throw new InvalidOperationException("Unhandled exception on a task.");
+            //    }).Wait();
+            //}
+            //catch (AggregateException)
+            //{
+            //    Console.WriteLine("handled exception in Run2");
+            //}
 
         }
 
