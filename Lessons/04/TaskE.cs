@@ -45,5 +45,25 @@ namespace Lessons._04
 
             Console.WriteLine("Finished.");
         }
+
+        public static void Run3()
+        {
+            Run3Async().Wait();
+        }
+
+        public static async Task Run3Async()
+        {
+            try
+            {
+                await Task.Run(() =>
+                {
+                    throw new InvalidOperationException("Unhandled exception on a task.");
+                });
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Exception caught: " + ex.GetType().Name);
+            }
+        }
     }
 }
