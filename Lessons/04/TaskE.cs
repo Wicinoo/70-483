@@ -14,14 +14,9 @@ namespace Lessons._04
         {
             // Implement global exception handling here ...
 
-            try
-            {
-                throw new InvalidOperationException("Unhandled exception on the main thread.");
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e);
-            }
+            AppDomain.CurrentDomain.UnhandledException += (sender, e) => { Console.WriteLine("There was Unhandled exception: " + e.ToString()); };
+
+            throw new InvalidOperationException("Exception");
         }
         
         public static void Run2()
