@@ -86,18 +86,17 @@ namespace Lessons._06
 
         public class MorseCode
         {
-            private readonly string _morseDelimiter;
+            private readonly string _morseCode;
             private readonly string _morseCodeWithDelimiters;
 
-            public MorseCode(string morseCodeWithDelimiters, string morseDelimiter = MorseCodeConstants.MorseCodesSeparator)
+            public MorseCode(string plainText, string morseDelimiter = MorseCodeConstants.MorseCodesSeparator)
             {
-                _morseCodeWithDelimiters = morseCodeWithDelimiters;
-                _morseDelimiter = morseDelimiter;
+                _morseCode = MorseCodeConverter.ToMorseCode(plainText, morseDelimiter);
             }
 
             public static implicit operator string(MorseCode code)
             {
-                return MorseCodeConverter.FromMorseCode(code);
+                return code._morseCode;
             }
 
             public static implicit operator MorseCode(string text)
@@ -113,7 +112,7 @@ namespace Lessons._06
         {
             private static IDictionary<char, string> charToMorseDictionary = JsonConvert.DeserializeObject<Dictionary<char, string>>(MorseCodeConstants.MorseAlphabetAsJson);
             private static IDictionary<string, char> morseToCharDictionary = charToMorseDictionary.ToDictionary(x => x.Value, x => x.Key);
-            public static string ToMorseCode(string text)
+            public static string ToMorseCode(string text, string morseDelimiter = MorseCodeConstants.MorseCodesSeparator)
             {
                 if (text == string.Empty)
                 {
@@ -123,15 +122,18 @@ namespace Lessons._06
                 var sb = new StringBuilder();
                 for (int i = 0; i < text.Length; i++)
                 {
-                    var character = text[i];
-                    var morseCode = charToMorseDictionary[character];
-                    sb.Append(morseCode);
+                    sb.Append(ToMorseCode(text[i]));
                     if (i < text.Length - 1)
                     {
-                        sb.Append(MorseCodeConstants.MorseCodesSeparator);
+                        sb.Append(morseDelimiter);
                     }
                 }
                 return sb.ToString();
+            }
+
+            public static string ToMorseCode(char character)
+            {
+                return charToMorseDictionary[character];
             }
 
             public static string FromMorseCode(string morseCode)
