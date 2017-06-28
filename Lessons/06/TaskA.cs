@@ -84,25 +84,25 @@ namespace Lessons._06
 
         public class MorseCode
         {
-            private readonly string _morseCodeWithDelimiters;
+            private readonly string _plainText;
             private static string _morseDelimiter;
 
-            public MorseCode(string morseCodeWithDelimiters, string morseDelimiter = MorseCodeConstants.MorseCodesSeparator)
+            public MorseCode(string plainText, string morseDelimiter = MorseCodeConstants.MorseCodesSeparator)
             {
-                _morseCodeWithDelimiters = morseCodeWithDelimiters;
+                _plainText = plainText;
                 _morseDelimiter = morseDelimiter;
             }
 
             // Implement implicit operator for converting from string to MorseCode.
             public static implicit operator MorseCode(string text)
             {
-                return new MorseCode(MorseCodeConverter.ToMorseCode(text, _morseDelimiter));
+                return new MorseCode(text);
             }
 
             // Implement implicit operator for converting from MorseCode to string.
             public static implicit operator string(MorseCode morseCode)
             {
-                return MorseCodeConverter.FromMorseCode(morseCode._morseCodeWithDelimiters, _morseDelimiter);
+                return MorseCodeConverter.ToMorseCode(morseCode._plainText, _morseDelimiter);
             }
         }
 
