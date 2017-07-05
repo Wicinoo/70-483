@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using Castle.Windsor;
+using Castle.MicroKernel.Registration;
+using Castle.MicroKernel.Resolvers.SpecializedResolvers;
+using System.Linq;
 
 namespace Lessons._07
 {
@@ -17,9 +20,16 @@ namespace Lessons._07
         {
             var container = new WindsorContainer();
 
-            // Bootstrap container and install all needed.
+			// Bootstrap container and install all needed.
+			container.Register(Component.For<IEmotionHandler>().ImplementedBy<EmotionHandler>());
+			container.Kernel.Resolver.AddSubResolver(new CollectionResolver(container.Kernel));
+			container.Register(
+				Component.For<IParticularEmotionHandler>().ImplementedBy<AngerHandler>(),
+				Component.For<IParticularEmotionHandler>().ImplementedBy<HungerHandler>()
+			);
 
-            var emotionHandler = container.Resolve<IEmotionHandler>();
+
+			var emotionHandler = container.Resolve<IEmotionHandler>();
 
             emotionHandler.Handle(EmotionType.Anger);
             emotionHandler.Handle(EmotionType.Fear);
@@ -33,14 +43,16 @@ namespace Lessons._07
 
         public class EmotionHandler : IEmotionHandler
         {
+			private IEnumerable<IParticularEmotionHandler> emotionHandlers;
+
             public EmotionHandler(IEnumerable<IParticularEmotionHandler> particularEmotionHandlers)
             {
-                throw new NotImplementedException();
+				emotionHandlers = particularEmotionHandlers;
             }
 
             public void Handle(EmotionType emotion)
             {
-                throw new NotImplementedException();
+				emotionHandlers.ToList().ForEach(handler => handler.Handle(emotion));
             }
         }
 
@@ -58,7 +70,17 @@ namespace Lessons._07
             }
         }
 
-        public enum EmotionType
+		public class HungerHandler : IParticularEmotionHandler
+		{
+			public void Handle(EmotionType emotion)
+			{
+				if (emotion != EmotionType.Hunger) return;
+
+				Console.WriteLine("DIY salads delivery time of 4-5 hours? That's a paddlin!");
+			}
+		}
+
+		public enum EmotionType
         {
             Anger,
             Fear,
