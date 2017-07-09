@@ -1,0 +1,29 @@
+﻿* Read "Objective 2.4: Create and implement a class hierarchy" to be able to:
+	- create an interface.
+	- implement an interface.
+	- explain usage of "virtual" methods.
+	- explain differences between an abstract class and an interface.
+	- disallow inheriting from a class.
+	- explain Liskov Substitution Principle on the Rectangle + Square example.
+	- describe main scenarios with using IComparable, IEnumerable, IDisposable
+
+* Read "Objective 2.5: Find, execute, and create types at runtime by using reflection" to be able to:
+	- explain what "managed code" means.
+	- explain how stack and heap are freed.
+	- explain responsibilities of Garbage Collector and its "mark and compact algorithm".
+	- explain what a root item in the "mark phase" can be.
+	- explain what impact GC can have on all threads.
+	- explain what generations are in GC (especially Generation 0).
+	- understand GC performance issues. https://msdn.microsoft.com/en-us/library/ms973837.aspx
+	- explain what are unmanaged resources. Give an example.
+	- explain how unmanaged resources can be released during GC processing. What is the finalization?
+	- force GC to clean up memory explicitly and wait for finishing all finalizers before the code continues.
+	- use "using() { }" statment in proper way. Explain IDisposable interface.
+	- implement Full Dispose Pattern described in https://msdn.microsoft.com/en-us/library/b1yfkh5e(v=vs.110).aspx
+	- explain what WeakReference type is used for.
+
+
+* Solve TaskA - TaskC.
+	 
+* Commit all changes into your branch in the respository.
+* Update your lesson record on confluence.
