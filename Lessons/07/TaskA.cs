@@ -4,6 +4,10 @@ using Castle.Windsor;
 
 namespace Lessons._07
 {
+    using Castle.Core.Internal;
+    using Castle.MicroKernel.Registration;
+    using Castle.MicroKernel.Resolvers.SpecializedResolvers;
+
     /// <summary>
     /// Implement EmotionHandler.
     /// Implement IParticularEmotionHandler for Fear and Hunger.
@@ -16,8 +20,12 @@ namespace Lessons._07
         public static void Run()
         {
             var container = new WindsorContainer();
-
-            // Bootstrap container and install all needed.
+            container.Register(
+                Classes.FromThisAssembly()
+                    .Where(Component.IsInNamespace(typeof(TaskA).Namespace))
+                    .WithServiceAllInterfaces()
+                    .LifestyleTransient());
+            //container.Kernel.Resolver.AddSubResolver(new CollectionResolver(container.Kernel));
 
             var emotionHandler = container.Resolve<IEmotionHandler>();
 
@@ -33,14 +41,15 @@ namespace Lessons._07
 
         public class EmotionHandler : IEmotionHandler
         {
+            private readonly IEnumerable<IParticularEmotionHandler> _particularEmotionHandlers ;
             public EmotionHandler(IEnumerable<IParticularEmotionHandler> particularEmotionHandlers)
             {
-                throw new NotImplementedException();
+                _particularEmotionHandlers = particularEmotionHandlers;
             }
 
             public void Handle(EmotionType emotion)
             {
-                throw new NotImplementedException();
+                _particularEmotionHandlers.ForEach(handler => handler.Handle(emotion));
             }
         }
 
@@ -52,7 +61,7 @@ namespace Lessons._07
         {
             public void Handle(EmotionType emotion)
             {
-                if (emotion != EmotionType.Anger) return;
+                if (emotion != EmotionType.Anger) { return;}
 
                 Console.WriteLine("Yep, I can handle your anger. Keep calm mate!");
             }
