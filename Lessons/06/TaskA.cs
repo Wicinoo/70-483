@@ -1,4 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Text;
+using Newtonsoft.Json;
 using Xunit;
 
 namespace Lessons._06
@@ -51,44 +56,51 @@ namespace Lessons._06
             [InlineData("Keep@it@secret!", "-.-|.|.|.--.|.--.-.|..|-|.--.-.|...|.|-.-.|.-.|.|-|-.-.--")]
             public void Ctor_ForGivenTextAndDefaultDelimiter_ShouldReturnExpectedFromImplicitConversion(string text, string expectedMorseCodeText)
             {
-                throw new NotImplementedException();
+                var morseCode = new MorseCode(text);
+                string morseCodeText = morseCode;
 
-                //var morseCode = new MorseCode(text);
-                //string morseCodeText = morseCode;
-
-                //Assert.Equal(expectedMorseCodeText, morseCodeText);
+                Assert.Equal(expectedMorseCodeText, morseCodeText);
             }
 
             [Fact]
             public void Ctor_ForGivenTextAndExplicitDelimiter_ShouldReturnExpectedFromImplicitConversion()
             {
-                throw new NotImplementedException();
+                var morseCode = new MorseCode("helpme", "*");
+                string morseCodeText = morseCode;
+                var expectedMorseCodeText = "....*.*.-..*.--.*--*.";
 
-                //var morseCode = new MorseCode("helpme", "*");
-                //string morseCodeText = morseCode;
-                //var expectedMorseCodeText = "....*.*.-..*.--.*--*.";
-
-                //Assert.Equal(expectedMorseCodeText, morseCodeText);
+                Assert.Equal(expectedMorseCodeText, morseCodeText);
             }
 
             [Fact]
             public void ImplicitConversionFromString_ForGivenString_ShouldReturnExpectedFromImplicitConversion()
             {
-                throw new NotImplementedException();
+                
 
-                //MorseCode morseCode = "helpme";
-                //string morseCodeText = morseCode;
-                //var expectedMorseCodeText = "....|.|.-..|.--.|--|.";
+                MorseCode morseCode =new MorseCode("helpme");
+                string morseCodeText = morseCode;
+                var expectedMorseCodeText = "....|.|.-..|.--.|--|.";
 
-                //Assert.Equal(expectedMorseCodeText, morseCodeText);
+                Assert.Equal(expectedMorseCodeText, morseCodeText);
             }
         }
 
         public class MorseCode
         {
-            public MorseCode(string morseCodeWithDelimiters, string _morseDelimiter = MorseCodeConstants.MorseCodesSeparator)
+            private readonly string _textWithDelimiters;
+            private readonly char _morseDelimiter;
+
+            
+            public MorseCode(string textWithDelimiters, string morseDelimiter = MorseCodeConstants.MorseCodesSeparator)
             {
-                throw new NotImplementedException();
+                if (morseDelimiter.Length!=1) throw new ArgumentNullException($"{nameof(morseDelimiter)}  must be char");
+                _textWithDelimiters = textWithDelimiters;
+                _morseDelimiter = morseDelimiter.First();
+            }
+
+            public static implicit operator string(MorseCode morseCode)
+            {
+                return MorseCodeConverter.ToMorseCode(morseCode._textWithDelimiters, morseCode._morseDelimiter.ToString());
             }
 
             // Implement implicit operator for converting from string to MorseCode.
@@ -97,14 +109,43 @@ namespace Lessons._06
 
         public static class MorseCodeConverter
         {
-            public static string ToMorseCode(string text)
+            public static string ToMorseCode(string text, string morseDelimiter = MorseCodeConstants.MorseCodesSeparator)
             {
-                throw new NotImplementedException();
+                text = text.ToLower();
+                var letters = text.ToArray();
+                var result = new List<string>();
+                var morseDictionary = GetMorseDIctionary();
+                foreach (var letter in letters)
+                {
+                    string morseLetter;
+                    if (morseDictionary.TryGetValue(letter.ToString(), out morseLetter))
+                    {
+                        result.Add(morseLetter);
+                    }
+                }
+                return string.Join(morseDelimiter, result);
             }
 
-            public static string FromMorseCode(string morseCode)
+            private static Dictionary<string, string> GetMorseDIctionary()
             {
-                throw new NotImplementedException();
+                var morseDictionary =
+                    JsonConvert.DeserializeObject<Dictionary<string, string>>(MorseCodeConstants.MorseAlphabetAsJson);
+                return morseDictionary;
+            }
+
+            public static string FromMorseCode(string morseCode, string morseDelimiter = MorseCodeConstants.MorseCodesSeparator)
+            {
+                var morseDictionary = GetMorseDIctionary();
+                var morseLetters = morseCode.Split(morseDelimiter.First());
+                StringBuilder sb = new StringBuilder();
+                foreach (var morseLetter in morseLetters)
+                {
+                    if (morseDictionary.ContainsValue(morseLetter))
+                    {
+                        sb.Append(morseDictionary.First(x => x.Value == morseLetter).Key);
+                    }
+                }
+                return sb.ToString();
             }
         }
 
