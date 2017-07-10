@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
+using Castle.MicroKernel.Registration;
 using Castle.Windsor;
 
 namespace Lessons._07
@@ -22,6 +23,9 @@ namespace Lessons._07
             var container = new WindsorContainer();
 
             // Register components
+            container.Register(Component.For<IDateTimeNowProvider>().ImplementedBy<DateTimeNowProvider>());
+            container.Register(Component.For<IUsernamesRepository>().ImplementedBy<UsernamesRepository>());
+            container.Register(Component.For<IUsernamesProvider>().ImplementedBy<UsernamesProvider>());
 
             Action getAllUserNames = () =>
             {
@@ -49,7 +53,7 @@ namespace Lessons._07
             IEnumerable<string> GetAllUsernames();
         }
 
-        public class UsernamesProvider : ExpiringCachedContentBase
+        public class UsernamesProvider : ExpiringCachedContentBase, IUsernamesProvider
         {
             private readonly IUsernamesRepository _usernamesRepository;
             private IEnumerable<string> _cachedUsernames;
@@ -57,6 +61,7 @@ namespace Lessons._07
             public UsernamesProvider(IDateTimeNowProvider dateTimeNowProvider, IUsernamesRepository usernamesRepository) 
                 : base(dateTimeNowProvider, CacheMaxAgeInMilliseconds)
             {
+                _usernamesRepository = usernamesRepository;
             }
 
             protected override void RefreshCachedContent()
@@ -73,6 +78,11 @@ namespace Lessons._07
         public interface IDateTimeNowProvider
         {
             DateTime Now { get; }
+        }
+
+        public class DateTimeNowProvider : IDateTimeNowProvider
+        {
+            public DateTime Now => DateTime.Now;
         }
 
         public interface IUsernamesRepository
