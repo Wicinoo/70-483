@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
+
+using Castle.MicroKernel.Registration;
 using Castle.Windsor;
 
 namespace Lessons._07
@@ -22,6 +24,9 @@ namespace Lessons._07
             var container = new WindsorContainer();
 
             // Register components
+            container.Register(Classes.FromThisAssembly().BasedOn<IDateTimeNowProvider>().WithServiceDefaultInterfaces().LifestyleSingleton());
+            container.Register(Classes.FromThisAssembly().BasedOn<IUsernamesRepository>().WithServiceDefaultInterfaces().LifestyleSingleton());
+            container.Register(Classes.FromThisAssembly().BasedOn<IUsernamesProvider>().WithServiceDefaultInterfaces().LifestyleSingleton());
 
             Action getAllUserNames = () =>
             {
@@ -40,7 +45,7 @@ namespace Lessons._07
             {
                 getAllUserNames();
             });
-
+            
             getAllUserNames();
         }
         
@@ -49,7 +54,7 @@ namespace Lessons._07
             IEnumerable<string> GetAllUsernames();
         }
 
-        public class UsernamesProvider : ExpiringCachedContentBase
+        public class UsernamesProvider : ExpiringCachedContentBase, IUsernamesProvider
         {
             private readonly IUsernamesRepository _usernamesRepository;
             private IEnumerable<string> _cachedUsernames;
@@ -57,6 +62,7 @@ namespace Lessons._07
             public UsernamesProvider(IDateTimeNowProvider dateTimeNowProvider, IUsernamesRepository usernamesRepository) 
                 : base(dateTimeNowProvider, CacheMaxAgeInMilliseconds)
             {
+                _usernamesRepository = usernamesRepository;
             }
 
             protected override void RefreshCachedContent()
@@ -75,12 +81,17 @@ namespace Lessons._07
             DateTime Now { get; }
         }
 
+        public class DateTimeNowProvider : IDateTimeNowProvider
+        {
+            public DateTime Now => DateTime.Now;
+        }
+
         public interface IUsernamesRepository
         {
             IEnumerable<string> GetAllUsernames();
         }
 
-        private class UsernamesRepository : IUsernamesRepository
+        public class UsernamesRepository : IUsernamesRepository
         {
             public IEnumerable<string> GetAllUsernames()
             {
