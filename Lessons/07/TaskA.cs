@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using Castle.MicroKernel.Registration;
+using Castle.MicroKernel.Resolvers.SpecializedResolvers;
 using Castle.Windsor;
 
 namespace Lessons._07
@@ -8,7 +10,7 @@ namespace Lessons._07
     /// Implement EmotionHandler.
     /// Implement IParticularEmotionHandler for Fear and Hunger.
     /// Bootstrap the container.
-    /// Install all needed components into the container. Use WindsorContainer.Register() method.
+    /// Register all needed components into the container. Use WindsorContainer.Register() method.
     /// Add support for resolving collections (CollectionResolver).
     /// </summary>
     public class TaskA
@@ -17,7 +19,7 @@ namespace Lessons._07
         {
             var container = new WindsorContainer();
 
-            // Bootstrap container and install all needed.
+            Bootstrapper.Register(container);
 
             var emotionHandler = container.Resolve<IEmotionHandler>();
 
@@ -35,12 +37,17 @@ namespace Lessons._07
         {
             public EmotionHandler(IEnumerable<IParticularEmotionHandler> particularEmotionHandlers)
             {
-                throw new NotImplementedException();
+                foreach (var particularEmotionHandler in particularEmotionHandlers)
+                {
+                    particularEmotionHandler.Handle(EmotionType.Anger);
+                    particularEmotionHandler.Handle(EmotionType.Fear);
+                    particularEmotionHandler.Handle(EmotionType.Hunger);
+                }
             }
 
             public void Handle(EmotionType emotion)
             {
-                throw new NotImplementedException();
+                Console.WriteLine("Hi, I am your {0}", emotion);
             }
         }
 
@@ -58,11 +65,43 @@ namespace Lessons._07
             }
         }
 
+        public class FearHandler : IParticularEmotionHandler
+        {
+            public void Handle(EmotionType emotion)
+            {
+                if (emotion != EmotionType.Fear) return;
+
+                Console.WriteLine("Yep, I can handle your fear. Fear Not!");
+            }
+        }
+
+        public class HungerHandler : IParticularEmotionHandler
+        {
+            public void Handle(EmotionType emotion)
+            {
+                if (emotion != EmotionType.Hunger) return;
+
+                Console.WriteLine("Yep, I can handle your Hunger. Eat Up!");
+            }
+        }
+
         public enum EmotionType
         {
             Anger,
             Fear,
             Hunger,
+        }
+    }
+
+    public static class Bootstrapper
+    {
+        public static void Register(WindsorContainer container)
+        {
+            container.Kernel.Resolver.AddSubResolver(new CollectionResolver(container.Kernel));
+            container.Register(Component.For<TaskA.IEmotionHandler>().ImplementedBy<TaskA.EmotionHandler>());
+            container.Register(Component.For<TaskA.IParticularEmotionHandler>().ImplementedBy<TaskA.AngerHandler>());
+            container.Register(Component.For<TaskA.IParticularEmotionHandler>().ImplementedBy<TaskA.FearHandler>());
+            container.Register(Component.For<TaskA.IParticularEmotionHandler>().ImplementedBy<TaskA.HungerHandler>());
         }
     }
 }

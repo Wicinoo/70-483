@@ -13,25 +13,34 @@ namespace Lessons._07
         {
             const string FileName = "tmp.txt";
 
-            var file = new FileWriter(FileName);
-            file.Write("I love C# certification trainings.");
-
-            File.Delete(FileName);
+            using (var file = new FileWriter(FileName))
+            {
+                file.Write("I love C# certification trainings.");
+            }
         }
 
-        class FileWriter
+        class FileWriter : IDisposable
         {
-            private StreamWriter _fileStream;
-
+            private readonly string _fileName;
+            private readonly StreamWriter _fileStream;
+            
             public FileWriter(string fileName)
             {
-                _fileStream = File.CreateText(fileName);
-                Console.WriteLine($"File {fileName} has been created.");
+                _fileName = fileName;
+                _fileStream = File.CreateText(_fileName);
+                Console.WriteLine($"File {_fileName} has been created.");
             }
 
             public void Write(string text)
             {
                 _fileStream.Write(text);
+            }
+
+            public void Dispose()
+            {
+                _fileStream.Flush();
+                _fileStream.Close();
+                File.Delete(_fileName);
             }
         }
     }
