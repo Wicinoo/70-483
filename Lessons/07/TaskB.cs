@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
+using Castle.MicroKernel.Registration;
 using Castle.Windsor;
 
 namespace Lessons._07
@@ -21,7 +22,9 @@ namespace Lessons._07
         {
             var container = new WindsorContainer();
 
-            // Register components
+            container.Register(Component.For<IUsernamesProvider>().ImplementedBy<UsernamesProvider>());
+            container.Register(Component.For<IUsernamesRepository>().ImplementedBy<UsernamesRepository>());
+            container.Register(Component.For<IDateTimeNowProvider>().ImplementedBy<DateTimeNowProvider>());
 
             Action getAllUserNames = () =>
             {
@@ -57,6 +60,7 @@ namespace Lessons._07
             public UsernamesProvider(IDateTimeNowProvider dateTimeNowProvider, IUsernamesRepository usernamesRepository) 
                 : base(dateTimeNowProvider, CacheMaxAgeInMilliseconds)
             {
+                _usernamesRepository = usernamesRepository;
             }
 
             protected override void RefreshCachedContent()
@@ -64,7 +68,7 @@ namespace Lessons._07
                 _cachedUsernames = _usernamesRepository.GetAllUsernames();
             }
 
-            public IEnumerable<string> GetAllUsernames()
+            public override IEnumerable<string> GetAllUsernames()
             {
                 return Get(() => _cachedUsernames);
             }
@@ -95,7 +99,7 @@ namespace Lessons._07
         /// Use protected generic Get method internally to ensure validity of content.
         /// It's expected that descendants of the base class are set as singletons and could be accessed by many threads in parallel.
         /// </summary>
-        public abstract class ExpiringCachedContentBase
+        public abstract class ExpiringCachedContentBase : IUsernamesProvider
         {
             private readonly IDateTimeNowProvider _dateTimeNowProvider;
             private readonly int _maxAgeInMilliseconds;
@@ -126,6 +130,13 @@ namespace Lessons._07
                 RefreshCachedContent();
                 _contentValidityExpirationDate = _dateTimeNowProvider.Now.AddMilliseconds(_maxAgeInMilliseconds);
             }
+
+            public abstract IEnumerable<string> GetAllUsernames();
+        }
+
+        public class DateTimeNowProvider : IDateTimeNowProvider
+        {
+            public DateTime Now => DateTime.Now;
         }
     }
 }

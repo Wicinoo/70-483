@@ -16,7 +16,7 @@ namespace Lessons._07
             var file = new FileWriter(FileName);
             file.Write("I love C# certification trainings.");
 
-            File.Delete(FileName);
+            file.Delete(FileName);
         }
 
         class FileWriter
@@ -32,6 +32,16 @@ namespace Lessons._07
             public void Write(string text)
             {
                 _fileStream.Write(text);
+                _fileStream.Flush();
+                _fileStream.Close();
+            }
+
+            public void Delete(string filename)
+            {
+                if (File.Exists(filename))
+                {
+                    File.Delete(filename);
+                }
             }
         }
     }
