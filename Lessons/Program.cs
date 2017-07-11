@@ -11,9 +11,14 @@ namespace Lessons
             //_03.Runner.Run();
             //_04.Runner.Run();
             //_05.Runner.Run();
+<<<<<<< HEAD
             //_04.Runner.Run();
             //_05.Runner.Run();
             _06.Runner.Run();
+=======
+            //_06.Runner.Run();
+            //_07.Runner.Run();
+>>>>>>> refs/remotes/origin/master
 
             Console.WriteLine("Press any key ...");
             Console.ReadKey(); 
