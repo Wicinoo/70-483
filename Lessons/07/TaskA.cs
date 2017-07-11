@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using Castle.Windsor;
+using Castle.MicroKernel.Registration;
+using Castle.MicroKernel.Resolvers.SpecializedResolvers;
 
 namespace Lessons._07
 {
@@ -16,6 +18,9 @@ namespace Lessons._07
         public static void Run()
         {
             var container = new WindsorContainer();
+            container.Kernel.Resolver.AddSubResolver(new CollectionResolver(container.Kernel));
+            container.Register(Component.For<IEmotionHandler>().ImplementedBy<EmotionHandler>().LifeStyle.Singleton);
+            container.Register(Classes.FromThisAssembly().BasedOn<IParticularEmotionHandler>().WithServiceAllInterfaces());
 
             // Bootstrap container and install all needed.
 
@@ -33,14 +38,19 @@ namespace Lessons._07
 
         public class EmotionHandler : IEmotionHandler
         {
+            private readonly IEnumerable<IParticularEmotionHandler> _particularEmotionHandlers;
+
             public EmotionHandler(IEnumerable<IParticularEmotionHandler> particularEmotionHandlers)
             {
-                throw new NotImplementedException();
+                _particularEmotionHandlers = particularEmotionHandlers;
             }
 
             public void Handle(EmotionType emotion)
             {
-                throw new NotImplementedException();
+                foreach (var emotionHandler in _particularEmotionHandlers)
+                {
+                    emotionHandler.Handle(emotion);
+                }
             }
         }
 
@@ -55,6 +65,26 @@ namespace Lessons._07
                 if (emotion != EmotionType.Anger) return;
 
                 Console.WriteLine("Yep, I can handle your anger. Keep calm mate!");
+            }
+        }
+
+        public class FearHandler : IParticularEmotionHandler
+        {
+            public void Handle(EmotionType emotion)
+            {
+                if (emotion != EmotionType.Fear) return;
+
+                Console.WriteLine("Handling fear there");
+            }
+        }
+
+        public class HungerHandler : IParticularEmotionHandler
+        {
+            public void Handle(EmotionType emotion)
+            {
+                if (emotion != EmotionType.Hunger) return;
+
+                Console.WriteLine("Handling hunger there");
             }
         }
 
