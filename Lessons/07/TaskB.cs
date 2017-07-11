@@ -2,10 +2,13 @@
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
+
 using Castle.Windsor;
 
 namespace Lessons._07
 {
+    using Castle.MicroKernel.Registration;
+
     /// <summary>
     /// Register components in the container.
     /// There are some intentional errors in binding abstractions and implementations.
@@ -22,41 +25,44 @@ namespace Lessons._07
             var container = new WindsorContainer();
 
             // Register components
+            container.Register(Component.For<IUsernamesProvider>().ImplementedBy<UsernamesProvider>());
+            container.Register(Component.For<IUsernamesRepository>().ImplementedBy<UsernamesRepository>());
+            container.Register(Component.For<IDateTimeNowProvider>().ImplementedBy<DateTimeNowProvider>());
 
             Action getAllUserNames = () =>
-            {
-                Console.WriteLine("Asking for all usernames ...");
-                var usernameProvider = container.Resolve<IUsernamesProvider>();
-                usernameProvider.GetAllUsernames();
-            };
+                {
+                    Console.WriteLine("Asking for all usernames ...");
+                    var usernameProvider = container.Resolve<IUsernamesProvider>();
+                    usernameProvider.GetAllUsernames();
+                };
 
-            Task.Run(() =>
-            {
-                Thread.Sleep(2 * CacheMaxAgeInMilliseconds);
-                getAllUserNames();
-            });
+            Task.Run(
+                () =>
+                    {
+                        Thread.Sleep(2 * CacheMaxAgeInMilliseconds);
+                        getAllUserNames();
+                    });
 
-            Task.Run(() =>
-            {
-                getAllUserNames();
-            });
+            Task.Run(() => { getAllUserNames(); });
 
             getAllUserNames();
         }
-        
+
         public interface IUsernamesProvider
         {
             IEnumerable<string> GetAllUsernames();
         }
 
-        public class UsernamesProvider : ExpiringCachedContentBase
+        public class UsernamesProvider : ExpiringCachedContentBase, IUsernamesProvider
         {
             private readonly IUsernamesRepository _usernamesRepository;
+
             private IEnumerable<string> _cachedUsernames;
 
-            public UsernamesProvider(IDateTimeNowProvider dateTimeNowProvider, IUsernamesRepository usernamesRepository) 
+            public UsernamesProvider(IDateTimeNowProvider dateTimeNowProvider, IUsernamesRepository usernamesRepository)
                 : base(dateTimeNowProvider, CacheMaxAgeInMilliseconds)
             {
+                this._usernamesRepository = usernamesRepository;
             }
 
             protected override void RefreshCachedContent()
@@ -75,6 +81,11 @@ namespace Lessons._07
             DateTime Now { get; }
         }
 
+        public class DateTimeNowProvider:IDateTimeNowProvider
+        {
+            public DateTime Now => DateTime.Now;
+        }
+
         public interface IUsernamesRepository
         {
             IEnumerable<string> GetAllUsernames();
@@ -86,7 +97,7 @@ namespace Lessons._07
             {
                 Console.WriteLine("Getting usernames from database ...");
                 Thread.Sleep(100);
-                return new[] { "user1", "admin23", "anonymous" };
+                return new[] {"user1", "admin23", "anonymous"};
             }
         }
 
@@ -98,8 +109,11 @@ namespace Lessons._07
         public abstract class ExpiringCachedContentBase
         {
             private readonly IDateTimeNowProvider _dateTimeNowProvider;
+
             private readonly int _maxAgeInMilliseconds;
+
             private DateTime _contentValidityExpirationDate = DateTime.MinValue;
+
             private readonly object _lock = new object();
 
             protected ExpiringCachedContentBase(IDateTimeNowProvider dateTimeNowProvider, int maxAgeInMilliseconds)
