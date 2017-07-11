@@ -164,6 +164,7 @@
     <Compile Include="06\TaskC.cs" />
     <Compile Include="06\_01_UserDefinedConversions.cs" />
     <Compile Include="06\_02_UsingDynamicToExportToExcel.cs" />
+    <Compile Include="07\Demo.cs" />
     <Compile Include="07\Runner.cs" />
     <Compile Include="07\TaskA.cs" />
     <Compile Include="07\TaskB.cs" />
