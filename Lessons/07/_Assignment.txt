@@ -7,7 +7,7 @@
 	- explain Liskov Substitution Principle on the Rectangle + Square example.
 	- describe main scenarios with using IComparable, IEnumerable, IDisposable
 
-* Read "Objective 2.5: Find, execute, and create types at runtime by using reflection" to be able to:
+* Read "Objective 2.6: Manage the object life cycle" to be able to:
 	- explain what "managed code" means.
 	- explain how stack and heap are freed.
 	- explain responsibilities of Garbage Collector and its "mark and compact algorithm".
