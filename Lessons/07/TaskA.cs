@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using Castle.Windsor;
+using Castle.MicroKernel.Registration;
+using Castle.MicroKernel.Resolvers.SpecializedResolvers;
 
 namespace Lessons._07
 {
@@ -18,6 +20,14 @@ namespace Lessons._07
             var container = new WindsorContainer();
 
             // Bootstrap container and install all needed.
+            container.Register(Component.For<IEmotionHandler>().ImplementedBy<EmotionHandler>());
+            container.Kernel.Resolver.AddSubResolver(new CollectionResolver(container.Kernel));
+
+            container.Register(
+                Component.For<IParticularEmotionHandler>().ImplementedBy<AngerHandler>(),
+                Component.For<IParticularEmotionHandler>().ImplementedBy<HungerHandler>()
+            );
+
 
             var emotionHandler = container.Resolve<IEmotionHandler>();
 
@@ -33,14 +43,19 @@ namespace Lessons._07
 
         public class EmotionHandler : IEmotionHandler
         {
+            private IEnumerable<IParticularEmotionHandler> handlers;
+
             public EmotionHandler(IEnumerable<IParticularEmotionHandler> particularEmotionHandlers)
             {
-                throw new NotImplementedException();
+                handlers = particularEmotionHandlers;
             }
 
             public void Handle(EmotionType emotion)
             {
-                throw new NotImplementedException();
+                foreach (var handler in handlers)
+                {
+                    handler.Handle(emotion);
+                }
             }
         }
 
@@ -55,6 +70,16 @@ namespace Lessons._07
                 if (emotion != EmotionType.Anger) return;
 
                 Console.WriteLine("Yep, I can handle your anger. Keep calm mate!");
+            }
+        }
+
+        public class HungerHandler : IParticularEmotionHandler
+        {
+            public void Handle(EmotionType emotion)
+            {
+                if (emotion != EmotionType.Hunger) return;
+
+                Console.WriteLine("Yep, I can handle your hunder. Eat your mate!");
             }
         }
 
