@@ -13,13 +13,16 @@ namespace Lessons._07
         {
             const string FileName = "tmp.txt";
 
-            var file = new FileWriter(FileName);
-            file.Write("I love C# certification trainings.");
+            using (var file = new FileWriter(FileName))
+            {
+
+                file.Write("I love C# certification trainings.");
+            }
 
             File.Delete(FileName);
         }
 
-        class FileWriter
+        class FileWriter : IDisposable
         {
             private StreamWriter _fileStream;
 
@@ -32,6 +35,11 @@ namespace Lessons._07
             public void Write(string text)
             {
                 _fileStream.Write(text);
+            }
+
+            public void Dispose()
+            {
+                _fileStream.Close();
             }
         }
     }

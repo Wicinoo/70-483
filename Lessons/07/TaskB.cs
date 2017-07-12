@@ -26,9 +26,7 @@ namespace Lessons._07
             container.Register(
                 Component.For<IUsernamesProvider>().ImplementedBy<UsernamesProvider>(),
                 Component.For<IDateTimeNowProvider>().ImplementedBy<DateTimeNowProvider>(),
-                Component.For<IUsernamesRepository>().ImplementedBy<UsernamesRepository>()
-                );
-
+                Component.For<IUsernamesRepository>().ImplementedBy<UsernamesRepository>());
 
             Action getAllUserNames = () =>
             {
