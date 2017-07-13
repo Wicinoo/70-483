@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using Castle.Core.Internal;
+using Castle.MicroKernel.Registration;
 using Castle.Windsor;
+using Castle.MicroKernel.Resolvers.SpecializedResolvers;
 
 namespace Lessons._07
 {
@@ -18,6 +21,11 @@ namespace Lessons._07
             var container = new WindsorContainer();
 
             // Bootstrap container and install all needed.
+            container.Kernel.Resolver.AddSubResolver(new CollectionResolver(container.Kernel, true));
+            container.Register(Component.For<IEmotionHandler>().ImplementedBy<EmotionHandler>());
+            container.Register(Component.For<IParticularEmotionHandler>().ImplementedBy<FearHandler>());
+            container.Register(Component.For<IParticularEmotionHandler>().ImplementedBy<HungerHandler>());
+            container.Register(Component.For<IParticularEmotionHandler>().ImplementedBy<AngerHandler>());
 
             var emotionHandler = container.Resolve<IEmotionHandler>();
 
@@ -33,14 +41,16 @@ namespace Lessons._07
 
         public class EmotionHandler : IEmotionHandler
         {
+            private IEnumerable<IParticularEmotionHandler> _particularEmotionHandlers;
+
             public EmotionHandler(IEnumerable<IParticularEmotionHandler> particularEmotionHandlers)
             {
-                throw new NotImplementedException();
+                _particularEmotionHandlers = particularEmotionHandlers;
             }
 
             public void Handle(EmotionType emotion)
             {
-                throw new NotImplementedException();
+                _particularEmotionHandlers.ForEach(x => x.Handle(emotion));
             }
         }
 
@@ -55,6 +65,26 @@ namespace Lessons._07
                 if (emotion != EmotionType.Anger) return;
 
                 Console.WriteLine("Yep, I can handle your anger. Keep calm mate!");
+            }
+        }
+
+        public class FearHandler : IParticularEmotionHandler
+        {
+            public void Handle(EmotionType emotion)
+            {
+                if (emotion != EmotionType.Fear) return;
+
+                Console.WriteLine("Yo, mate, fear is the path to the dark side, so keep calm or draw your lightsaber !");
+            }
+        }
+
+        public class HungerHandler : IParticularEmotionHandler
+        {
+            public void Handle(EmotionType emotion)
+            {
+                if (emotion != EmotionType.Hunger) return;
+
+                Console.WriteLine("Yup, I can handler your hunger, go to Hungary!");
             }
         }
 
