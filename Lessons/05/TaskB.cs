@@ -1,4 +1,6 @@
-﻿namespace Lessons._05
+﻿using System;
+
+namespace Lessons._05
 {
     /// <summary>
     /// * Declare an flagged enum type OpeningDays with all days in week. 
@@ -10,11 +12,40 @@
     {
         public static void Run()
         {
-            //Console.WriteLine($"Never open: {OpeningDays.None.GetTodayOpening()}");
-            //Console.WriteLine($"Only Mondays: {OpeningDays.Monday.GetTodayOpening()}");
-            //Console.WriteLine($"From Monday to Wednesday: {(OpeningDays.Monday | OpeningDays.Tuesday | OpeningDays.Wednesday).GetTodayOpening()}");
-            //Console.WriteLine($"All weekdays: {(OpeningDays.Monday | OpeningDays.Tuesday | OpeningDays.Wednesday | OpeningDays.Thursday | OpeningDays.Friday).GetTodayOpening()}");
-            //Console.WriteLine($"Only weekends: {(OpeningDays.Saturday | OpeningDays.Sunday).GetTodayOpening()}");
+            Console.WriteLine($"Never open: {OpeningDays.None.GetTodayOpening()}");
+            Console.WriteLine($"Only Mondays: {OpeningDays.Monday.GetTodayOpening()}");
+            Console.WriteLine($"From Monday to Wednesday: {(OpeningDays.Monday | OpeningDays.Tuesday | OpeningDays.Wednesday).GetTodayOpening()}");
+            Console.WriteLine($"All weekdays: {(OpeningDays.Monday | OpeningDays.Tuesday | OpeningDays.Wednesday | OpeningDays.Thursday | OpeningDays.Friday).GetTodayOpening()}");
+            Console.WriteLine($"Only weekends: {(OpeningDays.Saturday | OpeningDays.Sunday).GetTodayOpening()}");
+        }
+    }
+
+    [Flags]
+    public enum OpeningDays
+    {
+        None = 0,
+        Sunday = 1,
+        Monday = 2,
+        Tuesday = 4,
+        Wednesday = 8,
+        Thursday = 16,
+        Friday = 32,
+        Saturday = 64
+    }
+
+    public enum OpenClosedStatus
+    {
+        Opened,
+        Closed
+    }
+
+    public static class EnumExtenstions
+    {
+        public static OpenClosedStatus GetTodayOpening(this OpeningDays openingDays)
+        { 
+            var today = (OpeningDays) Enum.Parse(typeof(OpeningDays), DateTime.Today.DayOfWeek.ToString());
+
+            return (openingDays & today) == today ? OpenClosedStatus.Opened : OpenClosedStatus.Closed;
         }
     }
 }
