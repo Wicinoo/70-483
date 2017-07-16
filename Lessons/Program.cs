@@ -14,6 +14,7 @@ namespace Lessons
             //_05.Runner.Run();
             //_06.Runner.Run();
             //_07.Runner.Run();
+            //_08.Runner.Run();
 
             Console.WriteLine("Press any key ...");
             Console.ReadKey(); 
