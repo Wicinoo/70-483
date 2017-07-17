@@ -12,14 +12,9 @@ namespace Lessons._08
     {
         public static void Run()
         {
-			var expr = Expression.Call(
-					null,
-					typeof(Console).GetMethod("Write", new Type[] { typeof(String) }),
-					Expression.Constant("Hello ")
-					);
-
-			Expression.Lambda<Action>(expr).Compile()();
-
+			//what in the hell is this usefull for anyway? Its like our legacy code on steroids
+			((Expression<Action>)(() => Console.WriteLine(DateTime.Now))).Compile()();
+			
 		}
     }
 }
