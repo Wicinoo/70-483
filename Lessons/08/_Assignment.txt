@@ -1,0 +1,22 @@
+﻿* Read "Objective 2.5: Find, execute, and create types at runtime by using reflection" to be able to:
+	- explain what matadata are in .Net.
+	- explain what "Reflection" is.
+	- implement a custom attribute class for various targets with (dis)allowing multiple usages. 
+	What does Inherit flag in an attribute definition mean?
+	- explain what kinds of targets can be used to decorate attributes.
+	- read attributes by reflection.
+	- explain System.Reflection.BindingFlags enum values.
+	- list methods and fields containing in a type.
+	- list types that implement an interface.
+	- invoke a method on an instance of a type.
+	- create an instance of a particular type.
+	- explain the main idea of CodeDOM component.
+	- create a CodeDOM compile unit and generate its output.
+	- understand how System.Linq.Expressions types can be used to generate code during runtime.
+
+* Check _01_CodeDomExample and _02_ExpressionTrees.
+
+* Solve TaskA - TaskE.
+	 
+* Commit all changes into your branch in the respository.
+* Update your lesson record on confluence.
