@@ -1,5 +1,7 @@
 ﻿using System;
 using Xunit;
+using System.Reflection;
+using System.Linq;
 
 namespace Lessons._08
 {
@@ -13,8 +15,8 @@ namespace Lessons._08
         [Fact]
         public void GetEnumValueAttribute_ForNonEnumValue_ShouldThrowArgumentException()
         {
-            Assert.Throws<ArgumentException>(() => new object().GetEnumValueAttribute<FooAttribute>());
-        }
+			Assert.Throws<ArgumentException>(() => new object().GetEnumValueAttribute<FooAttribute>());
+		}
 
         [Fact]
         public void GetEnumValueAttribute_ForValueWithoutAttributes_ShouldReturnNull()
@@ -63,10 +65,22 @@ namespace Lessons._08
 
     static class EnumExtensions
     {
-        public static TAttribute GetEnumValueAttribute<TAttribute>(this object enumValue)
+        public static TAttribute GetEnumValueAttribute<TAttribute>(this object enumValue) where TAttribute: Attribute
         {
-            throw new NotImplementedException();
-        }
+			if (!enumValue.GetType().IsEnum)
+				throw new ArgumentException();
+
+			MemberInfo memberInfo = enumValue.GetType()
+				.GetMember(enumValue.ToString())
+				.FirstOrDefault();
+
+			if (memberInfo != null)
+			{
+				return memberInfo.GetCustomAttributes<TAttribute>().FirstOrDefault();
+			}
+
+			return null;
+		}
     }
 
 }

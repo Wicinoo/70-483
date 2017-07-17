@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq.Expressions;
 
 namespace Lessons._08
 {
@@ -11,7 +12,14 @@ namespace Lessons._08
     {
         public static void Run()
         {
-            throw new NotImplementedException();
-        }
+			var expr = Expression.Call(
+					null,
+					typeof(Console).GetMethod("Write", new Type[] { typeof(String) }),
+					Expression.Constant("Hello ")
+					);
+
+			Expression.Lambda<Action>(expr).Compile()();
+
+		}
     }
 }
