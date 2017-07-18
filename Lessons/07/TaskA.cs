@@ -33,14 +33,26 @@ namespace Lessons._07
 
         public class EmotionHandler : IEmotionHandler
         {
+            private readonly IEnumerable<IParticularEmotionHandler> _particularEmotionHandlers;
+
             public EmotionHandler(IEnumerable<IParticularEmotionHandler> particularEmotionHandlers)
             {
-                throw new NotImplementedException();
+                _particularEmotionHandlers = particularEmotionHandlers;
             }
 
             public void Handle(EmotionType emotion)
             {
-                throw new NotImplementedException();
+                switch (emotion)
+                {
+                    case EmotionType.Anger:
+                        break;
+                    case EmotionType.Fear:
+                        break;
+                    case EmotionType.Hunger:
+                        break;
+                    default:
+                        throw new ArgumentOutOfRangeException(nameof(emotion), emotion, null);
+                }
             }
         }
 
@@ -55,6 +67,26 @@ namespace Lessons._07
                 if (emotion != EmotionType.Anger) return;
 
                 Console.WriteLine("Yep, I can handle your anger. Keep calm mate!");
+            }
+        }
+
+        public class FearHandler : IParticularEmotionHandler
+        {
+            public void Handle(EmotionType emotion)
+            {
+                if (emotion != EmotionType.Fear) return;
+
+                Console.WriteLine("Fear");
+            }
+        }
+
+        public class HungerHandler : IParticularEmotionHandler
+        {
+            public void Handle(EmotionType emotion)
+            {
+                if (emotion != EmotionType.Hunger) return;
+
+                Console.WriteLine("Hunger");
             }
         }
 
