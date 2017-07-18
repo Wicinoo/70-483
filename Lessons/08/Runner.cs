@@ -7,7 +7,7 @@
             //TaskA.Run();
             //TaskC.Run();
             //TaskD.Run();
-            //TaskE.Run();
+            TaskE.Run();
         }
     }
 }

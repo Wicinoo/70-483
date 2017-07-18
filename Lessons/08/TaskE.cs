@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq.Expressions;
 
 namespace Lessons._08
 {
@@ -11,7 +12,20 @@ namespace Lessons._08
     {
         public static void Run()
         {
-            throw new NotImplementedException();
+            var instance = new TaskE();
+            instance.RunInstance();
+        }
+
+        public static void PrintDateTimeNow()
+        {
+            Console.WriteLine(DateTime.Now);
+        }
+
+        private void RunInstance()
+        {
+            var printDateNow = Expression.Lambda<Action>(Expression.Call(typeof(TaskE).GetMethod("PrintDateTimeNow")));
+            var compiled = printDateNow.Compile();
+            compiled.DynamicInvoke();
         }
     }
 }

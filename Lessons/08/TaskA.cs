@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Lessons._08
 {
@@ -15,7 +16,23 @@ namespace Lessons._08
     {
         public static void Run()
         {
-            throw new NotImplementedException();
+            var devs = Enum.GetValues(typeof(DeveloperType));
+
+            foreach (DeveloperType dev in devs)
+            {
+                Console.WriteLine($"Dev type: {dev}");
+                var skills = dev.GetSkills();
+                PrintSkills(skills);
+                Console.WriteLine("====================");
+            }
+        }
+
+        private static void PrintSkills(IEnumerable<DeveloperSkillType> skills)
+        {
+            foreach (var item in skills)
+            {
+                Console.WriteLine(item);
+            }
         }
     }
 
@@ -32,22 +49,49 @@ namespace Lessons._08
 
     public enum DeveloperType
     {
-        //[RequiredSkill(DeveloperSkillType.CSharp)]
-        //[RequiredSkill(DeveloperSkillType.VisualBasic)]
-        //[RequiredSkill(DeveloperSkillType.MsSql)]
+        [RequiredSkill(DeveloperSkillType.CSharp)]
+        [RequiredSkill(DeveloperSkillType.VisualBasic)]
+        [RequiredSkill(DeveloperSkillType.MsSql)]
         LagacyCodeDeveloper,
 
-        //[RequiredSkill(DeveloperSkillType.CSharp)]
-        //[RequiredSkill(DeveloperSkillType.JavaScript)]
-        //[RequiredSkill(DeveloperSkillType.Mvc)]
-        //[RequiredSkill(DeveloperSkillType.React)]
+        [RequiredSkill(DeveloperSkillType.CSharp)]
+        [RequiredSkill(DeveloperSkillType.JavaScript)]
+        [RequiredSkill(DeveloperSkillType.Mvc)]
+        [RequiredSkill(DeveloperSkillType.React)]
         FrontEndDeveloper,
 
-        //[RequiredSkill(DeveloperSkillType.CSharp)]
-        //[RequiredSkill(DeveloperSkillType.MsSql)]
-        //[RequiredSkill(DeveloperSkillType.SoapRest)]
+        [RequiredSkill(DeveloperSkillType.CSharp)]
+        [RequiredSkill(DeveloperSkillType.MsSql)]
+        [RequiredSkill(DeveloperSkillType.SoapRest)]
         ServiceDeveloper
     }
 
+    [AttributeUsage(AttributeTargets.All, AllowMultiple = true)]
+    public class RequiredSkillAttribute : Attribute
+    {
+        public DeveloperSkillType Skill { get; set; }
 
+        public RequiredSkillAttribute(DeveloperSkillType skill)
+        {
+            Skill = skill;
+        }
+    }
+
+    public static class DeveloperTypeExtensions
+    {
+        public static IEnumerable<DeveloperSkillType> GetSkills(this DeveloperType developer)
+        {
+            var type = typeof(DeveloperType);
+            var memInfo = type.GetMember(developer.ToString());
+            var attributes = memInfo[0].GetCustomAttributes(typeof(RequiredSkillAttribute), true);
+
+            var skills = new List<DeveloperSkillType>();
+            for (int i = 0; i < attributes.Length; i++)
+            {
+                skills.Add(((RequiredSkillAttribute)attributes[i]).Skill);
+            }
+
+            return skills;
+        }
+    }
 }
