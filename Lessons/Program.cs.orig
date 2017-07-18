@@ -16,10 +16,12 @@ namespace Lessons
             //_05.Runner.Run();
             //_05.Demo.Run();
             //_06.Runner.Run();
-<<<<<<< HEAD
             //_06.Demo.Run();
-=======
             //_07.Runner.Run();
+<<<<<<< HEAD
+            _07.Demo.Run();
+=======
+            //_08.Runner.Run();
 >>>>>>> master
 
             Console.WriteLine();
