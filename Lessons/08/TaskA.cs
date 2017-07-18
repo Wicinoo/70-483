@@ -65,13 +65,20 @@ namespace Lessons._08
 
     public enum DeveloperType
     {
-        [RequiredSkill(DeveloperSkillType.CSharp)] [RequiredSkill(DeveloperSkillType.VisualBasic)]
-        [RequiredSkill(DeveloperSkillType.MsSql)] LagacyCodeDeveloper,
+        [RequiredSkill(DeveloperSkillType.CSharp)] 
+        [RequiredSkill(DeveloperSkillType.VisualBasic)]
+        [RequiredSkill(DeveloperSkillType.MsSql)] 
+        LegacyCodeDeveloper,
 
-        [RequiredSkill(DeveloperSkillType.CSharp)] [RequiredSkill(DeveloperSkillType.JavaScript)]
-        [RequiredSkill(DeveloperSkillType.Mvc)] [RequiredSkill(DeveloperSkillType.React)] FrontEndDeveloper,
+        [RequiredSkill(DeveloperSkillType.CSharp)] 
+        [RequiredSkill(DeveloperSkillType.JavaScript)]
+        [RequiredSkill(DeveloperSkillType.Mvc)] 
+        [RequiredSkill(DeveloperSkillType.React)] 
+        FrontEndDeveloper,
 
-        [RequiredSkill(DeveloperSkillType.CSharp)] [RequiredSkill(DeveloperSkillType.MsSql)]
-        [RequiredSkill(DeveloperSkillType.SoapRest)] ServiceDeveloper
+        [RequiredSkill(DeveloperSkillType.CSharp)] 
+        [RequiredSkill(DeveloperSkillType.MsSql)]
+        [RequiredSkill(DeveloperSkillType.SoapRest)] 
+        ServiceDeveloper
     }
 }
