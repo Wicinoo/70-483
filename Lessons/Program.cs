@@ -18,6 +18,10 @@ namespace Lessons
 =======
             //_06.Runner.Run();
             //_07.Runner.Run();
+<<<<<<< HEAD
+>>>>>>> refs/remotes/origin/master
+=======
+            //_08.Runner.Run();
 >>>>>>> refs/remotes/origin/master
 
             Console.WriteLine("Press any key ...");
