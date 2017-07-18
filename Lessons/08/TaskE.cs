@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq.Expressions;
 
 namespace Lessons._08
 {
@@ -11,7 +12,11 @@ namespace Lessons._08
     {
         public static void Run()
         {
-            throw new NotImplementedException();
+            var expr = Expression.Convert(Expression.Constant(DateTime.Now), typeof(object));
+            var dtExpression = Expression.Call(null,
+                typeof(Console).GetMethod("WriteLine", new Type[] {typeof(DateTime)}),
+                expr);
+            Expression.Lambda<Action>(dtExpression).Compile()();
         }
     }
 }
