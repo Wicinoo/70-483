@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Linq;
+using System.Reflection;
 using Xunit;
 
 namespace Lessons._08
@@ -13,14 +15,14 @@ namespace Lessons._08
         [Fact]
         public void GetEnumValueAttribute_ForNonEnumValue_ShouldThrowArgumentException()
         {
-            Assert.Throws<ArgumentException>(() => new object().GetEnumValueAttribute<FooAttribute>());
+            Assert.Throws<ArgumentException>(() => new object().GetEnumValueAttribute<FooAttribute, TestEnum>());
         }
 
         [Fact]
         public void GetEnumValueAttribute_ForValueWithoutAttributes_ShouldReturnNull()
         {
             var enumValue = TestEnum.ValueWithoutAttributes;
-            var result = enumValue.GetEnumValueAttribute<FooAttribute>();
+            var result = enumValue.GetEnumValueAttribute<FooAttribute, TestEnum>();
 
             Assert.Null(result);
         }
@@ -29,7 +31,7 @@ namespace Lessons._08
         public void GetEnumValueAttribute_ForValueWithDifferentAttribute_ShouldReturnNull()
         {
             var enumValue = TestEnum.ValueWithBar;
-            var result = enumValue.GetEnumValueAttribute<FooAttribute>();
+            var result = enumValue.GetEnumValueAttribute<FooAttribute, TestEnum>();
 
             Assert.Null(result);
         }
@@ -38,20 +40,21 @@ namespace Lessons._08
         public void GetEnumValueAttribute_ForValueWithFoo_ShouldReturnFooAttributeInstance()
         {
             var enumValue = TestEnum.ValueWithFoo;
-            var result = enumValue.GetEnumValueAttribute<FooAttribute>();
+            var result = enumValue.GetEnumValueAttribute<FooAttribute, TestEnum>();
 
             Assert.IsType<FooAttribute>(result);
         }
 
-        enum TestEnum
+        public enum TestEnum
         {
             ValueWithoutAttributes,
             [Foo]
             ValueWithFoo,
             [Bar]
             ValueWithBar
-        }
+        };
 
+        [AttributeUsage(AttributeTargets.All, AllowMultiple = false)]
         class FooAttribute : Attribute
         {
         }
@@ -61,11 +64,26 @@ namespace Lessons._08
         }
     }
 
-    static class EnumExtensions
+    public static class EnumExtensions
     {
-        public static TAttribute GetEnumValueAttribute<TAttribute>(this object enumValue)
+        public static TAttribute GetEnumValueAttribute<TAttribute, EnumType>(this object enumValue) where TAttribute : Attribute
         {
-            throw new NotImplementedException();
+            if (!enumValue.GetType().IsEnum)
+            {
+                throw new ArgumentException();
+            }
+
+            var value = (EnumType)enumValue;
+            var memberInfo = typeof(EnumType).GetMember(value.ToString()).FirstOrDefault();
+
+            if (memberInfo != null)
+            {
+                return memberInfo.GetCustomAttributes(typeof(TAttribute))
+                            .Cast<TAttribute>()
+                            .FirstOrDefault();
+            }
+
+            return null;
         }
     }
 

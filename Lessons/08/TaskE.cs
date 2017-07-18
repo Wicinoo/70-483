@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq.Expressions;
 
 namespace Lessons._08
 {
@@ -11,7 +12,20 @@ namespace Lessons._08
     {
         public static void Run()
         {
-            throw new NotImplementedException();
+            BlockExpression blockExpr = Expression.Block(
+                Expression.Call(
+                        null,
+                        typeof(Console).GetMethod("WriteLine", new Type[] { typeof(DateTime) }),
+                        Expression.Convert(
+                            Expression.Property(
+                                null,
+                                typeof(DateTime),
+                                "Now"),
+                            typeof(object))
+                       )
+                );
+
+            Expression.Lambda<Action>(blockExpr).Compile()();
         }
     }
 }
