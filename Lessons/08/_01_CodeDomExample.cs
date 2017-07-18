@@ -13,7 +13,7 @@ namespace Lessons._08
             var myClassCompileUnit = CreateCompileUnitForMyClass();
             GenerateMyClass(myClassCompileUnit);
 
-            Console.WriteLine($"MyClass has been generated.\r\nCheck result in {AppDomain.CurrentDomain.BaseDirectory}MyClass.cs");
+            Console.WriteLine($"HelloWorld has been generated.\r\nCheck result in {AppDomain.CurrentDomain.BaseDirectory}HelloWorld.cs");
         }
 
         private static CodeCompileUnit CreateCompileUnitForMyClass()
