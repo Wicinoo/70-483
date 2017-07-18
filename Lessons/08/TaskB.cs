@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using Xunit;
 
 namespace Lessons._08
@@ -52,10 +53,12 @@ namespace Lessons._08
             ValueWithBar
         }
 
+        [AttributeUsage(AttributeTargets.All, AllowMultiple = false)]
         class FooAttribute : Attribute
         {
         }
 
+        [AttributeUsage(AttributeTargets.All, AllowMultiple = false)]
         class BarAttribute : Attribute
         {
         }
@@ -63,9 +66,26 @@ namespace Lessons._08
 
     static class EnumExtensions
     {
-        public static TAttribute GetEnumValueAttribute<TAttribute>(this object enumValue)
+        public static TAttribute GetEnumValueAttribute<TAttribute>(this object enumValue) where TAttribute : Attribute
         {
-            throw new NotImplementedException();
+            if (!(enumValue is Enum))
+            {
+                throw new ArgumentException("not enum");
+            }
+
+            var memberInfo = enumValue.GetType().GetMember(enumValue.ToString());
+
+            if (memberInfo != null)
+            {
+                var attributes = memberInfo[0].GetCustomAttributes(typeof(TAttribute), false);
+
+                if(attributes.Any())
+                {
+                    return (TAttribute)attributes[0];
+                }
+            }
+
+            return null;
         }
     }
 
