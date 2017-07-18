@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Linq;
+using System.Reflection;
 
 namespace Lessons._08
 {
@@ -10,7 +12,9 @@ namespace Lessons._08
     {
         public static void Run()
         {
-            throw new NotImplementedException();    
+            var instance = Activator.CreateInstance(typeof(MyGuidHolder));
+            Console.WriteLine(instance.GetType().GetFields(BindingFlags.NonPublic | BindingFlags.Instance)
+                .Single(f => f.FieldType == typeof(Guid)).GetValue(instance));
         }
 
         class MyGuidHolder
