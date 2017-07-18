@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Reflection;
 using Xunit;
 
 namespace Lessons._08
@@ -46,12 +47,11 @@ namespace Lessons._08
         enum TestEnum
         {
             ValueWithoutAttributes,
-            [Foo]
-            ValueWithFoo,
-            [Bar]
-            ValueWithBar
+            [Foo] ValueWithFoo,
+            [Bar] ValueWithBar
         }
 
+        [AttributeUsage(AttributeTargets.Field, AllowMultiple = false)]
         class FooAttribute : Attribute
         {
         }
@@ -63,10 +63,14 @@ namespace Lessons._08
 
     static class EnumExtensions
     {
-        public static TAttribute GetEnumValueAttribute<TAttribute>(this object enumValue)
+        public static TAttribute GetEnumValueAttribute<TAttribute>(this object enumValue) where TAttribute : Attribute
         {
-            throw new NotImplementedException();
+            if (!(enumValue is Enum))
+            {
+                throw new ArgumentException();
+            }
+            return enumValue.GetType().GetTypeInfo().GetDeclaredField(enumValue.ToString())
+                    .GetCustomAttribute<TAttribute>();
         }
     }
-
 }
