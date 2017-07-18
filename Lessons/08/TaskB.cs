@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using Xunit;
 
 namespace Lessons._08
@@ -63,10 +64,17 @@ namespace Lessons._08
 
     static class EnumExtensions
     {
-        public static TAttribute GetEnumValueAttribute<TAttribute>(this object enumValue)
+        public static TAttribute GetEnumValueAttribute<TAttribute>(this object enumValue) where TAttribute : Attribute
         {
-            throw new NotImplementedException();
+            if (!enumValue.GetType().IsEnum)
+            {
+                throw new ArgumentException();
+            }
+
+            var type = enumValue.GetType();
+            var memInfo = type.GetMember(enumValue.ToString());
+            var attributes = memInfo[0].GetCustomAttributes(typeof(TAttribute), false);
+            return attributes.Any() ? (TAttribute)attributes[0] : null;
         }
     }
-
 }

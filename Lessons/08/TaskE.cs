@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Globalization;
+using System.Linq.Expressions;
 
 namespace Lessons._08
 {
@@ -11,7 +13,13 @@ namespace Lessons._08
     {
         public static void Run()
         {
-            throw new NotImplementedException();
+            var expr = Expression.Call(
+                null,
+                typeof (Console).GetMethod("WriteLine", new[] { typeof (string) }),
+                Expression.Constant(DateTime.Now.ToString(CultureInfo.InvariantCulture))
+                );
+
+            Expression.Lambda<Action>(expr).Compile()();
         }
     }
 }
