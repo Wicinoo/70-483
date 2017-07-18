@@ -169,6 +169,7 @@
     <Compile Include="07\TaskA.cs" />
     <Compile Include="07\TaskB.cs" />
     <Compile Include="07\TaskC.cs" />
+    <Compile Include="08\Demo.cs" />
     <Compile Include="08\Runner.cs" />
     <Compile Include="08\TaskA.cs" />
     <Compile Include="08\TaskB.cs" />
