@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using Xunit;
 
 namespace Lessons._08
@@ -43,7 +45,7 @@ namespace Lessons._08
             Assert.IsType<FooAttribute>(result);
         }
 
-        enum TestEnum
+        public enum TestEnum
         {
             ValueWithoutAttributes,
             [Foo]
@@ -52,6 +54,7 @@ namespace Lessons._08
             ValueWithBar
         }
 
+        [AttributeUsage(AttributeTargets.All, AllowMultiple = false)]
         class FooAttribute : Attribute
         {
         }
@@ -61,11 +64,29 @@ namespace Lessons._08
         }
     }
 
-    static class EnumExtensions
+    internal static class EnumExtensions
     {
         public static TAttribute GetEnumValueAttribute<TAttribute>(this object enumValue)
         {
-            throw new NotImplementedException();
+            var memberInfo = typeof (TaskB.TestEnum).GetMember(enumValue.ToString())
+                .FirstOrDefault();
+
+            if (memberInfo != null)
+            {
+                var attributesOnValue = memberInfo.GetCustomAttributes(typeof (TAttribute), false);
+
+                if (attributesOnValue.Any())
+                {
+                    return (TAttribute) attributesOnValue.FirstOrDefault();
+                }
+                else
+                {
+                    return default(TAttribute);
+                }
+
+            }
+
+            throw new ArgumentException();
         }
     }
 

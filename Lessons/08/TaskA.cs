@@ -1,4 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Reflection;
+using Xunit.Sdk;
 
 namespace Lessons._08
 {
@@ -15,7 +19,19 @@ namespace Lessons._08
     {
         public static void Run()
         {
-            throw new NotImplementedException();
+            var allDeveloperTypes = Enum.GetValues(typeof (DeveloperType)).Cast<DeveloperType>().ToArray();
+
+            if (allDeveloperTypes.Any())
+            {
+                foreach (var devType in allDeveloperTypes)
+                {
+                    Console.WriteLine(devType + ":");
+                    foreach (var devSkillType in devType.GetSkills())
+                    {
+                        Console.WriteLine(devSkillType.ToString());
+                    }
+                }
+            }
         }
     }
 
@@ -32,21 +48,55 @@ namespace Lessons._08
 
     public enum DeveloperType
     {
-        //[RequiredSkill(DeveloperSkillType.CSharp)]
-        //[RequiredSkill(DeveloperSkillType.VisualBasic)]
-        //[RequiredSkill(DeveloperSkillType.MsSql)]
+        [RequiredSkill(DeveloperSkillType.CSharp)]
+        [RequiredSkill(DeveloperSkillType.VisualBasic)]
+        [RequiredSkill(DeveloperSkillType.MsSql)]
         LagacyCodeDeveloper,
 
-        //[RequiredSkill(DeveloperSkillType.CSharp)]
-        //[RequiredSkill(DeveloperSkillType.JavaScript)]
-        //[RequiredSkill(DeveloperSkillType.Mvc)]
-        //[RequiredSkill(DeveloperSkillType.React)]
+        [RequiredSkill(DeveloperSkillType.CSharp)]
+        [RequiredSkill(DeveloperSkillType.JavaScript)]
+        [RequiredSkill(DeveloperSkillType.Mvc)]
+        [RequiredSkill(DeveloperSkillType.React)]
         FrontEndDeveloper,
 
-        //[RequiredSkill(DeveloperSkillType.CSharp)]
-        //[RequiredSkill(DeveloperSkillType.MsSql)]
-        //[RequiredSkill(DeveloperSkillType.SoapRest)]
+        [RequiredSkill(DeveloperSkillType.CSharp)]
+        [RequiredSkill(DeveloperSkillType.MsSql)]
+        [RequiredSkill(DeveloperSkillType.SoapRest)]
         ServiceDeveloper
+    }
+
+    [AttributeUsage(AttributeTargets.All, AllowMultiple = true)]
+    public class RequiredSkill : System.Attribute
+    {
+        public DeveloperSkillType Skill{ get; }
+
+        public RequiredSkill(DeveloperSkillType skillType)
+        {
+            Skill = skillType;
+        }
+    }
+
+    public static class ExtensionMethods
+    {
+        public static IEnumerable<DeveloperSkillType> GetSkills(this DeveloperType devType)
+        {
+            var memberInfo = typeof(DeveloperType).GetMember(devType.ToString())
+                                              .FirstOrDefault();
+
+            if (memberInfo != null)
+            {
+                IEnumerable<RequiredSkill> skillz =
+                    Array.ConvertAll(memberInfo.GetCustomAttributes(typeof (RequiredSkill), false),
+                        x => (RequiredSkill) x);
+
+                if (skillz.Any())
+                {
+                    return skillz.Any() ? skillz.Select(x => x.Skill) : new List<DeveloperSkillType>();
+                }
+            }
+
+            return new List<DeveloperSkillType>();
+        }
     }
 
 

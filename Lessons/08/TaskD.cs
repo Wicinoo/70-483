@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Reflection;
 
 namespace Lessons._08
 {
@@ -10,7 +11,19 @@ namespace Lessons._08
     {
         public static void Run()
         {
-            throw new NotImplementedException();    
+            //instantiate
+            var constructor = typeof (MyGuidHolder).GetConstructor(Type.EmptyTypes);
+
+            if (constructor != null)
+            {
+                var instance = constructor.Invoke(new object[] {});
+
+                BindingFlags bindFlags = BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic
+                | BindingFlags.Static;
+                FieldInfo field = typeof(MyGuidHolder).GetField("guid", bindFlags);
+                Console.WriteLine(field.GetValue(instance));
+            }
+
         }
 
         class MyGuidHolder

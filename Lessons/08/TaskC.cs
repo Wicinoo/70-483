@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 
 namespace Lessons._08
 {
@@ -13,7 +14,36 @@ namespace Lessons._08
             // #2 List all interfaces that are implemented by FooBar. // IFoo, IBar
             // #3 List all types that implement IFoo and can be instantiated with using parameterless constuctor. Instantiate them. // Foo, FooBar 
 
-            throw new NotImplementedException();
+            foreach (var source in AppDomain.CurrentDomain.GetAssemblies()
+                .SelectMany(s => s.GetTypes())
+                .Where(p => typeof(IFoo).IsAssignableFrom(p) && p != typeof(IFoo)))
+            {
+                Console.WriteLine(source.Name);
+            }
+
+            foreach (var source in AppDomain.CurrentDomain.GetAssemblies()
+                .SelectMany(s => s.GetTypes())
+                .Where(p => p.IsInterface && p.IsAssignableFrom(typeof(FooBar))))
+            {
+                Console.WriteLine(source.Name);
+            }
+
+            var specialTypes = AppDomain.CurrentDomain.GetAssemblies()
+                .SelectMany(s => s.GetTypes())
+                .Where(p => typeof (IFoo).IsAssignableFrom(p) && p != typeof (IFoo));
+
+            foreach (var specialType in specialTypes)
+            {
+                var constructor = specialType.GetConstructor(Type.EmptyTypes);
+                if (constructor != null)
+                {
+                    var instance = constructor.Invoke(new object[] {});
+                }
+
+            }
+
+
+
         }
 
         interface IFoo { }
