@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Linq.Expressions;
+using System.Runtime.InteropServices;
 
 namespace Lessons._08
 {
@@ -11,7 +13,17 @@ namespace Lessons._08
     {
         public static void Run()
         {
-            throw new NotImplementedException();
+
+            var methodCallExpression = Expression.Call(
+                null,
+                typeof(Console).GetMethod("WriteLine", new Type[] {typeof(String)}),
+                Expression.Constant(DateTime.Now.ToString())
+            );
+
+            Expression<Action> expression = Expression.Lambda<Action>(methodCallExpression);
+
+
+            expression.Compile().DynamicInvoke();
         }
     }
 }

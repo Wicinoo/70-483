@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Linq;
+using FluentAssertions;
 using Xunit;
 
 namespace Lessons._08
@@ -52,6 +54,7 @@ namespace Lessons._08
             ValueWithBar
         }
 
+        [AttributeUsage(AttributeTargets.All, AllowMultiple = false)]
         class FooAttribute : Attribute
         {
         }
@@ -65,7 +68,17 @@ namespace Lessons._08
     {
         public static TAttribute GetEnumValueAttribute<TAttribute>(this object enumValue)
         {
-            throw new NotImplementedException();
+            var enumValueCasted = enumValue as Enum;
+            if (enumValueCasted == null)
+            {
+                throw new ArgumentException($"{nameof(enumValue)} must be Enum");
+            }
+
+            var type = enumValueCasted.GetType();
+            var memberInfo = type.GetMember(enumValueCasted.ToString()).First();
+            var attribute = Attribute.GetCustomAttribute(memberInfo, typeof(TAttribute)).As<TAttribute>();
+
+            return attribute;
         }
     }
 
