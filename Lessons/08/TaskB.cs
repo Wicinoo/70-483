@@ -3,6 +3,10 @@ using Xunit;
 
 namespace Lessons._08
 {
+    using System.Linq;
+
+    using FluentAssertions.Formatting;
+
     /// <summary>
     /// Implement GetEnumValueAttribute() extension method to get an attribute defined for an enum value.
     /// Make all tests passed.
@@ -51,21 +55,30 @@ namespace Lessons._08
             [Bar]
             ValueWithBar
         }
+    }
 
-        class FooAttribute : Attribute
-        {
-        }
+    class FooAttribute : Attribute
+    {
+    }
 
-        class BarAttribute : Attribute
-        {
-        }
+    class BarAttribute : Attribute
+    {
     }
 
     static class EnumExtensions
     {
         public static TAttribute GetEnumValueAttribute<TAttribute>(this object enumValue)
         {
-            throw new NotImplementedException();
+            var enumType = enumValue.GetType();
+
+            if (!enumType.IsEnum)
+            {
+                throw new ArgumentException();
+            }
+
+            var attributes = enumType.GetMember(enumValue.ToString())[0].GetCustomAttributes(typeof(TAttribute), false);
+
+            return (TAttribute)attributes.FirstOrDefault();
         }
     }
 
