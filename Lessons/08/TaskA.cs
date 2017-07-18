@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Lessons._08
 {
@@ -15,7 +17,26 @@ namespace Lessons._08
     {
         public static void Run()
         {
-            throw new NotImplementedException();
+            foreach (var developerType in Enum.GetValues(typeof(DeveloperType)).Cast<DeveloperType>())
+            {
+                Console.WriteLine($"developer type: {developerType} has skills:");
+                foreach (var skill in developerType.GetSkills())
+                {
+                    Console.WriteLine($"    {skill}");
+                }
+            }
+        }
+    }
+
+    public static class Extensions
+    {
+        public static IEnumerable<DeveloperSkillType> GetSkills(this DeveloperType developerType)
+        {
+            var memberInfo = typeof (DeveloperType).GetMember(developerType.ToString()).First();
+
+            var skills = memberInfo.GetCustomAttributes(typeof (RequiredSkillAttribute), false).Cast<RequiredSkillAttribute>();
+
+            return skills.Select(skill => skill.DeveloperSkillType);
         }
     }
 
@@ -32,22 +53,31 @@ namespace Lessons._08
 
     public enum DeveloperType
     {
-        //[RequiredSkill(DeveloperSkillType.CSharp)]
-        //[RequiredSkill(DeveloperSkillType.VisualBasic)]
-        //[RequiredSkill(DeveloperSkillType.MsSql)]
+        [RequiredSkill(DeveloperSkillType.CSharp)]
+        [RequiredSkill(DeveloperSkillType.VisualBasic)]
+        [RequiredSkill(DeveloperSkillType.MsSql)]
         LagacyCodeDeveloper,
 
-        //[RequiredSkill(DeveloperSkillType.CSharp)]
-        //[RequiredSkill(DeveloperSkillType.JavaScript)]
-        //[RequiredSkill(DeveloperSkillType.Mvc)]
-        //[RequiredSkill(DeveloperSkillType.React)]
+        [RequiredSkill(DeveloperSkillType.CSharp)]
+        [RequiredSkill(DeveloperSkillType.JavaScript)]
+        [RequiredSkill(DeveloperSkillType.Mvc)]
+        [RequiredSkill(DeveloperSkillType.React)]
         FrontEndDeveloper,
 
-        //[RequiredSkill(DeveloperSkillType.CSharp)]
-        //[RequiredSkill(DeveloperSkillType.MsSql)]
-        //[RequiredSkill(DeveloperSkillType.SoapRest)]
+        [RequiredSkill(DeveloperSkillType.CSharp)]
+        [RequiredSkill(DeveloperSkillType.MsSql)]
+        [RequiredSkill(DeveloperSkillType.SoapRest)]
         ServiceDeveloper
     }
 
+    [AttributeUsage(AttributeTargets.All, AllowMultiple = true)]
+    public class RequiredSkillAttribute : Attribute
+    {
+        public readonly DeveloperSkillType DeveloperSkillType;
 
+        public RequiredSkillAttribute(DeveloperSkillType developerSkillType)
+        {
+            DeveloperSkillType = developerSkillType;
+        }
+    }
 }
