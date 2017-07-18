@@ -4,9 +4,11 @@
     {
         public static void Run()
         {
+            //_01_CodeDomExample.Run();
+            //_02_ExpressionTrees.Run();
             //TaskA.Run();
             //TaskC.Run();
-            //TaskD.Run();
+            TaskD.Run();
             //TaskE.Run();
         }
     }
