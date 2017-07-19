@@ -2,6 +2,8 @@
 
 namespace Lessons._08
 {
+    using System.Reflection;
+
     /// <summary>
     /// Create an instance of MyGuidHolder. 
     /// Print out the value of the guid field without touching implementation of the class.
@@ -10,7 +12,14 @@ namespace Lessons._08
     {
         public static void Run()
         {
-            throw new NotImplementedException();    
+            var instance = new MyGuidHolder();
+
+            FieldInfo fields = typeof(MyGuidHolder).GetField(
+                         "guid",
+                         BindingFlags.NonPublic |
+                         BindingFlags.Instance);
+
+            Console.WriteLine(fields.GetValue(instance));
         }
 
         class MyGuidHolder

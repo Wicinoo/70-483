@@ -2,6 +2,8 @@
 
 namespace Lessons._08
 {
+    using System.Linq.Expressions;
+
     /// <summary>
     /// Create an expression (System.Linq.Expressions.Expression) for the code:
     ///  Console.WriteLine(DateTime.Now)
@@ -11,7 +13,15 @@ namespace Lessons._08
     {
         public static void Run()
         {
-            throw new NotImplementedException();
+            BlockExpression blockExpr = Expression.Block(
+                Expression.Call(
+                    null,
+                    typeof(Console).GetMethod("WriteLine", new Type[] { typeof(String) }),
+                    Expression.Constant(DateTime.Now.ToString())
+                    )
+                );
+
+            Expression.Lambda<Action>(blockExpr).Compile()();
         }
     }
 }
