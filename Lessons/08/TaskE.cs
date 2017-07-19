@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq.Expressions;
+using System.Threading;
 
 namespace Lessons._08
 {
@@ -12,7 +13,7 @@ namespace Lessons._08
     {
         public static void Run()
         {
-            var expression = Expression.Convert(Expression.Constant(DateTime.Now), typeof(object));
+            var expression = Expression.Convert(Expression.Property(null, typeof(DateTime), "Now"), typeof(object));
             var myExpression = Expression.Call(
                 null,
                 typeof(Console).GetMethod("WriteLine", new Type[] { typeof(DateTime) }),
