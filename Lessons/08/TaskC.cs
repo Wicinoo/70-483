@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 
 namespace Lessons._08
 {
@@ -10,6 +11,9 @@ namespace Lessons._08
         public static void Run()
         {
             // #1 List all types that implement IFoo.  // FooBase, Foo, FooBar, FooBuz
+            var ifoo = AppDomain.CurrentDomain.GetAssemblies().SelectMany(s => s.GetTypes())
+                .Where(p => p.IsAssignableFrom(typeof(IFoo)) && p.IsClass).ToList();
+
             // #2 List all interfaces that are implemented by FooBar. // IFoo, IBar
             // #3 List all types that implement IFoo and can be instantiated with using parameterless constuctor. Instantiate them. // Foo, FooBar 
 

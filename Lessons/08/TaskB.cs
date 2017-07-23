@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using Xunit;
 
 namespace Lessons._08
@@ -68,18 +69,10 @@ namespace Lessons._08
         {
             if (!enumValue.GetType().IsEnum) throw new ArgumentException();
 
-            var neco = enumValue.GetType().GetMember(enumValue.ToString());
-            
-            //var requiredSkillAttributes =
-            // (enumValue.GetType().GetMember(enumValue.ToString())
-            //      .FirstOrDefault()
-            //      .GetCustomAttributes(typeof(RequiredSkillAttribute), false) as RequiredSkillAttribute[]);
-
-            //var requiredSkillAttributes =
-            //  (typeof(TAttribute).GetMember(enumValue.ToString())
-            //  .FirstOrDefault()
-            //       .GetCustomAttributes(typeof(RequiredSkillAttribute), false) as TAttribute);
-            throw new NotImplementedException();
+            var member = enumValue.GetType().GetMember(enumValue.ToString()).FirstOrDefault();
+            if (member == null) throw new ArgumentException();
+            var attributes = member.GetCustomAttributes(typeof(TAttribute), false) as TAttribute[];
+            return attributes.FirstOrDefault();
         }
     }
 
