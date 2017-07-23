@@ -1,4 +1,7 @@
 ﻿using System;
+using System.Collections;
+using System.Collections.Generic;
+using Castle.DynamicProxy.Generators.Emitters.SimpleAST;
 
 namespace Lessons._08
 {
@@ -15,7 +18,15 @@ namespace Lessons._08
     {
         public static void Run()
         {
-            throw new NotImplementedException();
+            var values = Enum.GetValues(typeof (DeveloperType));
+
+            foreach (DeveloperType developerType in values)
+            {
+                foreach (var skill in developerType.GetSkills())
+                {
+                    Console.WriteLine($"{developerType} knows {skill}");
+                }
+            }
         }
     }
 
@@ -32,22 +43,45 @@ namespace Lessons._08
 
     public enum DeveloperType
     {
-        //[RequiredSkill(DeveloperSkillType.CSharp)]
-        //[RequiredSkill(DeveloperSkillType.VisualBasic)]
-        //[RequiredSkill(DeveloperSkillType.MsSql)]
+        [RequiredSkill(DeveloperSkillType.CSharp)]
+        [RequiredSkill(DeveloperSkillType.VisualBasic)]
+        [RequiredSkill(DeveloperSkillType.MsSql)]
         LagacyCodeDeveloper,
 
-        //[RequiredSkill(DeveloperSkillType.CSharp)]
-        //[RequiredSkill(DeveloperSkillType.JavaScript)]
-        //[RequiredSkill(DeveloperSkillType.Mvc)]
-        //[RequiredSkill(DeveloperSkillType.React)]
+        [RequiredSkill(DeveloperSkillType.CSharp)]
+        [RequiredSkill(DeveloperSkillType.JavaScript)]
+        [RequiredSkill(DeveloperSkillType.Mvc)]
+        [RequiredSkill(DeveloperSkillType.React)]
         FrontEndDeveloper,
 
-        //[RequiredSkill(DeveloperSkillType.CSharp)]
-        //[RequiredSkill(DeveloperSkillType.MsSql)]
-        //[RequiredSkill(DeveloperSkillType.SoapRest)]
+        [RequiredSkill(DeveloperSkillType.CSharp)]
+        [RequiredSkill(DeveloperSkillType.MsSql)]
+        [RequiredSkill(DeveloperSkillType.SoapRest)]
         ServiceDeveloper
     }
 
+    [AttributeUsage(AttributeTargets.All, AllowMultiple = true)]
+    public class RequiredSkillAttribute : Attribute
+    {
+        public DeveloperSkillType SkillType { get; }
 
+        public RequiredSkillAttribute(DeveloperSkillType skillType)
+        {
+            SkillType = skillType;
+        }
+    }
+
+    public static class DeveloperTypeExtension
+    {
+        public static IEnumerable<DeveloperSkillType> GetSkills(this DeveloperType developerType)
+        {
+            var type = developerType.GetType();
+            var memInfo = type.GetMember(developerType.ToString());
+            var attributes = memInfo[0].GetCustomAttributes(typeof(RequiredSkillAttribute), false);
+            foreach (RequiredSkillAttribute attribute in attributes)
+            {
+                yield return attribute.SkillType;
+            }
+        }
+    }
 }

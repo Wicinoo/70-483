@@ -52,6 +52,7 @@ namespace Lessons._08
             ValueWithBar
         }
 
+        [AttributeUsage(AttributeTargets.All, AllowMultiple = false)]
         class FooAttribute : Attribute
         {
         }
@@ -64,8 +65,15 @@ namespace Lessons._08
     static class EnumExtensions
     {
         public static TAttribute GetEnumValueAttribute<TAttribute>(this object enumValue)
+            where TAttribute : Attribute
         {
-            throw new NotImplementedException();
+            var type = enumValue.GetType();
+            if (!type.IsEnum)
+                throw new ArgumentException(nameof(enumValue));
+
+            var memInfo = type.GetMember(enumValue.ToString());
+            var attributes = memInfo[0].GetCustomAttributes(typeof(TAttribute), false);
+            return (attributes.Length > 0) ? (TAttribute) attributes[0] : null;
         }
     }
 
