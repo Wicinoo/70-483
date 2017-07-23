@@ -52,6 +52,7 @@ namespace Lessons._08
             ValueWithBar
         }
 
+        [System.AttributeUsage(AttributeTargets.All, AllowMultiple = false)]
         class FooAttribute : Attribute
         {
         }
@@ -65,6 +66,19 @@ namespace Lessons._08
     {
         public static TAttribute GetEnumValueAttribute<TAttribute>(this object enumValue)
         {
+            if (!enumValue.GetType().IsEnum) throw new ArgumentException();
+
+            var neco = enumValue.GetType().GetMember(enumValue.ToString());
+            
+            //var requiredSkillAttributes =
+            // (enumValue.GetType().GetMember(enumValue.ToString())
+            //      .FirstOrDefault()
+            //      .GetCustomAttributes(typeof(RequiredSkillAttribute), false) as RequiredSkillAttribute[]);
+
+            //var requiredSkillAttributes =
+            //  (typeof(TAttribute).GetMember(enumValue.ToString())
+            //  .FirstOrDefault()
+            //       .GetCustomAttributes(typeof(RequiredSkillAttribute), false) as TAttribute);
             throw new NotImplementedException();
         }
     }

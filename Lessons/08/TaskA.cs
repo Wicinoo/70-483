@@ -17,11 +17,14 @@ namespace Lessons._08
     {
         public static void Run()
         {
-            DeveloperType skillType = DeveloperType.FrontEndDeveloper;
-            var skills = skillType.GetSkills();
-            foreach (var item in skills)
+            var skillTypes = Enum.GetValues(typeof(DeveloperType));
+            foreach (DeveloperType item in skillTypes)
             {
-                Console.WriteLine(item.ToString());
+                Console.WriteLine($"Skills type for {item.ToString()}");
+                foreach (var skill in item.GetSkills())
+                {
+                    Console.WriteLine($"{skill.ToString()}");
+                }
             }
         }
     }
@@ -58,26 +61,26 @@ namespace Lessons._08
     [AttributeUsage(AttributeTargets.All, AllowMultiple =true)]
     public class RequiredSkillAttribute : Attribute
     {
-        private DeveloperSkillType developerSkillType;
+        private DeveloperSkillType _developerSkillType;
 
         public RequiredSkillAttribute(DeveloperSkillType developerSkillType)
         {
-            this.developerSkillType = developerSkillType;
+            this._developerSkillType = developerSkillType;
         }
-        public DeveloperSkillType GetSkillType { get { return developerSkillType; } }
+        public DeveloperSkillType GetSkillType { get { return _developerSkillType; } }
 
     }
     public static class EnumExtension
     {
         public static IEnumerable<DeveloperSkillType> GetSkills(this DeveloperType developerType)
         {
-            var neco = Attribute.GetCustomAttributes(developerType.GetType(), typeof(RequiredSkillAttribute));
-            
-            foreach (RequiredSkillAttribute item in neco)
-            {
-                
-            }
-            return Enumerable.Empty<DeveloperSkillType>();
+            //we need attribute for the member of enum
+            var requiredSkillAttributes =
+              (typeof(DeveloperType).GetMember(developerType.ToString())
+                   .FirstOrDefault()
+                   .GetCustomAttributes(typeof(RequiredSkillAttribute), false) as RequiredSkillAttribute[]);
+
+            return requiredSkillAttributes?.Select(x => x.GetSkillType).ToList();
         }
     }
 }
