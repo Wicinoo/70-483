@@ -1,0 +1,30 @@
+﻿* Read "Objective 3.3 Manage assemblies" to be able to:
+	- compare differences between COM and assemblies. What main problems are solved?
+	- describe what an assembly contains.
+	- explain what means that assemblies are "completely self-contained" and "language-neutral".
+	- explain differences between "strongly-named assemblies" and "regular assemblies".
+	- explain benefits of strong names. What is the "public key token"?
+	- describe delayed signing.
+	- explain how to ensure the publisher is the orginal one.
+	- explain GAC. What are private assemblies?
+	- deploy an assembly to GAC. What are options?
+	- describe a structure of an assembly version. How should be version parts incremented?
+	- explain rules to look for an assembly with desired version. What is "publisher policy file"? 
+	- specify another location to look for assemblies.
+	- explain "code base" element in configuration file.
+
+* Read "Objective 3.4 Debug an application" to be able to:
+	- explain what a configuration in VS means.
+	- compare Debug and Release configurations.
+	- explain what no-operation instructions and branch instructions are.
+	- use preprocessor compiler directives. Be familiar with main directives #if, #else, #endif, #define, #undef, #warning, #error, #line, #pragma.
+	- explain using of [Conditional("DEBUG")].
+	- change displayed string value for an instance of object in debugger without overloading ToString() method.
+	- explain PDB file. What does a pdb file contain and how is it created?
+	- explain how consistency between an assembly and its pdb file is ensured.
+	- explain how Microsoft Symbol Server works. How to remove private data from a pdb?
+
+* Solve TaskA, TaskB.
+	 
+* Commit all changes into your branch in the respository.
+* Update your lesson record on confluence.
