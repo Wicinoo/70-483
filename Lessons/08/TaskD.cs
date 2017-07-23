@@ -10,7 +10,9 @@ namespace Lessons._08
     {
         public static void Run()
         {
-            throw new NotImplementedException();    
+            MyGuidHolder guildHolder = new MyGuidHolder();
+            var fieldInfo = guildHolder.GetType().GetField("guid", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
+            Console.WriteLine(fieldInfo.GetValue(guildHolder));
         }
 
         class MyGuidHolder
