@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Configuration;
 using System.IO;
+using FluentAssertions.Primitives;
 
 namespace Lessons._07
 {
@@ -13,13 +15,18 @@ namespace Lessons._07
         {
             const string FileName = "tmp.txt";
 
-            var file = new FileWriter(FileName);
-            file.Write("I love C# certification trainings.");
+            //var file = new FileWriter(FileName)
+            using (var file = new FileWriter(FileName))
+            {
+                file.Write("I love C# certification trainings.");
+            }
+            
 
             File.Delete(FileName);
         }
 
-        class FileWriter
+        //class wasnt implement IDisposable interface
+        class FileWriter : IDisposable
         {
             private StreamWriter _fileStream;
 
@@ -32,6 +39,12 @@ namespace Lessons._07
             public void Write(string text)
             {
                 _fileStream.Write(text);
+            }
+
+
+            public void Dispose()
+            {
+                _fileStream?.Dispose();
             }
         }
     }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
+using Castle.MicroKernel.Registration;
 using Castle.Windsor;
 
 namespace Lessons._07
@@ -12,6 +13,7 @@ namespace Lessons._07
     /// Fix them to make the cache working.
     /// In case of the proper implementation, message "Getting usernames from database ..."
     /// should be printed out two times.
+    /// NZ: it works only without brakepoints - cache is depends on datetime
     /// </summary>
     public class TaskB
     {
@@ -22,6 +24,20 @@ namespace Lessons._07
             var container = new WindsorContainer();
 
             // Register components
+            container.Register(
+                Component.For<IUsernamesProvider>()
+                .ImplementedBy<UsernamesProvider>()
+                .LifestyleSingleton());
+
+            container.Register(
+                Component.For<IDateTimeNowProvider>()
+                .ImplementedBy<DateTimeNowProvider>()
+                .LifestyleSingleton());
+
+            container.Register(
+                Component.For<IUsernamesRepository>()
+                    .ImplementedBy<UsernamesRepository>()
+                    .LifestyleTransient());
 
             Action getAllUserNames = () =>
             {
@@ -49,7 +65,8 @@ namespace Lessons._07
             IEnumerable<string> GetAllUsernames();
         }
 
-        public class UsernamesProvider : ExpiringCachedContentBase
+        //Class UserNamesPrivider wasn't implement IUsernamesProvider (it had rignt method, but Intefrace missed)
+        public class UsernamesProvider : ExpiringCachedContentBase, IUsernamesProvider
         {
             private readonly IUsernamesRepository _usernamesRepository;
             private IEnumerable<string> _cachedUsernames;
@@ -57,6 +74,7 @@ namespace Lessons._07
             public UsernamesProvider(IDateTimeNowProvider dateTimeNowProvider, IUsernamesRepository usernamesRepository) 
                 : base(dateTimeNowProvider, CacheMaxAgeInMilliseconds)
             {
+                _usernamesRepository = usernamesRepository;
             }
 
             protected override void RefreshCachedContent()
@@ -74,13 +92,18 @@ namespace Lessons._07
         {
             DateTime Now { get; }
         }
+        //IDateTimeNowProvider implementation wasnt exists
+        public class DateTimeNowProvider : IDateTimeNowProvider
+        {
+            public DateTime Now => DateTime.Now;
+        }
 
         public interface IUsernamesRepository
         {
             IEnumerable<string> GetAllUsernames();
         }
-
-        private class UsernamesRepository : IUsernamesRepository
+        //typo class was private class
+        public class UsernamesRepository : IUsernamesRepository
         {
             public IEnumerable<string> GetAllUsernames()
             {

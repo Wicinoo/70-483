@@ -12,7 +12,7 @@ namespace Lessons
             //_04.Runner.Run();
             //_05.Runner.Run();
             //_06.Runner.Run();
-            //_07.Runner.Run();
+            _07.Runner.Run();
             //_08.Runner.Run();
             //_09.Runner.Run();
 
