@@ -201,6 +201,8 @@
     <Content Include="06\_Assignment.txt" />
     <Content Include="07\_Assignment.txt" />
     <Content Include="08\_Assignment.txt" />
+    <Content Include="09\TaskAOutput1.png" />
+    <Content Include="09\TaskAOutput2.png" />
     <Content Include="09\_Assignment.txt" />
     <Content Include="lib\Castle.Core.dll" />
     <Content Include="lib\Castle.Core.xml" />

@@ -1,4 +1,9 @@
-﻿using System;
+﻿#if DEBUG
+    #define MySymbol
+#endif
+
+using System;
+using Microsoft.Office.Interop.Excel;
 
 namespace Lessons._09
 {
@@ -15,7 +20,29 @@ namespace Lessons._09
     {
         public static void Run()
         {
-            throw new NotImplementedException();
+#if (MySymbol)
+            Console.WriteLine("Mysymbol id defined");
+#endif
+
+#if !DEBUG
+#pragma warning disable
+#endif
+            GetContentOfNothing();
+
+#if !DEBUG
+#pragma warning restore
+#endif
+
+#if DEBUG
+            throw new Exception("Exception from debug configuration.");
+#endif
+
+
+        }
+
+        [Obsolete("This code is obsolete")]
+        private static void GetContentOfNothing()
+        {
         }
     }
 }
