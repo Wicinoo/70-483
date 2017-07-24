@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Lessons._08
 {
@@ -15,7 +17,17 @@ namespace Lessons._08
     {
         public static void Run()
         {
-            throw new NotImplementedException();
+            var developerTypes = Enum.GetValues(typeof(DeveloperType)) as DeveloperType[];
+
+            foreach (var developerType in developerTypes)
+            {
+                Console.WriteLine($"DeveloperType: {developerType}");
+
+                foreach (var skill in developerType.GetSkills())
+                {
+                    Console.WriteLine($"Skill: {skill}");
+                }
+            }
         }
     }
 
@@ -32,25 +44,43 @@ namespace Lessons._08
 
     public enum DeveloperType
     {
-        //[RequiredSkill(DeveloperSkillType.CSharp)]
-        //[RequiredSkill(DeveloperSkillType.VisualBasic)]
-        //[RequiredSkill(DeveloperSkillType.MsSql)]
+        [RequiredSkill(DeveloperSkillType.CSharp)]
+        [RequiredSkill(DeveloperSkillType.VisualBasic)]
+        [RequiredSkill(DeveloperSkillType.MsSql)]
         LagacyCodeDeveloper,
 
-        //[RequiredSkill(DeveloperSkillType.CSharp)]
-        //[RequiredSkill(DeveloperSkillType.JavaScript)]
-        //[RequiredSkill(DeveloperSkillType.Mvc)]
-        //[RequiredSkill(DeveloperSkillType.React)]
+        [RequiredSkill(DeveloperSkillType.CSharp)]
+        [RequiredSkill(DeveloperSkillType.JavaScript)]
+        [RequiredSkill(DeveloperSkillType.Mvc)]
+        [RequiredSkill(DeveloperSkillType.React)]
         FrontEndDeveloper,
 
-        //[RequiredSkill(DeveloperSkillType.CSharp)]
-        //[RequiredSkill(DeveloperSkillType.MsSql)]
-        //[RequiredSkill(DeveloperSkillType.SoapRest)]
+        [RequiredSkill(DeveloperSkillType.CSharp)]
+        [RequiredSkill(DeveloperSkillType.MsSql)]
+        [RequiredSkill(DeveloperSkillType.SoapRest)]
         ServiceDeveloper
     }
 
-    public class RequiredSkill : Attribute
+    [AttributeUsage(AttributeTargets.Field, AllowMultiple = true)]//https://msdn.microsoft.com/en-us/library/system.attributetargets(v=vs.110).aspx
+    public class RequiredSkillAttribute : Attribute //de-facto convention
     {
-        //s
+        public DeveloperSkillType DeveloperSkillType { get; private set; }
+
+        public RequiredSkillAttribute(DeveloperSkillType developerSkillType)
+        {
+            DeveloperSkillType = developerSkillType;
+        }
+    }
+
+    public static class DeveloperTypeExtensions
+    {
+        public static IEnumerable<DeveloperSkillType> GetSkills(this DeveloperType developerType)
+        {
+            var devType = typeof(DeveloperType);
+            var member = devType.GetMember(developerType.ToString())[0];
+            var customAttributes =
+                (RequiredSkillAttribute[]) member.GetCustomAttributes(typeof(RequiredSkillAttribute), false);//second parameter inheritence
+            return customAttributes.Select(att => att.DeveloperSkillType);
+        }
     }
 }
