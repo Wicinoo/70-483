@@ -19,7 +19,7 @@ namespace Lessons._07
             File.Delete(FileName);
         }
 
-        class FileWriter
+        class FileWriter : IDisposable // should be disposable
         {
             private StreamWriter _fileStream;
 
@@ -32,6 +32,11 @@ namespace Lessons._07
             public void Write(string text)
             {
                 _fileStream.Write(text);
+            }
+
+            public void Dispose()
+            {
+                _fileStream.Dispose();
             }
         }
     }

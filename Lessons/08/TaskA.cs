@@ -49,5 +49,8 @@ namespace Lessons._08
         ServiceDeveloper
     }
 
-
+    public class RequiredSkill : Attribute
+    {
+        //s
+    }
 }
