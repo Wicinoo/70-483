@@ -1,5 +1,6 @@
 ﻿
 using System;
+using MyCoolLibrary;
 
 namespace Lessons._09
 {
@@ -20,13 +21,9 @@ namespace Lessons._09
     /// </summary>
     class TaskA
     {
-        public static class CoolMessagePrinter
+        public static void Run()
         {
-            public static void PrintCoolMessage()
-            {
-                var assemblyName = string.Empty; // Get assembly full name by reflection.
-                Console.WriteLine($"This is a cool message from {assemblyName}.");
-            }
+            CoolMessagePrinter.PrintCoolMessage();
         }
     }
 
