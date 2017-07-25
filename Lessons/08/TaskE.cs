@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Linq;
+using System.Linq.Expressions;
 
 namespace Lessons._08
 {
@@ -11,7 +13,17 @@ namespace Lessons._08
     {
         public static void Run()
         {
-            throw new NotImplementedException();
+            Console.WriteLine($"before declaration {DateTime.Now.ToString()}");
+            BlockExpression block =
+                Expression.Block(
+                    Expression.Call(
+                        typeof(Console).GetMethod("WriteLine", new[] { typeof(string) }),
+                        Expression.Constant(DateTime.Now.ToString())));
+
+            //the value from date time is compiled to expression like constant
+            Expression.Lambda<Action>(block).Compile()();
+            System.Threading.Thread.Sleep(1000);
+            Expression.Lambda<Action>(block).Compile()();          
         }
     }
 }
