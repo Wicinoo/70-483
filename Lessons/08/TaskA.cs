@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Lessons._08
 {
@@ -15,7 +17,15 @@ namespace Lessons._08
     {
         public static void Run()
         {
-            throw new NotImplementedException();
+            foreach (DeveloperType type in Enum.GetValues(typeof(DeveloperType)))
+            {
+                Console.WriteLine($"{type} skills:");
+                foreach (var skill in type.GetSkills())
+                {
+                    Console.WriteLine(skill.ToString());
+                }
+                Console.WriteLine();
+            }
         }
     }
 
@@ -32,22 +42,43 @@ namespace Lessons._08
 
     public enum DeveloperType
     {
-        //[RequiredSkill(DeveloperSkillType.CSharp)]
-        //[RequiredSkill(DeveloperSkillType.VisualBasic)]
-        //[RequiredSkill(DeveloperSkillType.MsSql)]
+        [RequiredSkill(DeveloperSkillType.CSharp)]
+        [RequiredSkill(DeveloperSkillType.VisualBasic)]
+        [RequiredSkill(DeveloperSkillType.MsSql)]
         LagacyCodeDeveloper,
 
-        //[RequiredSkill(DeveloperSkillType.CSharp)]
-        //[RequiredSkill(DeveloperSkillType.JavaScript)]
-        //[RequiredSkill(DeveloperSkillType.Mvc)]
-        //[RequiredSkill(DeveloperSkillType.React)]
+        [RequiredSkill(DeveloperSkillType.CSharp)]
+        [RequiredSkill(DeveloperSkillType.JavaScript)]
+        [RequiredSkill(DeveloperSkillType.Mvc)]
+        [RequiredSkill(DeveloperSkillType.React)]
         FrontEndDeveloper,
 
-        //[RequiredSkill(DeveloperSkillType.CSharp)]
-        //[RequiredSkill(DeveloperSkillType.MsSql)]
-        //[RequiredSkill(DeveloperSkillType.SoapRest)]
+        [RequiredSkill(DeveloperSkillType.CSharp)]
+        [RequiredSkill(DeveloperSkillType.MsSql)]
+        [RequiredSkill(DeveloperSkillType.SoapRest)]
         ServiceDeveloper
     }
 
+    [AttributeUsage(AttributeTargets.Field, AllowMultiple = true)]
+    internal class RequiredSkillAttribute : Attribute
+    {
+        public DeveloperSkillType SkillType { get; set; }
 
+        public RequiredSkillAttribute(DeveloperSkillType skillType)
+        {
+            SkillType = skillType;
+        }
+    }
+
+    internal static class DeveloperTypeExtensions
+    {
+        public static IEnumerable<DeveloperSkillType> GetSkills(this DeveloperType type)
+        {
+            return typeof(DeveloperType).
+                GetField(type.ToString()).
+                GetCustomAttributes(false).
+                OfType<RequiredSkillAttribute>().
+                Select(x => x.SkillType);
+        }
+    }
 }
