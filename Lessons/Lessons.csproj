@@ -54,6 +54,10 @@
       <EmbedInteropTypes>True</EmbedInteropTypes>
       <HintPath>lib\Microsoft.Office.Interop.Excel.dll</HintPath>
     </Reference>
+    <Reference Include="MyCoolLibrary, Version=1.0.1.0, Culture=neutral, PublicKeyToken=6f7fba00d9348f4a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>09\MyCoolLibrary\MyCoolLibrary.dll</HintPath>
+    </Reference>
     <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>lib\Newtonsoft.Json.dll</HintPath>
@@ -178,6 +182,7 @@
     <Compile Include="08\TaskE.cs" />
     <Compile Include="08\_01_CodeDomExample.cs" />
     <Compile Include="08\_02_ExpressionTrees.cs" />
+    <Compile Include="09\Demo.cs" />
     <Compile Include="09\Runner.cs" />
     <Compile Include="09\TaskA.cs" />
     <Compile Include="09\TaskB.cs" />
@@ -210,6 +215,7 @@
     <Content Include="06\_Assignment.txt" />
     <Content Include="07\_Assignment.txt" />
     <Content Include="08\_Assignment.txt" />
+    <Content Include="09\Redirection.xml" />
     <Content Include="09\_Assignment.txt" />
     <Content Include="lib\Castle.Core.dll" />
     <Content Include="lib\Castle.Core.xml" />

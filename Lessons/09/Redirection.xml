@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<configuration>
+  <startup> 
+    <supportedRuntime version="v4.0" sku=".NETFramework,Version=v4.6.1" />
+  </startup>
+  <runtime>
+    <assemblyBinding xmlns="urn:schemas-microsoft-com:asm.v1">
+      <dependentAssembly>
+        <assemblyIdentity name="MyCoolLibrary"
+                          publicKeyToken="6f7fba00d9348f4a"
+                          culture="" />
+        <!-- Redirecting to version 2.0.0.0 of the assembly. -->
+        <bindingRedirect oldVersion="1.0.0.0" newVersion="2.0.0.0"/>
+      </dependentAssembly>
+    </assemblyBinding>
+    
+    <!-- Probing -->
+    <!--<assemblyBinding xmlns="urn:schemas-microsoft-com:asm.v1">
+      <probing privatePath="MyLibraries"/>
+    </assemblyBinding>-->  
+
+    <!-- Codebase -->  
+    <!--<assemblyBinding xmlns="urn:schemas-microsoft-com:asm.v1">
+      <dependentAssembly>
+        <codeBase version="1.0.0.0"
+                  href= “http://www.mydomain.com/ReferencedAssembly.dll”/>
+      </dependentAssembly>
+    </assemblyBinding>-->
+
+  </runtime>
+</configuration>
