@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Linq;
+using System.Reflection;
 using Xunit;
 
 namespace Lessons._08
@@ -65,7 +67,17 @@ namespace Lessons._08
     {
         public static TAttribute GetEnumValueAttribute<TAttribute>(this object enumValue)
         {
-            throw new NotImplementedException();
+            if (!(enumValue is Enum))
+            {
+                throw new ArgumentException();
+            }
+
+            return enumValue.GetType().
+                GetTypeInfo().
+                GetField(enumValue.ToString()).
+                GetCustomAttributes(false).
+                OfType<TAttribute>().
+                FirstOrDefault();
         }
     }
 
