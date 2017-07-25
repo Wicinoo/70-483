@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Lessons._08
 {
@@ -10,10 +12,31 @@ namespace Lessons._08
         public static void Run()
         {
             // #1 List all types that implement IFoo.  // FooBase, Foo, FooBar, FooBuz
-            // #2 List all interfaces that are implemented by FooBar. // IFoo, IBar
-            // #3 List all types that implement IFoo and can be instantiated with using parameterless constuctor. Instantiate them. // Foo, FooBar 
+            var fooTypes = typeof(IFoo).Assembly.GetTypes().
+                Where(x => x.IsClass && typeof(IFoo).IsAssignableFrom(x));
 
-            throw new NotImplementedException();
+            PrintTypes(fooTypes);
+
+            // #2 List all interfaces that are implemented by FooBar. // IFoo, IBar
+            var fooBarInterfaces = typeof(FooBar).Assembly.GetTypes().
+                Where(x => x.IsInterface && x.IsAssignableFrom(typeof(FooBar)));
+
+            PrintTypes(fooBarInterfaces);
+
+            // #3 List all types that implement IFoo and can be instantiated with using parameterless constuctor. Instantiate them. // Foo, FooBar 
+            var fooTypes2 = fooTypes.Where(x => x.GetConstructors().
+                Any(y => !y.GetParameters().Any()));
+
+            PrintTypes(fooTypes2);
+        }
+
+        private static void PrintTypes(IEnumerable<Type> fooTypes)
+        {
+            foreach (var type in fooTypes)
+            {
+                Console.WriteLine(type.Name);
+            }
+            Console.WriteLine();
         }
 
         interface IFoo { }
