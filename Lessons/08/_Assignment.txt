@@ -20,3 +20,4 @@
 	 
 * Commit all changes into your branch in the respository.
 * Update your lesson record on confluence.
+ 
