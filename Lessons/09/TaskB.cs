@@ -15,7 +15,23 @@ namespace Lessons._09
     {
         public static void Run()
         {
-            throw new NotImplementedException();
+#if DEBUG
+            Console.WriteLine("MySymbol is defined");
+#endif
+
+#if DEBUG
+#pragma warning disable
+#endif
+
+#warning "This code is obsolete"
+
+#if DEBUG
+#pragma warning restore
+#endif
+
+#if DEBUG
+            throw new Exception("New DEBUG error");
+#endif
         }
     }
 }

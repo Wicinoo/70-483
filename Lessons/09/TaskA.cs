@@ -1,7 +1,4 @@
-﻿
-using System;
-
-namespace Lessons._09
+﻿namespace Lessons._09
 {
     /// <summary>
     /// Create a new solution with a class library project MyCoolLibrary. 
@@ -24,8 +21,7 @@ namespace Lessons._09
         {
             public static void PrintCoolMessage()
             {
-                var assemblyName = string.Empty; // Get assembly full name by reflection.
-                Console.WriteLine($"This is a cool message from {assemblyName}.");
+                MyCoolLibrary.TaskA.CoolMessagePrinter.PrintCoolMessage();
             }
         }
     }
