@@ -1,5 +1,6 @@
 ﻿
 using System;
+using System.Reflection;
 
 namespace Lessons._09
 {
@@ -24,8 +25,7 @@ namespace Lessons._09
         {
             public static void PrintCoolMessage()
             {
-                var assemblyName = string.Empty; // Get assembly full name by reflection.
-                Console.WriteLine($"This is a cool message from {assemblyName}.");
+                MyCoolLibrary.TaskA.CoolMessagePrinter.PrintCoolMessage();
             }
         }
     }

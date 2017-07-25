@@ -1,4 +1,8 @@
-﻿using System;
+﻿#define MySymbol
+#if DEBUG
+    #pragma warning disable 
+#endif
+using System;
 
 namespace Lessons._09
 {
@@ -11,11 +15,17 @@ namespace Lessons._09
     /// - disable warnings for a part of code for non-Debug configuration.
     /// - try to run the task in Debug and Release configuration.
     /// </summary>
+    /// 
     class TaskB
     {
         public static void Run()
         {
-            throw new NotImplementedException();
+            #if MySymbol
+                Console.WriteLine("MySymbol is defined");
+            #endif
+            
+            #warning This code is obsolete
+            #error Debug mode selected
         }
     }
 }

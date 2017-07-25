@@ -4,7 +4,8 @@
     {
         public static void Run()
         {
-            TaskB.Run();
+            //TaskA.CoolMessagePrinter.PrintCoolMessage();
+            //TaskB.Run();
         }
     }
 }
