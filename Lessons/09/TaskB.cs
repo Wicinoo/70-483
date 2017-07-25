@@ -1,4 +1,9 @@
-﻿using System;
+﻿#if DEBUG
+#define MySymbol
+#endif
+
+using System;
+using System.Diagnostics;
 
 namespace Lessons._09
 {
@@ -15,7 +20,27 @@ namespace Lessons._09
     {
         public static void Run()
         {
-            throw new NotImplementedException();
+#if MySymbol
+
+            Console.WriteLine("MySymbol is defined.");
+
+#error Debug code, triggering error
+
+#endif
+
+#pragma warning disable
+#warning This code is obsolete
+#pragma warning restore
+
+            Run2();
+            Console.WriteLine("Run finished");
         }
+
+        [Conditional("DEBUG")]
+        private static void Run2()
+        {
+            Console.WriteLine("Run 2");
+        }
+
     }
 }
