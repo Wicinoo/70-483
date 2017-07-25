@@ -169,6 +169,9 @@
     <Compile Include="08\TaskE.cs" />
     <Compile Include="08\_01_CodeDomExample.cs" />
     <Compile Include="08\_02_ExpressionTrees.cs" />
+    <Compile Include="09\Runner.cs" />
+    <Compile Include="09\TaskA.cs" />
+    <Compile Include="09\TaskB.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -198,6 +201,7 @@
     <Content Include="06\_Assignment.txt" />
     <Content Include="07\_Assignment.txt" />
     <Content Include="08\_Assignment.txt" />
+    <Content Include="09\_Assignment.txt" />
     <Content Include="lib\Castle.Core.dll" />
     <Content Include="lib\Castle.Core.xml" />
     <Content Include="lib\Castle.Windsor.dll" />
