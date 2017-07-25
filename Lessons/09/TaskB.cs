@@ -23,9 +23,10 @@ namespace Lessons._09
 #if MySymbol
 
             Console.WriteLine("MySymbol is defined.");
+#endif
 
+#if DEBUG
 #error Debug code, triggering error
-
 #endif
 
 #pragma warning disable
