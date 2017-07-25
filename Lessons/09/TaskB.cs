@@ -1,4 +1,6 @@
-﻿using System;
+﻿//#define MySymbol
+
+using System;
 
 namespace Lessons._09
 {
@@ -15,7 +17,32 @@ namespace Lessons._09
     {
         public static void Run()
         {
-            throw new NotImplementedException();
+#if MySymbol
+            System.Console.WriteLine("MySymbol is defined");
+#endif
+
+#if DEBUG
+            System.Console.WriteLine("in debug");
+#endif
+
+#if !DEBUG
+            System.Console.WriteLine("in release");
+#endif
+
+
+
+#if !DEBUG
+#pragma warning disable
+#endif
+            //disabled warnings
+#if !DEBUG
+#pragma warning restore
+#endif
+        }
+
+#warning This code is obsolete
+        private static void ObsoleteMethod()
+        {
         }
     }
 }

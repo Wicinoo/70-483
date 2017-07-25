@@ -6,7 +6,7 @@
         {
             //TaskA.Run();
 
-            //==TaskB.Run();
+            TaskB.Run();
         }
     }
 }
