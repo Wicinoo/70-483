@@ -4,31 +4,21 @@ using System;
 namespace Lessons._09
 {
     /// <summary>
-    /// Create a new solution with a class library project MyCoolLibrary. 
+    /// Create a new solution with a class library project MyCoolLibrary.
     /// - Move the type TaskA.CoolMessagePrinter, see below, to the new assembly.
     /// - Implement populating assemblyName in PrintCoolMessage.
     /// - Make the assembly strongly-named.
-    /// - Print information about the strong name by using "sn.exe", 
+    /// - Print information about the strong name by using "sn.exe",
     /// see Output 1. => take a screenshot and put it into this folder as TaskAOutput1.png
     /// - Install the assembly into GAC.
     /// - Change version of the assembly to 2.0.0.0
     /// - Install it into GAC.
-    /// - Check the content of GAC by "gacutil.exe", 
+    /// - Check the content of GAC by "gacutil.exe",
     /// see Output 2. => take a screenshot TaskAOutput2.png
-    /// - Reference the assembly (not the project) from this Lessons solution 
+    /// - Reference the assembly (not the project) from this Lessons solution
     /// and invoke PrintCoolMessage. => take a screenshot TaskAOutput3.png.
     /// </summary>
-    class TaskA
-    {
-        public static class CoolMessagePrinter
-        {
-            public static void PrintCoolMessage()
-            {
-                var assemblyName = string.Empty; // Get assembly full name by reflection.
-                Console.WriteLine($"This is a cool message from {assemblyName}.");
-            }
-        }
-    }
+
 
     /*
 Possible expected output 1:
