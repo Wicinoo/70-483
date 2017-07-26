@@ -57,6 +57,10 @@
       <EmbedInteropTypes>True</EmbedInteropTypes>
       <HintPath>lib\Microsoft.Office.Interop.Excel.dll</HintPath>
     </Reference>
+    <Reference Include="MyCoolLibrary, Version=1.0.0.0, Culture=neutral, PublicKeyToken=f4f69fb4e1e5a901, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>lib\MyCoolLibrary\v1\MyCoolLibrary.dll</HintPath>
+    </Reference>
     <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>lib\Newtonsoft.Json.dll</HintPath>
@@ -164,6 +168,17 @@
     <Compile Include="07\TaskA.cs" />
     <Compile Include="07\TaskB.cs" />
     <Compile Include="07\TaskC.cs" />
+    <Compile Include="08\Runner.cs" />
+    <Compile Include="08\TaskA.cs" />
+    <Compile Include="08\TaskB.cs" />
+    <Compile Include="08\TaskC.cs" />
+    <Compile Include="08\TaskD.cs" />
+    <Compile Include="08\TaskE.cs" />
+    <Compile Include="08\_01_CodeDomExample.cs" />
+    <Compile Include="08\_02_ExpressionTrees.cs" />
+    <Compile Include="09\Runner.cs" />
+    <Compile Include="09\TaskA.cs" />
+    <Compile Include="09\TaskB.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -192,6 +207,8 @@
     <Content Include="06\Conversions7.png" />
     <Content Include="06\_Assignment.txt" />
     <Content Include="07\_Assignment.txt" />
+    <Content Include="08\_Assignment.txt" />
+    <Content Include="09\_Assignment.txt" />
     <Content Include="lib\Castle.Core.dll" />
     <Content Include="lib\Castle.Core.xml" />
     <Content Include="lib\Castle.Windsor.dll" />
@@ -222,6 +239,9 @@
   </ItemGroup>
   <ItemGroup>
     <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="lib\MyCoolLibrary\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
