@@ -10,7 +10,9 @@ namespace Lessons._08
     {
         public static void Run()
         {
-            throw new NotImplementedException();    
+            var holder = new MyGuidHolder();
+
+            Console.WriteLine(holder.GetType().GUID);
         }
 
         class MyGuidHolder

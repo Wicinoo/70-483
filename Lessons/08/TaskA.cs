@@ -1,4 +1,9 @@
 ﻿using System;
+using System.Linq;
+using System.Reflection;
+using Castle.Core.Internal;
+using FluentAssertions.Common;
+using Xunit.Sdk;
 
 namespace Lessons._08
 {
@@ -15,7 +20,10 @@ namespace Lessons._08
     {
         public static void Run()
         {
-            throw new NotImplementedException();
+            foreach (DeveloperType developer in Enum.GetValues(typeof (DeveloperType)))
+            {
+                developer.GetSkills();
+            }
         }
     }
 
@@ -32,22 +40,45 @@ namespace Lessons._08
 
     public enum DeveloperType
     {
-        //[RequiredSkill(DeveloperSkillType.CSharp)]
-        //[RequiredSkill(DeveloperSkillType.VisualBasic)]
-        //[RequiredSkill(DeveloperSkillType.MsSql)]
-        LagacyCodeDeveloper,
+        [RequiredSkill(DeveloperSkillType.CSharp)]
+        [RequiredSkill(DeveloperSkillType.VisualBasic)]
+        [RequiredSkill(DeveloperSkillType.MsSql)]
+        LegacyCodeDeveloper,
 
-        //[RequiredSkill(DeveloperSkillType.CSharp)]
-        //[RequiredSkill(DeveloperSkillType.JavaScript)]
-        //[RequiredSkill(DeveloperSkillType.Mvc)]
-        //[RequiredSkill(DeveloperSkillType.React)]
+        [RequiredSkill(DeveloperSkillType.CSharp)]
+        [RequiredSkill(DeveloperSkillType.JavaScript)]
+        [RequiredSkill(DeveloperSkillType.Mvc)]
+        [RequiredSkill(DeveloperSkillType.React)]
         FrontEndDeveloper,
 
-        //[RequiredSkill(DeveloperSkillType.CSharp)]
-        //[RequiredSkill(DeveloperSkillType.MsSql)]
-        //[RequiredSkill(DeveloperSkillType.SoapRest)]
+        [RequiredSkill(DeveloperSkillType.CSharp)]
+        [RequiredSkill(DeveloperSkillType.MsSql)]
+        [RequiredSkill(DeveloperSkillType.SoapRest)]
         ServiceDeveloper
     }
 
+    [AttributeUsage(AttributeTargets.All, AllowMultiple = true)]
+    public class RequiredSkillAttribute : Attribute
+    {
+        public RequiredSkillAttribute(DeveloperSkillType cSharp)
+        {
+            throw new NotImplementedException();
+        }
+    }
 
+    public static class ExtensionMethods
+    {
+        public static void GetSkills(this DeveloperType type)
+        {
+            var skills = typeof(DeveloperType).GetFields()
+                .Where(field => field.HasAttribute<RequiredSkillAttribute>())
+                .Select(field => field.GetValue(null))
+                .Cast<DeveloperSkillType>();
+
+            foreach (var skill in skills)
+            {
+                Console.WriteLine(skill.ToString());
+            }
+        }
+    }
 }

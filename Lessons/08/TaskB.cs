@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Linq;
+using FluentAssertions.Common;
 using Xunit;
 
 namespace Lessons._08
@@ -63,9 +65,20 @@ namespace Lessons._08
 
     static class EnumExtensions
     {
-        public static TAttribute GetEnumValueAttribute<TAttribute>(this object enumValue)
+        public static TAttribute GetEnumValueAttribute<TAttribute>(this object enumValue) where TAttribute : Attribute
         {
-            throw new NotImplementedException();
+            if(!(enumValue is Enum)) throw new ArgumentException();
+
+            var member = enumValue.GetType().GetMember(enumValue.ToString());
+
+            var attributes = member.First().GetCustomAttributes(typeof(TAttribute), false);
+
+            if (attributes.Any())
+            {
+                return (TAttribute)attributes.First();
+            }
+
+            return null;
         }
     }
 
