@@ -1,5 +1,11 @@
 ﻿using System;
 
+#if Debug
+#define MySymbol
+
+#endif
+
+
 namespace Lessons._09
 {
     /// <summary>
@@ -11,11 +17,19 @@ namespace Lessons._09
     /// - disable warnings for a part of code for non-Debug configuration.
     /// - try to run the task in Debug and Release configuration.
     /// </summary>
+    /// 
+
     class TaskB
     {
         public static void Run()
         {
-            throw new NotImplementedException();
+#if MySymbol != null
+            Console.WriteLine("MySymbol is defined");
+#endif
+
+#warning This code is obsolete
+
+
         }
     }
 }

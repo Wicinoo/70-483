@@ -1,5 +1,6 @@
 ﻿
 using System;
+using System.Reflection;
 
 namespace Lessons._09
 {
@@ -20,6 +21,15 @@ namespace Lessons._09
     /// </summary>
     class TaskA
     {
+        public static void Run()
+        {
+            Console.WriteLine(typeof(MyCoolLibrary.MyCoolLibrary).Assembly.FullName);
+            Console.WriteLine(typeof(MyCoolLibrary.MyCoolLibrary).Assembly.Location);
+            
+            var asm = Assembly.GetAssembly(typeof(MyCoolLibrary.MyCoolLibrary));
+            Console.WriteLine($"is in GAC {asm.GlobalAssemblyCache}");
+            Console.WriteLine($"is signed {asm.GetName().GetPublicKeyToken().Length>0}");
+        }
         public static class CoolMessagePrinter
         {
             public static void PrintCoolMessage()
@@ -29,6 +39,8 @@ namespace Lessons._09
             }
         }
     }
+
+
 
     /*
 Possible expected output 1:
@@ -50,4 +62,27 @@ Possible expected output 2:
 MyCoolLibrary, Version=1.0.0.0, Culture=neutral, PublicKeyToken=4e81c5041bf68520, processorArchitecture=MSIL
 MyCoolLibrary, Version=2.0.0.0, Culture=neutral, PublicKeyToken=4e81c5041bf68520, processorArchitecture=MSIL
      */
+
+//result
+//C:\Users\Nikola\Source\Repos\NewRepo\MyCoolLibrary\bin\Debug>sn -Tp MyCoolLibrary.dll
+
+//Microsoft(R) .NET Framework Strong Name Utility Version 3.5.30729.1
+//Copyright(c) Microsoft Corporation.All rights reserved.
+
+
+//Public key is
+//0024000004800000940000000602000000240000525341310004000001000100e189b1dda09441
+//90ba5417505b48218746a52ef9e09406891caf522bcf207a33cdd686a2a83db02f8057171e836e
+//9676537c4b4442a4417731c573c3654f06deac2a68d42b095729f0c8231c091d55827a11c1eb42
+//6b07ca0a55192204810c81ab8e3898d19630b6a750f1432312dd7b2f872aa2a3324121bcf09220
+//4368a5c8
+
+//Public key token is 03c23f749a3d3794
+
+//C:\Users\Nikola\Source\Repos\NewRepo\MyCoolLibrary\bin\Debug>
+
+
 }
+
+
+
