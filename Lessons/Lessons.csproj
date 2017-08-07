@@ -68,6 +68,7 @@
       <HintPath>lib\Rhino.Mocks.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -181,6 +182,13 @@
     <Compile Include="09\Runner.cs" />
     <Compile Include="09\TaskA.cs" />
     <Compile Include="09\TaskB.cs" />
+    <Compile Include="10\Runner.cs" />
+    <Compile Include="10\TaskAB.cs" />
+    <Compile Include="10\TaskC.cs" />
+    <Compile Include="10\TaskD.cs" />
+    <Compile Include="10\TaskE.cs" />
+    <Compile Include="10\TaskF.cs" />
+    <Compile Include="10\TaskG.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -211,6 +219,7 @@
     <Content Include="07\_Assignment.txt" />
     <Content Include="08\_Assignment.txt" />
     <Content Include="09\_Assignment.txt" />
+    <Content Include="10\Lesson10Assignment.txt" />
     <Content Include="lib\Castle.Core.dll" />
     <Content Include="lib\Castle.Core.xml" />
     <Content Include="lib\Castle.Windsor.dll" />
