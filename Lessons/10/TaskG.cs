@@ -27,6 +27,7 @@ namespace Lessons._10
 
         private static bool IsValidName(string text)
         {
+            //patern
             var reg = new Regex(patern);
 
             return reg.IsMatch(text);
