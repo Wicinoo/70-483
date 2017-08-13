@@ -25,10 +25,10 @@ namespace Lessons._09
             Console.WriteLine("MySymbol is defined");
 #endif
 
-#warning This code is obsolete
-#if DEBUG
-#error Error at some point
-#endif
+//#warning This code is obsolete
+//#if DEBUG
+//#error Error at some point
+//#endif
         }
     }
 }
