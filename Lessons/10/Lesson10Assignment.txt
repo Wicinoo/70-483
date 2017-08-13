@@ -65,6 +65,9 @@ C. Write a string extension method to remove last occurrence of a substring. Exa
 
 "TrumpHillaryTrumpHillaryTrump".RemoveLastOccurrence("Hillary"); // "TrumpHillaryTrumpTrump"
 
+
+
+
 D. Write a string extension method:
 - to map digits to #.
 - to map upper chars to double lower ones.
@@ -73,6 +76,10 @@ D. Write a string extension method:
 Use LINQ to iterate over a string. Use static methods of Char type. Examples: 
 
 "Hello \t42".ApplyCrazyMapping(); // "hhello##"
+
+
+
+
 
 E. Print the current date in these cultures:
 - English - United Kingdom
