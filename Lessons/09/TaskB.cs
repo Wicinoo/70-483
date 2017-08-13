@@ -1,4 +1,7 @@
-﻿using System;
+﻿#define MySymbol
+
+using System;
+
 
 namespace Lessons._09
 {
@@ -15,7 +18,15 @@ namespace Lessons._09
     {
         public static void Run()
         {
-            throw new NotImplementedException();
+#if MySymbol
+            Console.WriteLine("MySymbol is defined");
+#endif
+
+#warning This code is obsolete
+
+#if DEBUG
+#error Error'd!
+#endif
         }
     }
 }

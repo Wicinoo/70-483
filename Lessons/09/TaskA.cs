@@ -18,17 +18,7 @@ namespace Lessons._09
     /// - Reference the assembly (not the project) from this Lessons solution 
     /// and invoke PrintCoolMessage. => take a screenshot TaskAOutput3.png.
     /// </summary>
-    class TaskA
-    {
-        public static class CoolMessagePrinter
-        {
-            public static void PrintCoolMessage()
-            {
-                var assemblyName = string.Empty; // Get assembly full name by reflection.
-                Console.WriteLine($"This is a cool message from {assemblyName}.");
-            }
-        }
-    }
+    
 
     /*
 Possible expected output 1:
