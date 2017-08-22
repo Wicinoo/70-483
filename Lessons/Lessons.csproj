@@ -62,6 +62,7 @@
       <HintPath>lib\Rhino.Mocks.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -174,6 +175,8 @@
     <Compile Include="09\TaskB.cs" />
     <Compile Include="10\Runner.cs" />
     <Compile Include="10\StringExtensions10.cs" />
+    <Compile Include="10\TaskG.cs" />
+    <Compile Include="10\TaskF.cs" />
     <Compile Include="10\TaskE.cs" />
     <Compile Include="10\TaskD.cs" />
     <Compile Include="10\TaskC.cs" />
