@@ -63,7 +63,7 @@ MyCoolLibrary, Version=1.0.0.0, Culture=neutral, PublicKeyToken=4e81c5041bf68520
 MyCoolLibrary, Version=2.0.0.0, Culture=neutral, PublicKeyToken=4e81c5041bf68520, processorArchitecture=MSIL
      */
 
-    //result
+    //result - tools sn.exe
     //C:\Users\Nikola\Source\Repos\NewRepo\MyCoolLibrary\bin\Debug>sn -Tp MyCoolLibrary.dll
 
     //Microsoft(R) .NET Framework Strong Name Utility Version 3.5.30729.1
@@ -94,7 +94,16 @@ MyCoolLibrary, Version=2.0.0.0, Culture=neutral, PublicKeyToken=4e81c5041bf68520
 
 
 
+
+    instalation dll to GAC
+    C:\Users\Nikola\Source\Repos\NewRepo\MyCoolLibrary\bin\Debug>gacutil -i MyCoolLibrary.dll
+    Show information 
+
+
+
       */
+
+
 }
 
 

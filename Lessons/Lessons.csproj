@@ -202,6 +202,8 @@
     <Content Include="06\_Assignment.txt" />
     <Content Include="07\_Assignment.txt" />
     <Content Include="08\_Assignment.txt" />
+    <Content Include="09\TaskAOutput1.jpg" />
+    <Content Include="09\TaskAOutput2.jpg" />
     <Content Include="09\_Assignment.txt" />
     <Content Include="lib\Castle.Core.dll" />
     <Content Include="lib\Castle.Core.xml" />
@@ -238,6 +240,7 @@
     <ProjectReference Include="..\MyCoolLibrary\MyCoolLibrary.csproj">
       <Project>{8b8ff835-528a-4b5a-a253-87487bb1f30e}</Project>
       <Name>MyCoolLibrary</Name>
+      <Private>False</Private>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

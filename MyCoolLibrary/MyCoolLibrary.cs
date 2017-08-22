@@ -12,7 +12,8 @@ namespace MyCoolLibrary
         public static void PrintCoolMessage()
         {
             var assemblyName = typeof(MyCoolLibrary).Assembly.GetName().Name; // Get assembly full name by reflection.
-            Console.WriteLine($"This is a cool message from   {assemblyName}.");
+            Console.WriteLine($"This is a cool message from  {assemblyName}.");
+
         }
     }
 }
