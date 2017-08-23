@@ -24,17 +24,19 @@ namespace Lessons._09
     {
         public static void Run()
         {
-#if MySymbol  
+#if MySymbol
             Console.WriteLine("MySymbol is defined");  //2.
 #endif
-
-#warning This code is obsolete  //3
+            //3
+#warning This code is obsolete  
 
 #if DEBUG
-//#error This is a really big error  
+            //#error This is a really big error   //4
 #endif
+            //5  disable warning (in this case variable i isn't used
 #pragma warning disable
             int i;
+            //5 enable warnings
 #pragma warning restore
 
         }

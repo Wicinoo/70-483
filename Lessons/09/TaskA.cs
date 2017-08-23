@@ -19,6 +19,15 @@ namespace Lessons._09
     /// - Reference the assembly (not the project) from this Lessons solution 
     /// and invoke PrintCoolMessage. => take a screenshot TaskAOutput3.png.
     /// </summary>
+    /// pointa v output 3 je:
+    /// nareferencujeme knihovnu z projektu MyCoolDll, naistalujeme dll pomocí 
+    /// gacutil -i mydoollibrary.dll 
+    /// do gac cache
+    /// V projektu zvolíme u reference na knihovnu copyToLocal = false
+    /// Dll knihovna se primárně načítá:
+    /// - z gac
+    /// - z locall assembly
+
     class TaskA
     {
         public static void Run()
