@@ -1,6 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="..\packages\xunit.runner.visualstudio.2.2.0\build\net20\xunit.runner.visualstudio.props" Condition="Exists('..\packages\xunit.runner.visualstudio.2.2.0\build\net20\xunit.runner.visualstudio.props')" />
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -13,8 +12,6 @@
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
-    <NuGetPackageImportStamp>
-    </NuGetPackageImportStamp>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -36,6 +33,14 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Castle.Core, Version=3.3.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>lib\Castle.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Castle.Windsor, Version=3.4.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>lib\Castle.Windsor.dll</HintPath>
+    </Reference>
     <Reference Include="FluentAssertions, Version=4.17.0.0, Culture=neutral, PublicKeyToken=33f2691a05b67b6a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>lib\FluentAssertions.dll</HintPath>
@@ -65,23 +70,20 @@
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Xml" />
     <Reference Include="xunit.abstractions, Version=2.0.0.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c, processorArchitecture=MSIL">
-      <HintPath>..\packages\xunit.abstractions.2.0.1\lib\net35\xunit.abstractions.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="xunit.assert, Version=2.2.0.3545, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\xunit.assert.2.2.0\lib\netstandard1.1\xunit.assert.dll</HintPath>
-      <Private>True</Private>
+      <HintPath>lib\xunit.abstractions.dll</HintPath>
     </Reference>
-    <Reference Include="xunit.core, Version=2.2.0.3545, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c, processorArchitecture=MSIL">
+    <Reference Include="xunit.assert, Version=2.1.0.3179, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\xunit.extensibility.core.2.2.0\lib\netstandard1.1\xunit.core.dll</HintPath>
-      <Private>True</Private>
+      <HintPath>lib\xunit.assert.dll</HintPath>
     </Reference>
-    <Reference Include="xunit.execution.desktop, Version=2.2.0.3545, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c, processorArchitecture=MSIL">
+    <Reference Include="xunit.core, Version=2.1.0.3179, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\xunit.extensibility.execution.2.2.0\lib\net452\xunit.execution.desktop.dll</HintPath>
-      <Private>True</Private>
+      <HintPath>lib\xunit.core.dll</HintPath>
+    </Reference>
+    <Reference Include="xunit.execution.desktop, Version=2.1.0.3179, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>lib\xunit.execution.desktop.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -155,6 +157,33 @@
     <Compile Include="06\TaskC.cs" />
     <Compile Include="06\_01_UserDefinedConversions.cs" />
     <Compile Include="06\_02_UsingDynamicToExportToExcel.cs" />
+    <Compile Include="07\Runner.cs" />
+    <Compile Include="07\TaskA.cs" />
+    <Compile Include="07\TaskB.cs" />
+    <Compile Include="07\TaskC.cs" />
+    <Compile Include="08\Runner.cs" />
+    <Compile Include="08\TaskA.cs" />
+    <Compile Include="08\TaskB.cs" />
+    <Compile Include="08\TaskC.cs" />
+    <Compile Include="08\TaskD.cs" />
+    <Compile Include="08\TaskE.cs" />
+    <Compile Include="08\_01_CodeDomExample.cs" />
+    <Compile Include="08\_02_ExpressionTrees.cs" />
+    <Compile Include="09\Runner.cs" />
+    <Compile Include="09\TaskA.cs" />
+    <Compile Include="09\TaskB.cs" />
+    <Compile Include="10\Runner.cs" />
+    <Compile Include="10\TaskAB.cs" />
+    <Compile Include="10\TaskC.cs" />
+    <Compile Include="10\TaskD.cs" />
+    <Compile Include="10\TaskE.cs" />
+    <Compile Include="10\TaskF.cs" />
+    <Compile Include="10\TaskG.cs" />
+    <Compile Include="11\Runner.cs" />
+    <Compile Include="11\TaskA.CS" />
+    <Compile Include="11\TaskB.CS" />
+    <Compile Include="11\TaskC.CS" />
+    <Compile Include="11\Waiter.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -182,6 +211,15 @@
     <Content Include="06\Conversions6.png" />
     <Content Include="06\Conversions7.png" />
     <Content Include="06\_Assignment.txt" />
+    <Content Include="07\_Assignment.txt" />
+    <Content Include="08\_Assignment.txt" />
+    <Content Include="09\_Assignment.txt" />
+    <Content Include="10\Lesson10Assignment.txt" />
+    <Content Include="11\Lesson11Assignment.txt" />
+    <Content Include="lib\Castle.Core.dll" />
+    <Content Include="lib\Castle.Core.xml" />
+    <Content Include="lib\Castle.Windsor.dll" />
+    <Content Include="lib\Castle.Windsor.xml" />
     <Content Include="lib\FluentAssertions.Core.dll" />
     <Content Include="lib\FluentAssertions.Core.pdb" />
     <Content Include="lib\FluentAssertions.Core.xml" />
@@ -206,16 +244,8 @@
     <Content Include="lib\xunit.execution.desktop.pdb" />
     <Content Include="lib\xunit.execution.desktop.xml" />
   </ItemGroup>
-  <ItemGroup>
-    <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
-    <PropertyGroup>
-      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
-    </PropertyGroup>
-    <Error Condition="!Exists('..\packages\xunit.runner.visualstudio.2.2.0\build\net20\xunit.runner.visualstudio.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\xunit.runner.visualstudio.2.2.0\build\net20\xunit.runner.visualstudio.props'))" />
-  </Target>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
