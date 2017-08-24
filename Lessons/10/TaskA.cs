@@ -21,7 +21,7 @@ namespace Lessons._10
 {
     class TaskA
     {
-        const int Iterations = 10000;
+        const int Iterations = 100000;
         public static void Run()
         {
             Console.WriteLine("By simple assignment");
@@ -32,6 +32,11 @@ namespace Lessons._10
 
             Console.WriteLine("By concate action");
             Console.WriteLine(DurationMeasurer.Measure(joining10000StringsByConcatAction));
+
+            Console.WriteLine("By creating ne string directly");
+            Console.WriteLine(DurationMeasurer.Measure(CreateNewStringDIrectly));
+
+            
         }
 
         private static void joining10000StringsByConcatAction()
@@ -62,6 +67,11 @@ namespace Lessons._10
             {
                 result += "x";
             }
+        }
+        private static void CreateNewStringDIrectly()
+        {
+            string result = new string('x', Iterations);
+
         }
     }
 }
