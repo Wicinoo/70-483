@@ -12,7 +12,7 @@
 //Console.WriteLine(DurationMeasurer.Measure(joining10000StringsByConcatAction)); 
 
 //Compare performance of all approaches.How many times are they slower than the fastest one?
-
+//http://www.erikbergman.net/2016/03/05/using-string-intern-to-save-memory-and-increase-performance/
 
 using System;
 using System.Text;
@@ -23,6 +23,23 @@ namespace Lessons._10
     {
         const int Iterations = 100000;
         public static void Run()
+        {
+            RunTest();
+            Console.WriteLine("--------------");
+            RunTest();
+            Console.WriteLine("--------------");
+            RunTest();
+            Console.WriteLine("--------------");
+            RunTest();
+            Console.WriteLine("--------------");
+            RunTest();
+            Console.WriteLine("--------------");
+            RunTest();
+            Console.WriteLine("--------------");
+            RunTest();
+        }
+
+        private static void RunTest()
         {
             Console.WriteLine("By simple assignment");
             Console.WriteLine(DurationMeasurer.Measure(joining10000StringsBySimpleAssignmentAction));
@@ -35,8 +52,6 @@ namespace Lessons._10
 
             Console.WriteLine("By creating ne string directly");
             Console.WriteLine(DurationMeasurer.Measure(CreateNewStringDIrectly));
-
-            
         }
 
         private static void joining10000StringsByConcatAction()
