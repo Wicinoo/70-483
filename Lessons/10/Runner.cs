@@ -10,8 +10,8 @@ namespace Lessons._10
     {
         public static void Run()
         {
-            TaskA.Run();
-            //TaskB.Run();
+            //TaskA.Run();
+            TaskB.Run();
         }
     }
 }
