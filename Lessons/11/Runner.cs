@@ -1,4 +1,6 @@
-﻿namespace Lessons._11
+﻿using Lessons._11.Tasks;
+
+namespace Lessons._11
 {
     public class Runner
     {
@@ -6,7 +8,7 @@
         {
             //TaskA.Run();
             //TaskB.Run();
-            //TaskC.Run();
+            TaskC.Run();
         }
     }
 }

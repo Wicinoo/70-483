@@ -18,9 +18,10 @@ namespace Lessons._08
 
             var types = Assembly.GetCallingAssembly().GetTypes();
 
-            var fooBarTypes = typeof (FooBar).GetInterfaces();
+            var fooBarTypes = typeof(FooBar).GetInterfaces();
 
             var iFooTypes = types.Where(type => type.GetInterfaces().Any(i => i == typeof(IFoo)));
+
             var iFooTypesWithConstructor =
                 iFooTypes.Where(type => type.GetConstructors().Any(constructor => !constructor.GetParameters().Any()));
 

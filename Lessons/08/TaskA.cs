@@ -54,15 +54,19 @@ namespace Lessons._08
         [RequiredSkill(DeveloperSkillType.CSharp)]
         [RequiredSkill(DeveloperSkillType.MsSql)]
         [RequiredSkill(DeveloperSkillType.SoapRest)]
-        ServiceDeveloper
+        ServiceDeveloper,
+
+        Scrub
     }
 
     [AttributeUsage(AttributeTargets.All, AllowMultiple = true)]
     public class RequiredSkillAttribute : Attribute
     {
+        public DeveloperSkillType SkillType { get; set; }
+
         public RequiredSkillAttribute(DeveloperSkillType cSharp)
         {
-            throw new NotImplementedException();
+            SkillType = cSharp;
         }
     }
 
@@ -70,10 +74,9 @@ namespace Lessons._08
     {
         public static void GetSkills(this DeveloperType type)
         {
-            var skills = typeof(DeveloperType).GetFields()
-                .Where(field => field.HasAttribute<RequiredSkillAttribute>())
-                .Select(field => field.GetValue(null))
-                .Cast<DeveloperSkillType>();
+            var skills = typeof(DeveloperType).GetMember(type.ToString())
+                .First().GetCustomAttributes(typeof(RequiredSkillAttribute), false).Cast<RequiredSkillAttribute>()
+                .Select(attribute => attribute.SkillType);
 
             foreach (var skill in skills)
             {

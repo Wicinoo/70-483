@@ -4,6 +4,7 @@
     {
         public static void Run()
         {
+            //TaskA.CoolPrinter.Run();
             TaskB.Run();
         }
     }

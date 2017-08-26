@@ -38,22 +38,35 @@ namespace Lessons._11.Tasks
     {
         private readonly string _name;
         public readonly XDocument _publicKey;
-        public readonly XDocument _privateKey;
+        private readonly XDocument _privateKey;
 
         public Node(string name)
         {
             _name = name;
-            //
+
+            using (var provider = new RSACryptoServiceProvider())
+            {
+                _publicKey = XDocument.Parse(provider.ToXmlString(false));
+                _privateKey = XDocument.Parse(provider.ToXmlString(true));
+            }
         }
 
         public void Send(Node peerNode, string message)
         {
-            //todo
+            using (var provider = new RSACryptoServiceProvider())
+            {
+                provider.FromXmlString(peerNode._publicKey.ToString());
+                peerNode.Receive(provider.Encrypt(ByteToStringConverter.GetBytes(message), false));
+            }
         }
 
         private void Receive(byte[] encrypted)
         {
-            //todo
+            using (var provider = new RSACryptoServiceProvider())
+            {
+                provider.FromXmlString(_privateKey.ToString());                
+                Console.WriteLine(ByteToStringConverter.GetString(provider.Decrypt(encrypted, false)));
+            }
         }
     }
 

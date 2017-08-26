@@ -1,4 +1,6 @@
-﻿using System;
+﻿#define MySymbol
+
+using System;
 
 namespace Lessons._09
 {
@@ -13,9 +15,27 @@ namespace Lessons._09
     /// </summary>
     class TaskB
     {
+
         public static void Run()
         {
-            throw new NotImplementedException();
+#if MySymbol
+            Console.WriteLine("My symbol is defined");
+#endif
+
+#warning This code is obsolete
+
+/*#if DEBUG
+#error Debug mode
+#endif*/
+
+#if !DEBUG
+#pragma warning disable
+#endif
+
+#if !DEBUG
+#pragma warning restore
+#endif
+
         }
     }
 }

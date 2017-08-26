@@ -6,7 +6,9 @@
 //Encrypted: 68, EA, E8,05,7B, F0,09,18,10, E6,69,7B,7C,42,0B, DE
 
 using System;
+using System.IO;
 using System.Security.Cryptography;
+using Xunit.Abstractions;
 
 namespace Lessons._11.Tasks
 {
@@ -29,14 +31,37 @@ namespace Lessons._11.Tasks
         }
         static byte[] Encrypt(SymmetricAlgorithm aesAlg, string plainText)
         {
-            //todo
-            throw new NotImplementedException();
+            using (var stream = new MemoryStream())
+            {
+                using (var encryptor = aesAlg.CreateEncryptor())
+                {
+                    using (var cryptoStream = new CryptoStream(stream, encryptor, CryptoStreamMode.Write))
+                    {
+                        using (StreamWriter writer = new StreamWriter(cryptoStream))
+                        {
+                            writer.Write(plainText);
+                        }
+
+                        return stream.ToArray();
+                    }
+                }
+            }
         }
 
         static string Decrypt(SymmetricAlgorithm aesAlg, byte[] cipherText)
         {
-            //todo
-            throw new NotImplementedException();
+            ICryptoTransform decryptor = aesAlg.CreateDecryptor(aesAlg.Key, aesAlg.IV);
+
+            using (MemoryStream memStream = new MemoryStream(cipherText))
+            {
+                using (CryptoStream cryptoStream = new CryptoStream(memStream, decryptor, CryptoStreamMode.Read))
+                {
+                    using (StreamReader reader = new StreamReader(cryptoStream))
+                    {
+                        return reader.ReadToEnd();
+                    }
+                }
+            }
         }
 
         public static void Run()

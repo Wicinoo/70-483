@@ -1,9 +1,11 @@
-﻿
-using System;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
-using MyCoolLibrary;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace Lessons._09
+namespace MyCoolLibrary
 {
     /// <summary>
     /// Create a new solution with a class library project MyCoolLibrary. 
@@ -20,13 +22,14 @@ namespace Lessons._09
     /// - Reference the assembly (not the project) from this Lessons solution 
     /// and invoke PrintCoolMessage. => take a screenshot TaskAOutput3.png.
     /// </summary>
-    class TaskA
+    public class Printer
     {
-        public static class CoolPrinter
+        public static class CoolMessagePrinter
         {
-            public static void Run()
+            public static void PrintCoolMessage()
             {
-                Printer.CoolMessagePrinter.PrintCoolMessage();
+                var assemblyName = Assembly.GetExecutingAssembly().FullName; // Get assembly full name by reflection.
+                Console.WriteLine($"This is a cool message from {assemblyName}.");
             }
         }
     }
