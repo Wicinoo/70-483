@@ -27,22 +27,12 @@ namespace Lessons._10
         private static List<string> _randomStrings = Enumerable.Range(1, Iterations).Select(_ => GetRandomString(10)).ToList();
 
      
-        const int Iterations = 100000;
+        const int Iterations = 10000;
         public static void Run()
         {
+            Console.WriteLine("Test with random string");
             RunTest();
-            Console.WriteLine("--------------");
-            RunTest();
-            Console.WriteLine("--------------");
-            RunTest();
-            Console.WriteLine("--------------");
-            RunTest();
-            Console.WriteLine("--------------");
-            RunTest();
-            Console.WriteLine("--------------");
-            RunTest();
-            Console.WriteLine("--------------");
-            RunTest();
+            
         }
 
         private static void RunTest()

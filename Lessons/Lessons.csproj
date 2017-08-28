@@ -17,7 +17,7 @@
     <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
-    <Optimize>true</Optimize>
+    <Optimize>false</Optimize>
     <OutputPath>bin\Debug\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
@@ -177,6 +177,8 @@
     <Compile Include="10\task10A.cs" />
     <Compile Include="10\TaskA.cs" />
     <Compile Include="10\TaskB.cs" />
+    <Compile Include="10\TaskC.cs" />
+    <Compile Include="10\TaskD.cs" />
     <Compile Include="11\Runner.cs" />
     <Compile Include="11\TaskA.CS" />
     <Compile Include="11\TaskB.CS" />

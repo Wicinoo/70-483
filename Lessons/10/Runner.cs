@@ -11,7 +11,9 @@ namespace Lessons._10
         public static void Run()
         {
             //TaskA.Run();
-            TaskB.Run();
+            //TaskB.Run();
+            //TaskC.Run();
+            TaskD.Run();
         }
     }
 }

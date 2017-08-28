@@ -24,18 +24,7 @@ namespace Lessons._10
         const int Iterations = 100000;
         public static void Run()
         {
-            RunTest();
-            Console.WriteLine("--------------");
-            RunTest();
-            Console.WriteLine("--------------");
-            RunTest();
-            Console.WriteLine("--------------");
-            RunTest();
-            Console.WriteLine("--------------");
-            RunTest();
-            Console.WriteLine("--------------");
-            RunTest();
-            Console.WriteLine("--------------");
+            Console.WriteLine("Test with constant");
             RunTest();
         }
 
