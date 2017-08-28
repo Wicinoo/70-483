@@ -29,9 +29,7 @@ namespace Lessons._10
         public static string ApplyCrazyMapping(this string value)
         {
             value = ReplaceDigits(value, '#');
-
             value = UpperCharToDoubleLower(value);
-
             value = IgnoreWhiteSpace(value);
 
             return value;
