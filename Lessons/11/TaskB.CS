@@ -14,13 +14,10 @@
 //A Using my private key: <RSAKeyValue><Modulus>p4JxK1dF24QmgFTglrbu7mjCtb5f7J9u7yfszAct6HPwZo6uXabijsLYKsfMOArQIvSjsoiYypIBHklWjSfz6opsmpUKl+0ClRd2pQKgCSWVL8LfWJ3pz6KntyoQ4CA5ipuqU4Jb8WGpL+Pf34Y6tdrjH3dMjYrKgecxkmwPIUM=</Modulus><Exponent>AQAB</Exponent><P>403LvjeTZ6K4gJS/RwPCwCw+zKuO607mGco3CvFJdlssoRU7Dk2t4j0b3CF3H5Xw/mSjQM0MARKVSOF+GIldsw==</P><Q>vKgpGVKrBrmPdC1uAr6EP6Pi22RcWC936Wl9viRz7jgi2bHNKwtrfFYrxe/iTpHG6Sfo4Fv7psSbbKJigyYGMQ==</Q><DP>PC3RnlfKb+q13F0FU0Dco9JTAg79tLDb3MIb1orRP0OeSjt7uiq4uagiIyK9DiC9gCyWyEZBQltwKK6Cmu5rXw==</DP><DQ>DgBtDHQWPWmIPBcjExEQv6hqLd5E/EaJn8k0i+gosoV4ELAhihBO6et7VDV5lls7aBKONhidlMMCxg1HQnSQAQ==</DQ><InverseQ>PPd/9bNCuFqUyrAa65uEH3xsfvsh+i7dgeMh2d3USfiz8Oxw86SUvwFGQeS+3aM4PnbyQ/vI1uAzxcyYaAfZbg==</InverseQ><D>KeWueLCzgFxlZOPV6NyIlokNanfbdkvKa3cI+18wVFvrXTuC0VnUgPCrMMgYhEvwE04tQ5J25PPv46tkQpojn7ZFRt9HIxtSbSipCujqTo0z5HtANpHPHfRMB+xJ5D4bLd7j+wif9XeQGy+agF+1IF+k3+VDrVE+mqhaUYdU6wE=</D></RSAKeyValue>
 //A received: Hi, I'm B
 
-using System;
-using System.Linq;
 using System.Security.Cryptography;
-using System.Text;
 using System.Xml.Linq;
 
-namespace Lessons._11.Tasks
+namespace Lessons._11
 {
     public class TaskB
     {
@@ -43,17 +40,39 @@ namespace Lessons._11.Tasks
         public Node(string name)
         {
             _name = name;
-            //
+            using (var rsa = new RSACryptoServiceProvider())
+            {
+                _publicKey = XDocument.Parse(rsa.ToXmlString(false));
+                _privateKey = XDocument.Parse(rsa.ToXmlString(true));
+            }
         }
 
         public void Send(Node peerNode, string message)
         {
-            //todo
+            System.Console.WriteLine($"{_name} sending: {message}");
+            System.Console.WriteLine($"{_name} Using peer public key: {_publicKey}");
+
+            byte[] encrypted;
+            using (var rsa = new RSACryptoServiceProvider())
+            {
+                rsa.FromXmlString(peerNode._publicKey.ToString());
+                encrypted = rsa.Encrypt(ByteToStringConverter.GetBytes(message), false);
+            }
+            System.Console.WriteLine($"{_name} encrypted: {ByteToStringConverter.GetString(encrypted)}");
+
+            peerNode.Receive(encrypted);
         }
 
         private void Receive(byte[] encrypted)
         {
-            //todo
+            byte[] decryptedData;
+            using (var rsa = new RSACryptoServiceProvider())
+            {
+                rsa.FromXmlString(_privateKey.ToString());
+                decryptedData = rsa.Decrypt(encrypted, false);
+            }
+
+            System.Console.WriteLine($"{_name} received: {ByteToStringConverter.GetString(decryptedData)}");
         }
     }
 

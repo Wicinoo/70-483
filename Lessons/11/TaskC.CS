@@ -28,14 +28,10 @@
 
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.ComponentModel.Design;
-using System.Diagnostics;
-using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 
-namespace Lessons._11.Tasks
+namespace Lessons._11
 {
     public class TaskC
     {
@@ -124,17 +120,25 @@ namespace Lessons._11.Tasks
         public class CredentialsVault
         {
             private Dictionary<string, string> _database = new Dictionary<string, string>();
+            private UnicodeEncoding _byteConverter = new UnicodeEncoding();
             private SHA256 _sha256 = SHA256.Create();
 
             public void AddCredentials(string username, string password)
             {
-                //todo
+                var passwordHash = _sha256.ComputeHash(_byteConverter.GetBytes(password));
+                _database.Add(username, Encoding.Default.GetString(passwordHash));
             }
 
             public bool AreValidCredentials(string username, string password)
             {
-                //todo
-                throw new NotImplementedException();
+                if (_database.ContainsKey(username))
+                {
+                    var storedPassHash = _database[username];
+                    var enteredPassHash = _sha256.ComputeHash(_byteConverter.GetBytes(password));
+
+                    return storedPassHash.Equals(Encoding.Default.GetString(enteredPassHash));
+                }
+                return false;
             }
 
             public IReadOnlyDictionary<string, string> GetAllCredentials()
