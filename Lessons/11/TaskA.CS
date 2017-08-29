@@ -71,7 +71,7 @@ namespace Lessons._11.Tasks
         {
             var sB = new StringBuilder();
 
-            bytes.ForEach(b => sB.AppendFormat("{0:X2},", b));
+            bytes.ForEach(b => sB.AppendFormat("{0:X2}, ", b));
 
             return sB.ToString();
         }
