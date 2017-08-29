@@ -29,7 +29,9 @@ namespace Lessons._11.Tasks
             var nodeA = new Node("A");
             var nodeB = new Node("B");
             nodeA.Send(nodeB, "Hi, I'm A");
+            Console.WriteLine();
             nodeB.Send(nodeA, "Hi, I'm B");
+            Console.WriteLine();
             Waiter.WaitForAnyKey();
         }
     }
@@ -37,23 +39,52 @@ namespace Lessons._11.Tasks
     public class Node
     {
         private readonly string _name;
-        public readonly XDocument _publicKey;
-        public readonly XDocument _privateKey;
+
+        public XDocument PublicKey { get; }
+        private readonly XDocument _privateKey;
 
         public Node(string name)
         {
             _name = name;
-            //
+            var rsa = new RSACryptoServiceProvider();
+            _privateKey = XDocument.Parse(rsa.ToXmlString(true));
+            PublicKey = XDocument.Parse(rsa.ToXmlString(false));
         }
-
+        
         public void Send(Node peerNode, string message)
         {
-            //todo
+            Console.WriteLine("{0} sending: {1}", _name, message);
+            Console.WriteLine("{0} Using peer public key: {1}", _name, peerNode.PublicKey);
+            var encrypted = Encrypt(message, peerNode.PublicKey);
+            Console.WriteLine("{0} encrypted: {1}", _name, TaskA.ByteArrayToHexaString(encrypted));
+            Console.WriteLine();
+            peerNode.Receive(encrypted);
         }
 
-        private void Receive(byte[] encrypted)
+        private byte[] Encrypt(string message, XDocument publicKey)
         {
-            //todo
+            var dataToEncrypt = new UnicodeEncoding().GetBytes(message);
+
+            using (var rsa = new RSACryptoServiceProvider())
+            {
+                rsa.FromXmlString(publicKey.ToString());
+                return rsa.Encrypt(dataToEncrypt, false);
+            }
+        }
+
+        public void Receive(byte[] encrypted)
+        {
+            Console.WriteLine("{0} Using my private key: {1}", _name, _privateKey);
+            Console.WriteLine("{0} received: {1}", _name, Decrypt(encrypted, _privateKey ));
+        }
+
+        private string Decrypt(byte[] encrypted, XDocument privateKey)
+        {
+            using (var rsa = new RSACryptoServiceProvider())
+            {
+                rsa.FromXmlString(privateKey.ToString());
+                return new UnicodeEncoding().GetString(rsa.Decrypt(encrypted, false));
+            }
         }
     }
 

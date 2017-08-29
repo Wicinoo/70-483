@@ -4,9 +4,9 @@
     {
         public static void Run()
         {
-            Tasks.TaskA.Run();
-            //TaskB.Run();
-            //TaskC.Run();
+            //Tasks.TaskA.Run();
+            Tasks.TaskB.Run();
+            //Tasks.TaskC.Run();
         }
     }
 }
