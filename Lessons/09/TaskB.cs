@@ -25,9 +25,9 @@ namespace Lessons._09
             Console.WriteLine("MySymbol is defined.");
 #endif
 
-#if DEBUG
-#error Debug code, triggering error
-#endif
+//#if DEBUG
+//#error Debug code, triggering error
+//#endif
 
 #pragma warning disable
 #warning This code is obsolete
