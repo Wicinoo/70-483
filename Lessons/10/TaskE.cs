@@ -24,11 +24,21 @@ namespace Lessons._10
         public static void Run()
         {
             DateTime currentDate = DateTime.Now;
-            Console.WriteLine(currentDate.ToString(new CultureInfo("en-GB")));
-            Console.WriteLine(currentDate.ToString(new CultureInfo("en-US")));
-            Console.WriteLine(currentDate.ToString(new CultureInfo("en-CZ")));
-            Console.WriteLine(currentDate.ToString(new CultureInfo("zh-SG")));
 
+            Print(currentDate, new CultureInfo("en-US"));
+            Print(currentDate, new CultureInfo("en-GB"));
+            Print(currentDate, new CultureInfo("en-CZ"));
+            Print(currentDate, new CultureInfo("zh-SG"));
+        }
+
+        private static void Print(DateTime currentDate, CultureInfo provider)
+        {
+            Console.WriteLine($"culture: {provider.Name} {provider.DisplayName}");
+            Console.WriteLine($"LongDate: pattern={provider.DateTimeFormat.LongDatePattern} {currentDate.ToString(provider.DateTimeFormat.LongDatePattern, provider)}");
+            Console.WriteLine($"FullDate: pattern={provider.DateTimeFormat.FullDateTimePattern} {currentDate.ToString(provider.DateTimeFormat.FullDateTimePattern, provider)}");
+            Console.WriteLine($"ISO8601:  {currentDate.ToString("s", provider)}");
+            Console.WriteLine($"Year month {currentDate.ToString("yyyy M",provider)}");
+            Console.WriteLine("---------------------------------------------------");
         }
     }
 }
