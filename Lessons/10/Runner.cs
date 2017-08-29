@@ -14,7 +14,8 @@ namespace Lessons._10
             //TaskB.Run();
             //TaskC.Run();
             //TaskD.Run();
-            TaskE.Run();
+            //TaskE.Run();
+            TaskF.Run();
         }
     }
 }

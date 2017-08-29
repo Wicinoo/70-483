@@ -31,13 +31,13 @@ namespace Lessons._10
             Print(currentDate, new CultureInfo("zh-SG"));
         }
 
-        private static void Print(DateTime currentDate, CultureInfo provider)
+        private static void Print(DateTime currentDate, CultureInfo cultureInfo)
         {
-            Console.WriteLine($"culture: {provider.Name} {provider.DisplayName}");
-            Console.WriteLine($"LongDate: pattern={provider.DateTimeFormat.LongDatePattern} {currentDate.ToString(provider.DateTimeFormat.LongDatePattern, provider)}");
-            Console.WriteLine($"FullDate: pattern={provider.DateTimeFormat.FullDateTimePattern} {currentDate.ToString(provider.DateTimeFormat.FullDateTimePattern, provider)}");
-            Console.WriteLine($"ISO8601:  {currentDate.ToString("s", provider)}");
-            Console.WriteLine($"Year month {currentDate.ToString("yyyy M",provider)}");
+            Console.WriteLine($"culture: {cultureInfo.Name} {cultureInfo.DisplayName}");
+            Console.WriteLine($"LongDate: pattern={cultureInfo.DateTimeFormat.LongDatePattern} {currentDate.ToString(cultureInfo.DateTimeFormat.LongDatePattern, cultureInfo)}");
+            Console.WriteLine($"FullDate: pattern={cultureInfo.DateTimeFormat.FullDateTimePattern} {currentDate.ToString(cultureInfo.DateTimeFormat.FullDateTimePattern, cultureInfo)}");
+            Console.WriteLine($"ISO8601:  {currentDate.ToString("s", cultureInfo)}");     //https://stackoverflow.com/questions/114983/given-a-datetime-object-how-do-i-get-an-iso-8601-date-in-string-format
+            Console.WriteLine($"Year month {currentDate.ToString("yyyy M",cultureInfo)}");
             Console.WriteLine("---------------------------------------------------");
         }
     }
