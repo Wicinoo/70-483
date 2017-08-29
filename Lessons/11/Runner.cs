@@ -4,7 +4,7 @@
     {
         public static void Run()
         {
-            //TaskA.Run();
+            Tasks.TaskA.Run();
             //TaskB.Run();
             //TaskC.Run();
         }

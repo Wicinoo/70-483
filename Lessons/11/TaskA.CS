@@ -6,7 +6,11 @@
 //Encrypted: 68, EA, E8,05,7B, F0,09,18,10, E6,69,7B,7C,42,0B, DE
 
 using System;
+using System.IO;
 using System.Security.Cryptography;
+using System.Text;
+
+using Castle.Core.Internal;
 
 namespace Lessons._11.Tasks
 {
@@ -24,19 +28,52 @@ namespace Lessons._11.Tasks
                 string roundtrip = Decrypt(Aes, encrypted);
                 // Displays: My secret data!
                 Console.WriteLine("Original: {0}", original);
-                Console.WriteLine("Encrypted: {0}", encrypted);
+                Console.WriteLine("Key: {0}", ByteArrayToHexaString(Aes.Key));
+                Console.WriteLine("IV: {0}", ByteArrayToHexaString(Aes.IV));
+                Console.WriteLine("Encrypted: {0}", ByteArrayToHexaString(encrypted));
+                Console.WriteLine("RoundTrip: {0}", roundtrip);
             }
         }
         static byte[] Encrypt(SymmetricAlgorithm aesAlg, string plainText)
         {
-            //todo
-            throw new NotImplementedException();
+            ICryptoTransform aesEncryptor = aesAlg.CreateEncryptor(aesAlg.Key, aesAlg.IV);
+
+            using (var memoryStream = new MemoryStream())
+            {
+                using (var cryptoStream = new CryptoStream(memoryStream, aesEncryptor, CryptoStreamMode.Write))
+                {
+                    using (var streamWriter = new StreamWriter(cryptoStream))
+                    {
+                        streamWriter.Write(plainText);
+                    }
+                    return memoryStream.ToArray();
+                }
+            }
         }
 
         static string Decrypt(SymmetricAlgorithm aesAlg, byte[] cipherText)
         {
-            //todo
-            throw new NotImplementedException();
+            ICryptoTransform aesDecryptor = aesAlg.CreateDecryptor(aesAlg.Key, aesAlg.IV);
+
+            using (var memoryStream = new MemoryStream(cipherText))
+            {
+                using (var cryptoStream = new CryptoStream(memoryStream, aesDecryptor, CryptoStreamMode.Read))
+                {
+                    using (var stringReader = new StreamReader(cryptoStream))
+                    {
+                        return stringReader.ReadToEnd();
+                    }
+                }
+            }
+        }
+
+        public static string ByteArrayToHexaString(byte[] bytes)
+        {
+            var sB = new StringBuilder();
+
+            bytes.ForEach(b => sB.AppendFormat("{0:X2},", b));
+
+            return sB.ToString();
         }
 
         public static void Run()
