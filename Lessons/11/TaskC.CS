@@ -128,13 +128,33 @@ namespace Lessons._11.Tasks
 
             public void AddCredentials(string username, string password)
             {
-                //todo
+                var hash = GetHash(password);
+
+                if (_database.ContainsKey(username))
+                {
+                    _database[username] = hash;
+                }
+                else
+                {
+                    _database.Add(username, hash);
+                }
+            }
+
+            private string GetHash(string input)
+            {
+                return Convert.ToBase64String(_sha256.ComputeHash(new UnicodeEncoding().GetBytes(input)));
             }
 
             public bool AreValidCredentials(string username, string password)
             {
-                //todo
-                throw new NotImplementedException();
+                if (!_database.ContainsKey(username))
+                {
+                    return false;
+                }
+
+                var hash = GetHash(password);
+
+                return hash.SequenceEqual(_database[username]);
             }
 
             public IReadOnlyDictionary<string, string> GetAllCredentials()
