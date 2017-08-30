@@ -19,11 +19,7 @@
 
 
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 
 namespace Lessons._10
 {
@@ -32,7 +28,7 @@ namespace Lessons._10
         public static void Run()
         {
             Console.WriteLine("Kent Beck");
-            if (IsValidName("Kent Beck")) Console.WriteLine("Ok") ; // true
+            if (IsValidName("Kent Beck")) Console.WriteLine("Ok"); // true
 
             Console.WriteLine("Kent");
             if (IsValidName("Kent")) Console.WriteLine("Ok"); // true
@@ -55,71 +51,13 @@ namespace Lessons._10
 
         private static bool IsValidName(string name)
         {
-
-            if (!VlidateAllowedCharactersRegular(name)) return false;
-            //if (!ValidateDelimitedByWhiteSpace(name)) return false;
-            //if (!ValidateDistinctNames(name)) return false;
-            //if (!ValidateMaximalWords(name)) return false;
-            //if (!ValidateOneWhiteSpaceBetweenWords(name)) return false;
-            //if (!ValidateUpperCharsInName(name)) return false;
-            return true;
-        }
-
-        private static bool ValidateOneWhiteSpaceBetweenWords(string name)
-        {
-            throw new NotImplementedException();
-        }
-
-        private static bool ValidateUpperCharsInName(string name)
-        {
-            return false;
-         
-        }
-
-        private static bool ValidateMaximalWords(string name)
-        {
-            var allWords = name.Split(' ');
-            return allWords.Count() <= 3;
-        }
-
-        private static bool ValidateDistinctNames(string name)
-        {
-            var distinctWords = name.Split(' ').Distinct();
-            var allwords = name.Split(' ');
-            return (distinctWords.Count() == allwords.Count());
-        }
-
-        private static bool ValidateDelimitedByWhiteSpace(string name)
-        {
-            var upperCase = name.Where(s => char.IsUpper(s));
-            foreach (var item in upperCase)
-            {
-                var index = name.IndexOf(item);
-                if (index > 0)
-                {
-                    if (!char.IsWhiteSpace(name[index - 1]))
-                    { return false; }
-                }
-            }
-            return true;
-        }
-
-        private static bool VlidateAllowedCharactersRegular(string name)
-        {
-            //var pattern = $"^([A-Z]([a-z]*))([ ][A-Z]([a-z]*)*)$";
-            var pattern = $"^([A-Z]([a-z]*))";
+            //^[A-Z]                 start with upper case
+            //[a-z]*                 any repeat for lower case
+            //\s[A-Z][a-z]*          \s space 
+            //(\s[A-Z][a-z]*){0,2}   maximum 2 repeat
+            var pattern = @"^[A-Z][a-z]*(\s[A-Z][a-z]*){0,2}$";
             var regex = new Regex(pattern);
             return regex.IsMatch(name);
-        }
-
-        private static bool VlidateAllowedCharacters(string name)
-        {
-            var allowedChar = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ ";
-            foreach (var item in name)
-            {
-                if (!(allowedChar.Contains(item))) return false;
-            }
-            return true;
         }
     }
 }
