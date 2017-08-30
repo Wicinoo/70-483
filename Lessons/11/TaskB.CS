@@ -26,8 +26,13 @@ namespace Lessons._11.Tasks
     {
         public static void Run()
         {
-            var nodeA = new Node("A");
-            var nodeB = new Node("B");
+            var publicKeyA = XDocument.Parse("<RSAKeyValue><Modulus>xTuWNSx4lb70zwRk1bl7SM9Y0fvGzMjwd+GVQ/LL8giKh7Uuhm7fgglKnqRU6fwGNGmVfcNXsJDww9X15Xpp0lG3GrCPENmGLNlk8xHt7621me3Pn2R0V/VPUkNmctnL9AVYXIdQxzHGJDlZh91E3RizPGvB7awvZka7TAji1Oc=</Modulus><Exponent>AQAB</Exponent></RSAKeyValue>");
+            var privateKeyA = XDocument.Parse("<RSAKeyValue><Modulus>xTuWNSx4lb70zwRk1bl7SM9Y0fvGzMjwd+GVQ/LL8giKh7Uuhm7fgglKnqRU6fwGNGmVfcNXsJDww9X15Xpp0lG3GrCPENmGLNlk8xHt7621me3Pn2R0V/VPUkNmctnL9AVYXIdQxzHGJDlZh91E3RizPGvB7awvZka7TAji1Oc=</Modulus><Exponent>AQAB</Exponent><P>3oD8vZ9Be1zoAA05vbCXfgTzpuWL4VPnGoWhB/0wzuoIVeY+QEDPj9yV+XKXO7IQLjNhUyoSLqn9yM/Ju1Iu/Q==</P><Q>4uyvFWc5MRBBeuZpmrfomekxwQ4XPwqrgSFMPmi2MwGN6sHwn+c9MNdV8KuuooO6F57oVbFprHFZlzdYWqYCsw==</Q><DP>pt17LcYKeLbDMo64l96grhyOkcKidbjTn1tJ2dDy0qpG2AzU8KDqSIx4WNusOVOfuNZFjfYGLsLDld7m/jlzDQ==</DP><DQ>EYjIXpcDTE89QAndzx620m26cnhsQ2rHpcq04X2l1nsgRCuINFLh34xED7y0Wcpj7r9QpI544+I+Ufjs0tRREQ==</DQ><InverseQ>AqYubnoyE575pAnk7A/5A3SNjFVLFALHf3qBZWWtH1xKjMwf7lKypPhQDtRZ+qz5b8vg6imnK47YswV/1x5Zqg==</InverseQ><D>GEctRmQFfzqvbCYt0Ah8w6nQ/0lp9L5NVMG+ESGmIie+qarPTHlXEOzaNGylDoeuhILKBd48VpMuLTpoAjSPKZRWkwuOVcdnsKb49Wfa+YaAiU2K6+K+TU8r2oExhoVEbIvFZgaRYwsqbieundaVgUCCXnpISegDJecXHqIfaN0=</D></RSAKeyValue>");
+            var nodeA = new Node("A", publicKeyA, privateKeyA);
+
+            var publicKeyB = XDocument.Parse("<RSAKeyValue><Modulus>p4JxK1dF24QmgFTglrbu7mjCtb5f7J9u7yfszAct6HPwZo6uXabijsLYKsfMOArQIvSjsoiYypIBHklWjSfz6opsmpUKl+0ClRd2pQKgCSWVL8LfWJ3pz6KntyoQ4CA5ipuqU4Jb8WGpL+Pf34Y6tdrjH3dMjYrKgecxkmwPIUM=</Modulus><Exponent>AQAB</Exponent></RSAKeyValue>");
+            var privateKeyB = XDocument.Parse("<RSAKeyValue><Modulus>p4JxK1dF24QmgFTglrbu7mjCtb5f7J9u7yfszAct6HPwZo6uXabijsLYKsfMOArQIvSjsoiYypIBHklWjSfz6opsmpUKl+0ClRd2pQKgCSWVL8LfWJ3pz6KntyoQ4CA5ipuqU4Jb8WGpL+Pf34Y6tdrjH3dMjYrKgecxkmwPIUM=</Modulus><Exponent>AQAB</Exponent><P>403LvjeTZ6K4gJS/RwPCwCw+zKuO607mGco3CvFJdlssoRU7Dk2t4j0b3CF3H5Xw/mSjQM0MARKVSOF+GIldsw==</P><Q>vKgpGVKrBrmPdC1uAr6EP6Pi22RcWC936Wl9viRz7jgi2bHNKwtrfFYrxe/iTpHG6Sfo4Fv7psSbbKJigyYGMQ==</Q><DP>PC3RnlfKb+q13F0FU0Dco9JTAg79tLDb3MIb1orRP0OeSjt7uiq4uagiIyK9DiC9gCyWyEZBQltwKK6Cmu5rXw==</DP><DQ>DgBtDHQWPWmIPBcjExEQv6hqLd5E/EaJn8k0i+gosoV4ELAhihBO6et7VDV5lls7aBKONhidlMMCxg1HQnSQAQ==</DQ><InverseQ>PPd/9bNCuFqUyrAa65uEH3xsfvsh+i7dgeMh2d3USfiz8Oxw86SUvwFGQeS+3aM4PnbyQ/vI1uAzxcyYaAfZbg==</InverseQ><D>KeWueLCzgFxlZOPV6NyIlokNanfbdkvKa3cI+18wVFvrXTuC0VnUgPCrMMgYhEvwE04tQ5J25PPv46tkQpojn7ZFRt9HIxtSbSipCujqTo0z5HtANpHPHfRMB+xJ5D4bLd7j+wif9XeQGy+agF+1IF+k3+VDrVE+mqhaUYdU6wE=</D></RSAKeyValue>");
+            var nodeB = new Node("B", publicKeyB, privateKeyB);
             nodeA.Send(nodeB, "Hi, I'm A");
             nodeB.Send(nodeA, "Hi, I'm B");
             Waiter.WaitForAnyKey();
@@ -37,23 +42,57 @@ namespace Lessons._11.Tasks
     public class Node
     {
         private readonly string _name;
-        public readonly XDocument _publicKey;
-        public readonly XDocument _privateKey;
+        //public readonly XDocument _publicKey;
+        //public readonly XDocument _privateKey;
+        private XDocument _publicKey;
+        private XDocument _privateKey;
 
         public Node(string name)
         {
             _name = name;
-            //
+        }
+
+        public Node(string name, XDocument publicKey, XDocument privateKey) : this(name)
+        {
+            this._publicKey = publicKey;
+            this._privateKey = privateKey;
         }
 
         public void Send(Node peerNode, string message)
         {
-            //todo
+            Console.WriteLine($"Sending:{message}");
+            var encrypted = RSACrypto.Crypt(message, _publicKey);
+            Console.WriteLine($"Encrypted: {BitConverter.ToString(encrypted)}");
+            Receive(encrypted);            
         }
 
         private void Receive(byte[] encrypted)
         {
-            //todo
+            var decrypted = RSACrypto.Decrypt(encrypted, _privateKey);
+            Console.WriteLine($"Decrypted: {decrypted}");            
+        }
+    }
+
+    internal class RSACrypto
+    {
+        public static byte[] Crypt(string message, XDocument publicKey)
+        {
+            byte[] dataToEncrypt = ByteToStringConverter.GetBytes(message);
+            using (RSACryptoServiceProvider RSA = new RSACryptoServiceProvider())
+            {
+                RSA.FromXmlString(publicKey.ToString());
+                return RSA.Encrypt(dataToEncrypt, false);
+            }
+        }
+
+       
+        internal static string Decrypt(byte[] encrypted, XDocument privateKey)
+        {
+            using (RSACryptoServiceProvider RSA = new RSACryptoServiceProvider())
+            {
+                RSA.FromXmlString(privateKey.ToString());
+                return ByteToStringConverter.GetString(RSA.Decrypt(encrypted, false));
+            }
         }
     }
 

@@ -53,7 +53,6 @@ namespace Lessons._11.Tasks
             {
                 using (CryptoStream csDecrypt = new CryptoStream(msDecrypt,decryptor, CryptoStreamMode.Read))
                 {
-
                     using (StreamReader srDecrypt = new StreamReader(csDecrypt))
                     {
                         return srDecrypt.ReadToEnd();
