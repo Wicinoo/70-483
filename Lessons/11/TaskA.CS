@@ -6,11 +6,12 @@
 //Encrypted: 68, EA, E8,05,7B, F0,09,18,10, E6,69,7B,7C,42,0B, DE
 
 using System;
+using System.IO;
 using System.Security.Cryptography;
 
 namespace Lessons._11.Tasks
 {
-    public class TaskA
+    public static class TaskA
     {
         public static void EncryptSomeText()
         {
@@ -24,19 +25,41 @@ namespace Lessons._11.Tasks
                 string roundtrip = Decrypt(Aes, encrypted);
                 // Displays: My secret data!
                 Console.WriteLine("Original: {0}", original);
-                Console.WriteLine("Encrypted: {0}", encrypted);
+                Console.WriteLine("Encrypted: {0}", roundtrip);
             }
         }
         static byte[] Encrypt(SymmetricAlgorithm aesAlg, string plainText)
         {
-            //todo
-            throw new NotImplementedException();
+            ICryptoTransform encryptor = aesAlg.CreateEncryptor(aesAlg.Key, aesAlg.IV);
+
+            using (MemoryStream msEncrypt = new MemoryStream())
+            {
+                using (CryptoStream csEncrypt = new CryptoStream(msEncrypt, encryptor, CryptoStreamMode.Write))
+                {
+                    using (StreamWriter swEncrypt = new StreamWriter(csEncrypt))
+                    {
+                        swEncrypt.Write(plainText);
+                    }
+                    return msEncrypt.ToArray();
+                }
+            }
         }
 
         static string Decrypt(SymmetricAlgorithm aesAlg, byte[] cipherText)
         {
-            //todo
-            throw new NotImplementedException();
+            ICryptoTransform decryptor = aesAlg.CreateDecryptor(aesAlg.Key, aesAlg.IV);
+
+            using (MemoryStream msDecrypt = new MemoryStream(cipherText))
+            {
+                using (CryptoStream csDecrypt = new CryptoStream(msDecrypt,decryptor, CryptoStreamMode.Read))
+                {
+
+                    using (StreamReader srDecrypt = new StreamReader(csDecrypt))
+                    {
+                        return srDecrypt.ReadToEnd();
+                    }
+                }
+            }
         }
 
         public static void Run()

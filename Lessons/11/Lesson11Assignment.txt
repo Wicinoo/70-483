@@ -7,7 +7,7 @@ Objective 3.2 Perform symmetric and asymmetric encryption
 - pros and cons of "secret algorithm" and "public algorithm + secret key" approaches.
 - explain symmetric encryption. What are it's pros and cons?
 - explain asymmetric encryption. How does private and public key pair work? What are it's pros and cons?
-- compare both encryption approaches in terms of performance.
+- compare bot                                                                       
 - get basics of DES, AES, RSA, DSA, SHA - for what scenario would use each of them?
 - say what .net namespace contains support for cryptography.
 - explain concept of the "initialization vector (IV)".

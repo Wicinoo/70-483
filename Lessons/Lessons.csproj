@@ -192,9 +192,9 @@
     <Compile Include="10\TaskF.cs" />
     <Compile Include="10\TaskG.cs" />
     <Compile Include="11\Runner.cs" />
-    <Compile Include="11\TaskA.CS" />
-    <Compile Include="11\TaskB.CS" />
-    <Compile Include="11\TaskC.CS" />
+    <Compile Include="11\TaskA.cs" />
+    <Compile Include="11\TaskB.cs" />
+    <Compile Include="11\TaskC.cs" />
     <Compile Include="11\Waiter.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
