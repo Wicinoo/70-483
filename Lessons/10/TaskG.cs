@@ -22,6 +22,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace Lessons._10
@@ -30,20 +31,37 @@ namespace Lessons._10
     {
         public static void Run()
         {
-            string name = "test";
-            Console.WriteLine(IsValidName(name));
+            Console.WriteLine("Kent Beck");
+            if (IsValidName("Kent Beck")) Console.WriteLine("Ok") ; // true
 
+            Console.WriteLine("Kent");
+            if (IsValidName("Kent")) Console.WriteLine("Ok"); // true
+
+            Console.WriteLine("Kent Beck Jr");
+            if (IsValidName("Kent Beck Jr")) Console.WriteLine("Ok"); // true
+
+            Console.WriteLine("KentBeck");
+            if (!IsValidName("KentBeck")) Console.WriteLine("Ok"); // false
+
+            Console.WriteLine("Kent  Beck");
+            if (!IsValidName("Kent  Beck")) Console.WriteLine("Ok"); // false (two spaces)
+
+            Console.WriteLine("Kent Beck Beck Beck");
+            if (!IsValidName("Kent Beck Beck Beck")) Console.WriteLine("Ok"); // false (too many words)
+
+            Console.WriteLine("Kent BECK");
+            if (!IsValidName("Kent BECK")) Console.WriteLine("Ok"); // false (upper chars on other positions in the word)
         }
 
         private static bool IsValidName(string name)
         {
 
-            if (!VlidateAllowedCharacters(name)) return false;
-            if (!ValidateDelimitedByWhiteSpace(name)) return false;
-            if (!ValidateDistinctNames(name)) return false;
-            if (!ValidateMaximalWords(name)) return false;
-            if (!ValidateOneWhiteSpaceBetweenWords(name)) return false;
-            if (!ValidateUpperCharsInName(name)) return false;
+            if (!VlidateAllowedCharactersRegular(name)) return false;
+            //if (!ValidateDelimitedByWhiteSpace(name)) return false;
+            //if (!ValidateDistinctNames(name)) return false;
+            //if (!ValidateMaximalWords(name)) return false;
+            //if (!ValidateOneWhiteSpaceBetweenWords(name)) return false;
+            //if (!ValidateUpperCharsInName(name)) return false;
             return true;
         }
 
@@ -86,9 +104,17 @@ namespace Lessons._10
             return true;
         }
 
+        private static bool VlidateAllowedCharactersRegular(string name)
+        {
+            //var pattern = $"^([A-Z]([a-z]*))([ ][A-Z]([a-z]*)*)$";
+            var pattern = $"^([A-Z]([a-z]*))";
+            var regex = new Regex(pattern);
+            return regex.IsMatch(name);
+        }
+
         private static bool VlidateAllowedCharacters(string name)
         {
-            var allowedChar = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
+            var allowedChar = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ ";
             foreach (var item in name)
             {
                 if (!(allowedChar.Contains(item))) return false;
