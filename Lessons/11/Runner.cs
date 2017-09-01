@@ -6,8 +6,8 @@ namespace Lessons._11
         public static void Run()
         {
             //TaskA.Run();
-            TaskB.Run();
-            //TaskC.Run();
+            //TaskB.Run();
+            TaskC.Run();
         }
     }
 }

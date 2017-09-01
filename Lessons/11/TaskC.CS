@@ -125,16 +125,37 @@ namespace Lessons._11.Tasks
         {
             private Dictionary<string, string> _database = new Dictionary<string, string>();
             private SHA256 _sha256 = SHA256.Create();
+            private UnicodeEncoding _byteConverter = new UnicodeEncoding();
 
             public void AddCredentials(string username, string password)
             {
-                //todo
+                var hash = GetHashedValueInBase64(password);
+                if (!_database.ContainsKey(username))
+                {
+                    _database.Add(username, hash);
+                }
+                else
+                {
+                    _database[username] = hash;
+                }
+            }
+
+            private string GetHashedValueInBase64(string password)
+            {
+                var hash = _sha256.ComputeHash(_byteConverter.GetBytes(password));
+                return Convert.ToBase64String(hash);
             }
 
             public bool AreValidCredentials(string username, string password)
             {
-                //todo
-                throw new NotImplementedException();
+                var hash = GetHashedValueInBase64(password);
+                string storedHash;
+                if (_database.TryGetValue(username, out storedHash))
+                {
+                    return hash == storedHash;
+                }
+                else
+                { return false; }
             }
 
             public IReadOnlyDictionary<string, string> GetAllCredentials()
