@@ -195,6 +195,11 @@
     <Compile Include="09\Runner.cs" />
     <Compile Include="09\TaskA.cs" />
     <Compile Include="09\TaskB.cs" />
+    <Compile Include="11\Runner.cs" />
+    <Compile Include="11\TaskA.CS" />
+    <Compile Include="11\TaskB.CS" />
+    <Compile Include="11\TaskC.CS" />
+    <Compile Include="11\Waiter.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -225,6 +230,8 @@
     <Content Include="07\_Assignment.txt" />
     <Content Include="08\_Assignment.txt" />
     <Content Include="09\_Assignment.txt" />
+    <Content Include="10\Lesson10Assignment.txt" />
+    <Content Include="11\Lesson11Assignment.txt" />
     <Content Include="lib\Castle.Core.dll" />
     <Content Include="lib\Castle.Core.xml" />
     <Content Include="lib\Castle.Windsor.dll" />
