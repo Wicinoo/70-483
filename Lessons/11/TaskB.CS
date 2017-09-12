@@ -43,18 +43,33 @@ namespace Lessons._11.Tasks
         public Node(string name)
         {
             _name = name;
-            //
-        }
+
+			using (var cryptoProvider = new RSACryptoServiceProvider())
+			{
+				_publicKey = XDocument.Parse(cryptoProvider.ToXmlString(false));
+				_privateKey = XDocument.Parse(cryptoProvider.ToXmlString(true));
+			}
+		}
 
         public void Send(Node peerNode, string message)
         {
-            //todo
+			using (var RSA = new RSACryptoServiceProvider())
+			{
+				RSA.FromXmlString(peerNode._publicKey.ToString());
+				
+				peerNode.Receive(RSA.Encrypt(new UnicodeEncoding().GetBytes(message), false));
+			}
         }
 
-        private void Receive(byte[] encrypted)
+        public void Receive(byte[] encrypted)
         {
-            //todo
-        }
+			using (var RSA = new RSACryptoServiceProvider())
+			{
+				RSA.FromXmlString(_privateKey.ToString());
+
+				Console.WriteLine(new UnicodeEncoding().GetString(RSA.Decrypt(encrypted, false)));
+			}
+		}
     }
 
     public static class ByteToStringConverter

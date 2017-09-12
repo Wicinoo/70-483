@@ -6,6 +6,8 @@
 //Encrypted: 68, EA, E8,05,7B, F0,09,18,10, E6,69,7B,7C,42,0B, DE
 
 using System;
+using System.IO;
+using System.Linq;
 using System.Security.Cryptography;
 
 namespace Lessons._11.Tasks
@@ -25,20 +27,41 @@ namespace Lessons._11.Tasks
                 // Displays: My secret data!
                 Console.WriteLine("Original: {0}", original);
                 Console.WriteLine("Encrypted: {0}", encrypted);
-            }
+				Console.WriteLine("Decrypted: {0}", roundtrip);
+			}
         }
         static byte[] Encrypt(SymmetricAlgorithm aesAlg, string plainText)
         {
-            //todo
-            throw new NotImplementedException();
-        }
+			ICryptoTransform encryptor = aesAlg.CreateEncryptor(aesAlg.Key, aesAlg.IV);
+			using (MemoryStream msEncrypt = new MemoryStream())
+			{
+				using (CryptoStream csEncrypt =
+				new CryptoStream(msEncrypt, encryptor, CryptoStreamMode.Write))
+				{
+					using (StreamWriter swEncrypt = new StreamWriter(csEncrypt))
+					{
+						swEncrypt.Write(plainText);
+					}
+					return msEncrypt.ToArray();
+				}
+			}
+		}
 
-        static string Decrypt(SymmetricAlgorithm aesAlg, byte[] cipherText)
-        {
-            //todo
-            throw new NotImplementedException();
-        }
-
+		static string Decrypt(SymmetricAlgorithm aesAlg, byte[] cipherText)
+		{
+			ICryptoTransform decryptor = aesAlg.CreateDecryptor(aesAlg.Key, aesAlg.IV);
+			using (MemoryStream msDecrypt = new MemoryStream(cipherText))
+			{
+				using (CryptoStream csDecrypt =
+				new CryptoStream(msDecrypt, decryptor, CryptoStreamMode.Read))
+				{
+					using (StreamReader srDecrypt = new StreamReader(csDecrypt))
+					{
+						return srDecrypt.ReadToEnd();
+					}
+				}
+			}
+		}
         public static void Run()
         {
             EncryptSomeText();

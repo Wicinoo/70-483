@@ -128,13 +128,12 @@ namespace Lessons._11.Tasks
 
             public void AddCredentials(string username, string password)
             {
-                //todo
+				_database[username] = Convert.ToBase64String(_sha256.ComputeHash(new UnicodeEncoding().GetBytes(password)));
             }
 
             public bool AreValidCredentials(string username, string password)
             {
-                //todo
-                throw new NotImplementedException();
+				return _database.Where(x => x.Key == username).Where(x => x.Value == Convert.ToBase64String(_sha256.ComputeHash(new UnicodeEncoding().GetBytes(password)))).Any();
             }
 
             public IReadOnlyDictionary<string, string> GetAllCredentials()
