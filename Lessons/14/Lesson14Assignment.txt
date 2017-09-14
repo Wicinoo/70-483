@@ -1,0 +1,48 @@
+﻿Be able to ...
+
+Objective 4.2: Consume data
+
+- explain acronyms ADO.NET, SQL, CRUD.
+- describe connected data and disconnected data approaches in ADO.NET.
+- explain what a data provider is.
+- understand rules for a connection string and connect to a database.
+- run a query on a database.
+- do a CRUD operation in a database.
+- use a parameter for a command.
+- understand what ACID connected to DB transactions means.
+- process an operation in a transaction. What options for a transaction can be used?
+- explain what is ORM and what pros and cons can bring.
+- compare Database-first, Model-first, Code-first approaches.
+- understand main principles of WCF services and create a simple service.
+- read XML file.
+- build XML file.
+- consume JSON file.
+
+Tasks:
+
+Task A: Simple database.
+- Create a new database on your local sql server (localhost).
+- Create table Applicants with Id (int identity PK), Name (varchar(100)) and IsActive (bit).
+- Run script TaskAData.sql.
+- Write a code snippet to open the database and list all names ordered by the names. If an applicant is not active, add "(inactive)" suffix.
+- Save the console output and put it to the repository as TaskAOutput.png.
+
+Task B: Putting new record
+- Use the database from Task A.
+- Create a constraint for unique Name.
+- Write a simple program to let a user enter a new name.
+- Create a new applicant record with the name and list all names. Use a SQL-injection-safe approach.
+- Use a transaction.
+
+Task C: Simple WCF service.
+- Create a WCF service that returns new Guid as a string IGuidService.GetNewGuid().
+- The service should be accessible over web on the location http://localhost:8000/GetNewGuid, see TaskCPossibleOutput.png.
+- Let yourself inspire by the example at https://msdn.microsoft.com/en-us/library/bb412178(v=vs.110).aspx
+- Hint: If there is a problem with access permissions during starting the service, 
+run compiled bin\Debug\Exam-70-483-Preparation.exe directly as an administrator.
+
+Task D: Read XML from http://www.currency-iso.org/dam/downloads/lists/list_one.xml and write all entities in format:
+ALGERIA, Algerian Dinar, DZD
+
+Task E: Read JSON from http://api.icndb.com/jokes/random and print the text of a joke. 
+Use a helper (e.g. JObject from Newtonsoft.Json) for converting to an object. 
