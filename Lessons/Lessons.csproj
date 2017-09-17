@@ -196,6 +196,11 @@
     <Compile Include="11\TaskB.cs" />
     <Compile Include="11\TaskC.cs" />
     <Compile Include="11\Waiter.cs" />
+    <Compile Include="14\Runner.cs" />
+    <Compile Include="14\TaskA.cs" />
+    <Compile Include="14\TaskB.cs" />
+    <Compile Include="14\TaskD.cs" />
+    <Compile Include="14\TaskE.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -231,6 +236,9 @@
     <Content Include="09\_Assignment.txt" />
     <Content Include="10\Lesson10Assignment.txt" />
     <Content Include="11\Lesson11Assignment.txt" />
+    <Content Include="14\Lesson14Assignment.txt" />
+    <Content Include="14\TaskAData.sql" />
+    <Content Include="14\TaskCPossibleOutput.png" />
     <Content Include="gitinfo.txt" />
     <Content Include="lib\Castle.Core.dll" />
     <Content Include="lib\Castle.Core.xml" />
@@ -269,6 +277,10 @@
       <Name>MyCoolLibrary</Name>
       <Private>False</Private>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="12\" />
+    <Folder Include="13\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
