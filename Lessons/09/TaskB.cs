@@ -25,7 +25,7 @@ namespace Lessons._09
 		public static void Run()
         {
 #if DEBUG
-	#error Error
+	//#error Error
 #endif
 
 #if MySymbol

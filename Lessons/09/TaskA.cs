@@ -23,7 +23,7 @@ namespace Lessons._09
         {
             public static void PrintCoolMessage()
             {
-				MyCoolLibrary.TaskA.CoolMessagePrinter.PrintCoolMessage();
+				//MyCoolLibrary.TaskA.CoolMessagePrinter.PrintCoolMessage();
             }
         }
     }
