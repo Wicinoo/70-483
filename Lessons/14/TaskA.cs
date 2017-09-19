@@ -18,8 +18,21 @@ namespace Lessons._14
             sqlConnectionStringBuilder.DataSource = @"(localdb)\v11.0";
             sqlConnectionStringBuilder.InitialCatalog = "ProgrammingInCSharp";
 
-            //TODO connect, read and print data from local database
 
-        }
+			using (var connection = new SqlConnection(@"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=ProgrammingInCSharp;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=True;ApplicationIntent=ReadWrite;MultiSubnetFailover=False"))
+			{
+				connection.Open();
+				var command = new SqlCommand("select * from dbo.Applicants ORDER BY Name", connection);
+
+				SqlDataReader dataReader = command.ExecuteReader();
+
+
+				while (dataReader.Read())
+				{
+					Console.WriteLine(String.Format("{0}{1}", dataReader["Name"], Convert.ToBoolean(dataReader["IsActive"]) ? String.Empty : "(inactive)"));
+				}
+
+			}
+		 }
     }
 }

@@ -1,6 +1,7 @@
 ﻿//Task E: Read JSON from http://api.icndb.com/jokes/random and print the text of a joke. 
 //Use a helper(e.g.JObject from Newtonsoft.Json) for converting to an object. 
 
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Net;
@@ -28,8 +29,10 @@ namespace Lessons._14
 
         public static void Run()
         {
-            //TODO implement
-        }
+			var jObject = JObject.Parse(new WebClient().DownloadString("http://api.icndb.com/jokes/random"));
+
+			Console.WriteLine((string)jObject.SelectToken("value").SelectToken("joke"));
+		}
     }
 
     
