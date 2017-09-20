@@ -11,7 +11,7 @@ namespace Lessons._14
         public static void Run()
         {
             //TaskA.Run();
-            //TaskB.Run();
+            TaskB.Run();
             //TaskD.Run();
             //TaskE.Run();
         }
