@@ -1,0 +1,31 @@
+﻿USE [Test14]
+GO
+
+/****** Object:  Table [dbo].[Applicants]    Script Date: 20.09.2017 5:52:15 ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+SET ANSI_PADDING ON
+GO
+
+CREATE TABLE [dbo].[Applicants](
+	[Id] [int] IDENTITY(1,1) NOT NULL,
+	[Name] [varchar](100) NOT NULL,
+	[IsActive] [bit] NOT NULL,
+ CONSTRAINT [PK_Applicants] PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+,
+CONSTRAINT [AK_Name] UNIQUE(Name)
+) ON [PRIMARY]
+
+GO
+
+SET ANSI_PADDING OFF
+GO
+
+
