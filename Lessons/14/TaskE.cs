@@ -3,8 +3,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Net;
-using System.Text;
 
 namespace Lessons._14
 {
@@ -28,7 +26,25 @@ namespace Lessons._14
 
         public static void Run()
         {
+            string address = "http://api.icndb.com/jokes/random";
+            var json = DownloadJson(address);
+            ProcessJsonString(json);
             //TODO implement
+        }
+
+        private static void ProcessJsonString(string json)
+        {
+            var joke = Newtonsoft.Json.JsonConvert.DeserializeObject<JsonJoke>(json);
+            Console.WriteLine($"{joke.Value.Joke}");
+        }
+
+        private static string DownloadJson(string address)
+        {
+            using (var webClinet = new System.Net.WebClient())
+            {
+                var json = webClinet.DownloadString(address);
+                return json;
+            }
         }
     }
 
