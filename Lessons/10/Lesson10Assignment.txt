@@ -1,0 +1,138 @@
+Be able to: 
+
+Objective 2.7 Manipulate strings 
+- explain internal representation of a string value.
+- explain what "immutability of string" means and demonstrate consequences.
+- explain "string interning".
+- use StringBuilder in proper way. How is StringBuilder implemented internally?
+- explain all possibilities how to compare two strings.
+- know StringWriter and StringReader types. Describe possible usages.
+- use IEnumerable<char> from String.
+- use static methods on Char type.
+- convert from common data types into a string by using proper culture.
+- understand IFormattable and IFormatProvider. 
+
+Go through Thought experiments for Chapter 2 (from page 169). 
+
+Objective 3.1 Validate application input 
+- explain possible intensions of malicious users in an application.
+- explain "entity integrity".
+- explain "domain integrity".
+- explain "referential integrity".
+- explain "user-defined integrity".
+- explain what System.ComponentModel.DataAnnotations is for.
+- understand main principles of validation in Entity Framework.
+- explain differences between Parse() and TryParse() on basic types like Char, Boolean, Decimal, ...
+- understand the difference between Convert.ToDecimal(null) and Decimal.Parse(null).
+- use regular expressions. Especially matching and replacing.
+- explain how to use System.Web.Script.Serialization.JavaScriptSerializer.
+- explain how to validate an xml.
+ 
+
+Tasks: 
+
+A. Create a static class with a method
+TimeSpan Measure(Action actionToMeasure);
+It will return a duration of an action as the TimeSpan value. 
+
+Create actions/methods defined below and use the Measure method:
+- joining 10 000 strings by using "+=" operator (result += "x").
+- joining 10 000 strings by using StringBuilder (sb.Append("x")).
+- joining 10 000 strings by using string.Concat (result = string.Concat(result, "x")). 
+
+Console.WriteLine(DurationMeasurer.Measure(joining10000StringsBySimpleAssignmentAction));
+Console.WriteLine(DurationMeasurer.Measure(joining10000StringsByStringBuilderAction));
+Console.WriteLine(DurationMeasurer.Measure(joining10000StringsByConcatAction)); 
+
+Compare performance of all approaches. How many times are they slower than the fastest one? 
+
+B. Change Task A to use non-constant strings.
+
+So, you have to create a collection of random strings first.
+Then you can compare the approaches. 
+
+var randomStrings = Enumerable.Range(1, 1000).Select(_ => GetRandomString(10)).ToList();
+
+...
+ 
+Console.WriteLine(DurationMeasurer.Measure(joiningRandomStringsBySimpleAssignment));
+Console.WriteLine(DurationMeasurer.Measure(joiningRandomStringsByStringBuilder));
+Console.WriteLine(DurationMeasurer.Measure(joiningRandomStringsByConcat));
+
+C. Write a string extension method to remove last occurrence of a substring. Examples: 
+
+"USA with TrumpHillary".RemoveLastOccurrence("Hillary"); // "USA with Trump"
+
+"TrumpHillaryTrumpHillaryTrump".RemoveLastOccurrence("Hillary"); // "TrumpHillaryTrumpTrump"
+
+D. Write a string extension method:
+- to map digits to #.
+- to map upper chars to double lower ones.
+- to ignore whitespace characters. 
+
+Use LINQ to iterate over a string. Use static methods of Char type. Examples: 
+
+"Hello \t42".ApplyCrazyMapping(); // "hhello##"
+
+E. Print the current date in these cultures:
+- English - United Kingdom
+- English - United States
+- Czech - Czech Republic
+- Chinese - Singapore
+
+For each culture use these formats:
+- long date
+- full date long
+- ISO 8601
+- year month
+
+ 
+
+F. Use attributes from DataAnnotations to set validation rules for entity Exam.
+
+    class Exam
+    {
+        // Is mandatory.
+        // Must be of length 4.
+        // Must be used ExamCodeValidator.IsValid method to validate it.
+        public string Code { get; set; } 
+
+        // Is mandatory.
+        // Must be of maximum length 255.
+        public string Description { get; set; } 
+
+        // Is mandatory.
+        // Must be between 0 and 100.
+        public decimal ScoreToPassInPercentages { get; set; } 
+
+        // Is mandatory.
+        // Must be a valid email address.
+        public string EmailToSupport { get; set; }
+    } 
+
+    class ExamCodeValidator
+    {
+        public bool IsValid(object @object)
+        {
+            throw new NotImplementedException();
+        }
+    } 
+
+G. Write a method that checks if a string is a valid name with these rules:
+
+- Only characters a, ..., z and A, ..., Z are allowed in each word
+- Words are delimited by a space.
+- There should be at least one word in a name.
+- There should be maximal three words in a name.
+- Upper characters should be only at the beginning of a word.
+
+Use a regular expression. 
+
+Examples:
+IsValidName("Kent Beck"); // true
+IsValidName("Kent"); // true
+IsValidName("Kent Beck Jr"); // true
+IsValidName("KentBeck"); // false
+IsValidName("Kent  Beck"); // false (two spaces)
+IsValidName("Kent Beck Beck Beck"); // false (too many words)
+IsValidName("Kent BECK"); // false (upper chars on other positions in the word)
