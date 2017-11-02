@@ -1,0 +1,23 @@
+﻿Be able to ...
+
+Objective 4.3: Query and manipulate data and objects by using LINQ
+
+- explain anonymous types.
+- explain differences between query syntax and method syntax of LINQ statements.
+- use the most frequently used LINQ methods / statements. 
+
+Tasks:
+
+A. Write an method extending LINQ to rotate elements in a collection by given positions:
+(new[] {1, 2, 3, 4, 5}).Rotate(2); // expected: {4, 5, 1, 2, 3}
+
+B. Write an method extending LINQ to slice elements in a collection:
+(new[] {1, 2, 3, 4, 5}).Slice(2); // expected: {{1, 2}, {3, 4}, {5}}
+
+C. Check TaskC.cs file. Use data with our locations and : 
+- Write a method to get distance between two points defined by latitude and longitude.
+- Use one linq statement to print out Top 10 of the furthest locations pairs, e.g. [LocationA, LocationB] = 1234 km
+- Use one linq statement to print out Top 10 of the nearest locations pairs.
+
+D. There is YatzyCalculator class in TaskD.cs Implement all methods of the class by using LINQ statements.
+Use pre-prepared XUnit unit tests to speed up your implementation.
