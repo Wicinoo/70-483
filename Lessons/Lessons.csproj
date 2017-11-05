@@ -191,6 +191,10 @@
     <Compile Include="15\TaskC.cs" />
     <Compile Include="15\TaskD.cs" />
     <Compile Include="15\Waiter.cs" />
+    <Compile Include="16\Runner.cs" />
+    <Compile Include="16\TaskA.cs" />
+    <Compile Include="16\TaskB.cs" />
+    <Compile Include="16\TaskC.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -227,6 +231,7 @@
     <Content Include="14\TaskAData.sql" />
     <Content Include="14\TaskCPossibleOutput.png" />
     <Content Include="15\Lesson15Assignment.txt" />
+    <Content Include="16\Lesson16Assignment.txt" />
     <Content Include="lib\Castle.Core.dll" />
     <Content Include="lib\Castle.Core.xml" />
     <Content Include="lib\Castle.Windsor.dll" />
