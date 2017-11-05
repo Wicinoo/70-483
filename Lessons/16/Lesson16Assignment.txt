@@ -1,0 +1,28 @@
+﻿Objective 4.5: Store data in and retrieve data from collections
+
+- explain what an array is, how is declared, what cases is optimal for.
+- explain difference between multidimensional and jagged arrays.
+- know consequences of using generic and non-generic versions of collection types.
+- choose the most suitable collection according to a scenario.
+- enumerate all members of ICollection<T> interface.
+- use List, List<T> in proper way - typical scenarios, members.
+- use Dictionary, Dictionary<K,V> in proper way - typical scenarios, members.
+- explain using of methods of ISet<T>.
+- use HashSet<T> type.
+- understand Push, Pop, Peek methods on Stack<T>.
+- understand Enqueue, Dequeue, Peek methods on Queue<T>.
+- implement your own collection.
+
+Tasks:
+
+A. Implement UniqueList<T> as a custom collection that behaves exactly as List<T> but does not allow inserting duplicate items.
+   The collection must throw exceptions as per its doucmentation comment.
+   Make sure you test your solution for all methods that can insert items (Add, AddRange, Insert, InsertRange).
+   Hint: You can inherit from List<T> to save a lot of work.
+
+B. Class MyList<T> needs a few changes in order to run code in "Run()" method. 
+   Make the necessary modifications, then uncomment the code and run it.
+
+C. Implement TaskC.IsCzBankHoliday(). 
+   Use a jagged array to hold bank holidays in 2017 in the Czech Republic. Structure the array by months.
+   Data from https://www.cnb.cz/en/public/media_service/schedules/media_svatky.html
