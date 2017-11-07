@@ -13,6 +13,19 @@ namespace Lessons._16
     */
     public static class TaskC
     {
+
+        private static bool[][] _holidays = new bool[][] {
+            new bool[] {true,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false, false,false,false,false,false,false,false,false,false,false, false },
+            new bool[] {false,false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false },
+            new bool[] {false,false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false,false, false, false }
+        };
+
+        public static void Run()
+        {
+            Console.WriteLine(IsCzBankHoliday(new DateTime(2017, 1, 2)));
+            Console.WriteLine(IsCzBankHoliday(new DateTime(2017, 1, 1)));
+        }
+
         /// <summary>
         /// Returns true if the date is a bank holiday in the Czech Republic.
         /// </summary>
@@ -21,7 +34,13 @@ namespace Lessons._16
         /// <exception cref="ArgumentOutOfRangeException">If date is not in 2017.</exception>
         public static bool IsCzBankHoliday(DateTime date)
         {
-            throw new NotImplementedException();
+            RaiseExceptionIfNot2017Year(date);
+            return _holidays[date.Month - 1][date.Day - 1];
+        }
+
+        private static void RaiseExceptionIfNot2017Year(DateTime date)
+        {
+            if (date.Year != 2017) throw new ArgumentOutOfRangeException("Only for 2017");
         }
     }
 }

@@ -1,4 +1,4 @@
-﻿Objective 4.5: Store data in and retrieve data from collections
+﻿**Objective 4.5: Store data in and retrieve data from collections
 
 - explain what an array is, how is declared, what cases is optimal for.
 - explain difference between multidimensional and jagged arrays.
