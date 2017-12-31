@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Lessons._11.Tasks
+namespace Lessons._11
 {
     public static class Waiter
     {

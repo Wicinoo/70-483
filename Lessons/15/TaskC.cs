@@ -6,7 +6,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using GeoCoordinatePortable;
+//using GeoCoordinatePortable;
 
 namespace Lessons._15
 {
@@ -16,10 +16,10 @@ namespace Lessons._15
 
         private static double GetDistance(Location loc1, Location loc2)
         {
-            GeoCoordinate coord1 = new GeoCoordinate(loc1.Latitude, loc1.Longitude);
-            GeoCoordinate coord2 = new GeoCoordinate(loc2.Latitude, loc2.Longitude);
-
-            return coord1.GetDistanceTo(coord2);
+           // GeoCoordinate coord1 = new GeoCoordinate(loc1.Latitude, loc1.Longitude);
+           // GeoCoordinate coord2 = new GeoCoordinate(loc2.Latitude, loc2.Longitude);
+            return 1;
+            ///return coord1.GetDistanceTo(coord2);
         }
 
         public static void Run()

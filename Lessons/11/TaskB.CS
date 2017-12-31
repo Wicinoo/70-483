@@ -20,7 +20,7 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Xml.Linq;
 
-namespace Lessons._11.Tasks
+namespace Lessons._11
 {
     public class TaskB
     {
@@ -28,6 +28,7 @@ namespace Lessons._11.Tasks
         {
             var nodeA = new Node("A");
             var nodeB = new Node("B");
+            
             nodeA.Send(nodeB, "Hi, I'm A");
             nodeB.Send(nodeA, "Hi, I'm B");
             Waiter.WaitForAnyKey();
@@ -43,17 +44,35 @@ namespace Lessons._11.Tasks
         public Node(string name)
         {
             _name = name;
-            //
+            using (RSACryptoServiceProvider RSA = new RSACryptoServiceProvider())
+            {
+               _publicKey = XDocument.Parse(RSA.ToXmlString(false));
+                _privateKey = XDocument.Parse(RSA.ToXmlString(true));
+            }
+
         }
 
         public void Send(Node peerNode, string message)
         {
-            //todo
+            byte[] messageBytes = ByteToStringConverter.GetBytes(message);
+            byte[] encryptedMessage;
+            using (RSACryptoServiceProvider RSA = new RSACryptoServiceProvider())
+            {
+                RSA.FromXmlString(peerNode._publicKey.ToString());
+                encryptedMessage = RSA.Encrypt(messageBytes, false);
+            }
+            peerNode.Receive(encryptedMessage);
         }
 
         private void Receive(byte[] encrypted)
         {
-            //todo
+            string message;
+            using (RSACryptoServiceProvider RSA = new RSACryptoServiceProvider())
+            {
+                RSA.FromXmlString(_privateKey.ToString());
+                message = ByteToStringConverter.GetString(RSA.Decrypt(encrypted, false));
+            }
+            Console.WriteLine(message);
         }
     }
 

@@ -35,7 +35,7 @@ using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 
-namespace Lessons._11.Tasks
+namespace Lessons._11
 {
     public class TaskC
     {
@@ -128,13 +128,13 @@ namespace Lessons._11.Tasks
 
             public void AddCredentials(string username, string password)
             {
-                //todo
+                _database.Add(username,Convert.ToBase64String(_sha256.ComputeHash(ByteToStringConverter.GetBytes(password))));
             }
 
             public bool AreValidCredentials(string username, string password)
             {
-                //todo
-                throw new NotImplementedException();
+                return _database.ContainsKey(username) && _database[username]
+                    .Equals(Convert.ToBase64String(_sha256.ComputeHash(ByteToStringConverter.GetBytes(password))));
             }
 
             public IReadOnlyDictionary<string, string> GetAllCredentials()
