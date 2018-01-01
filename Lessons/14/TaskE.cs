@@ -3,8 +3,10 @@
 
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Net;
 using System.Text;
+using Newtonsoft.Json;
 
 namespace Lessons._14
 {
@@ -15,6 +17,11 @@ namespace Lessons._14
             public string Type { get; set; }
 
             public JokeValue Value { get; set; }
+
+            public override string ToString()
+            {
+                return Value.ToString();
+            }
         }
 
         internal class JokeValue
@@ -24,11 +31,21 @@ namespace Lessons._14
             public string Joke { get; set; }
 
             public List<string> Categories { get; set; }
+
+            public override string ToString()
+            {
+                return Joke;
+            }
         }
 
         public static void Run()
         {
-            //TODO implement
+            using (WebClient client = new WebClient())
+            {
+                string data = client.DownloadString("http://api.icndb.com/jokes/random");
+                var joke = JsonConvert.DeserializeObject<JsonJoke>(data);
+                Console.WriteLine(joke);
+            }
         }
     }
 

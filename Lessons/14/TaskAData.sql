@@ -1,4 +1,12 @@
-﻿INSERT INTO[dbo].[Applicants] ([Name], [IsActive]) VALUES(N'Michal Imlauf', 1)
+﻿CREATE TABLE  Applicants(
+Id INT IDENTITY(1,1), 
+Name varchar(100),
+IsActive BIT
+)
+
+ALTER TABLE Applicants ADD CONSTRAINT [PK_Applicants] PRIMARY KEY CLUSTERED ([Id])
+GO
+INSERT INTO[dbo].[Applicants] ([Name], [IsActive]) VALUES(N'Michal Imlauf', 1)
 INSERT INTO[dbo].[Applicants] ([Name], [IsActive]) VALUES(N'Viktor Jablonsky', 0)
 INSERT INTO[dbo].[Applicants] ([Name], [IsActive]) VALUES(N'Tomas Hanus', 1)
 INSERT INTO[dbo].[Applicants] ([Name], [IsActive]) VALUES(N'Maria Dolgikh', 1)
@@ -26,3 +34,5 @@ INSERT INTO[dbo].[Applicants] ([Name], [IsActive]) VALUES(N'Radim Honzirek', 1)
 INSERT INTO[dbo].[Applicants] ([Name], [IsActive]) VALUES(N'Roman Konecny', 1)
 INSERT INTO[dbo].[Applicants] ([Name], [IsActive]) VALUES(N'Robert Dresler', 0)
 
+ALTER TABLE Applicants ADD CONSTRAINT [AK_Applicants] UNIQUE ([Name])
+GO

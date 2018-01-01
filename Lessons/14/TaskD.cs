@@ -5,6 +5,7 @@ using System;
 using System.Net;
 using System.Text;
 using System.Xml;
+using System.Xml.Linq;
 
 namespace Lessons._14
 {
@@ -12,9 +13,12 @@ namespace Lessons._14
     {
         public static void Run()
         {
-            //read stuff from URL above
+            XDocument doc = XDocument.Load("http://www.currency-iso.org/dam/downloads/lists/list_one.xml");
 
-            //read and print the stuff in format above
+            foreach (var node in doc.Root.Descendants("CcyTbl").Elements("CcyNtry"))
+            {
+                Console.WriteLine("{0}, {1}, {2}",node.Element("CtryNm").Value, node.Element("CcyNm").Value, node.Element("Ccy") != null ? node.Element("Ccy").Value : node.Element("CcyNm").Value);
+            }
         }
     }
 }

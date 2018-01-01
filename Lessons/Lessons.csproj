@@ -67,6 +67,9 @@
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.ServiceModel.Web" />
+    <Reference Include="System.Transactions" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -190,6 +193,7 @@
     <Compile Include="14\Runner.cs" />
     <Compile Include="14\TaskA.cs" />
     <Compile Include="14\TaskB.cs" />
+    <Compile Include="14\TaskC.cs" />
     <Compile Include="14\TaskD.cs" />
     <Compile Include="14\TaskE.cs" />
     <Compile Include="15\Runner.cs" />

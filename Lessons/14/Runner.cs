@@ -12,6 +12,7 @@ namespace Lessons._14
         {
             //TaskA.Run();
             //TaskB.Run();
+            TaskC.Run();
             //TaskD.Run();
             //TaskE.Run();
         }
