@@ -206,8 +206,7 @@ namespace Lessons._15
         // • 4,5,5,6,1 placed on “chance” scores 21 (4+5+5+6+1)
         public int Chance(int[] dice)
         {
-            //TODO implement this
-            return -1;
+            return dice == null ? 0 : dice.Sum();
         }
 
         // Yatzy: If all dice have the same number, the player scores 50 points. For example,
@@ -215,8 +214,7 @@ namespace Lessons._15
         // • 1,1,1,2,1 placed on “yatzy” scores 0
         public int Yatzy(int[] dice)
         {
-            //TODO implement this
-            return -1;
+            return dice.Distinct().Count() > 1 ? 0 : 50;
         }
 
         // Ones, Twos, Threes, Fours, Fives, Sixes: The player scores
@@ -227,38 +225,32 @@ namespace Lessons._15
         // • 3,3,3,4,5 placed on “ones” scores 0
         public int Ones(int[] dice)
         {
-            //TODO implement this using linq
-            return -1;
+            return dice.Where(x => x == 1).Sum();
         }
 
         public int Twos(int[] dice)
         {
-            //TODO implement this using linq
-            return -1;
+            return dice.Where(x => x == 2).Sum();
         }
 
         public int Threes(int[] dice)
         {
-            //TODO implement this using linq
-            return -1;
+            return dice.Where(x => x == 3).Sum();
         }
 
         public int Fours(int[] dice)
         {
-            //TODO implement this using linq
-            return -1;
+            return dice.Where(x => x == 4).Sum();
         }
 
         public int Fives(int[] dice)
         {
-            //TODO implement this using linq
-            return -1;
+            return dice.Where(x => x == 5).Sum();
         }
 
         public int Sixes(int[] dice)
         {
-            //TODO implement this using linq
-            return -1;
+            return dice.Where(x => x == 6).Sum();
         }
 
         // Pair: The player scores the sum of the two highest matching dice. For example, when placed on “pair”
@@ -268,40 +260,35 @@ namespace Lessons._15
         // • 3,3,3,3,1 scores 6 (3+3)
         public int Pair(int[] dice)
         {
-            //TODO implement this using linq
-            return -1;
+            return dice.OrderByDescending(x => x).GroupBy(x => x).Where(x => x.Count() >= 2).Take(1).Select(x => x.Key*2).Sum();
         }
 
         public int TwoPairs(int[] dice)
         {
-            // TODO implement this using linq
-            return -1;
+            var collection = dice.OrderByDescending(x => x).GroupBy(x => x).Where(x => x.Count() >= 2);
+            return collection.Count() >=2 ? collection.Take(2).Select(x => x.Key * 2).Sum() : 0;
         }
 
         public int ThreeOfKind(int[] dice)
         {
-            // TODO implement this using linq
-            return -1;
+            return dice.OrderByDescending(x => x).GroupBy(x => x).Where(x => x.Count() >= 3).Take(1).Select(x => x.Key * 3).Sum();
         }
 
         public int FourOfKind(int[] dice)
         {
-            // TODO implement this using linq
-            return -1;
+            return dice.OrderByDescending(x => x).GroupBy(x => x).Where(x => x.Count() >= 4).Take(1).Select(x => x.Key * 4).Sum();
         }
 
         public int SmallStraight(int[] dice)
         {
-            // TODO implement this using linq
-            return -1;
+            return dice.Count() == 5 && dice.All(x => x > 0 && x < 6) ? 15 : 0;
         }
 
         // Large straight: When placed on “large straight”, if the dice read(2,3,4,5,6), 
         // the player scores 20 (the sum of all the dice).
         public int LargeStraight(int[] dice)
         {
-            // TODO implement this using linq
-            return -1;
+             return dice.Count() == 5 && dice.All(x => x > 1 && x < 7) ? 20 : 0;
         }
 
         // Full house: If the dice are two of a kind and three of a kind,
@@ -311,8 +298,7 @@ namespace Lessons._15
         // • 4,4,4,4,4 scores 0
         public int FullHouse(int[] dice)
         {
-            // TODO implement this using linq
-            return -1;
+            return dice.GroupBy(x => x).Any(x => x.Count() == 2) && dice.GroupBy(x => x).Any(x => x.Count() == 3) ? dice.Sum() : 0;
         }
     }
 }

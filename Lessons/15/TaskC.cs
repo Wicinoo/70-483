@@ -5,8 +5,9 @@
 
 using System;
 using System.Collections.Generic;
+using System.Device.Location;
 using System.Linq;
-//using GeoCoordinatePortable;
+using Castle.Core.Internal;
 
 namespace Lessons._15
 {
@@ -16,20 +17,24 @@ namespace Lessons._15
 
         private static double GetDistance(Location loc1, Location loc2)
         {
-           // GeoCoordinate coord1 = new GeoCoordinate(loc1.Latitude, loc1.Longitude);
-           // GeoCoordinate coord2 = new GeoCoordinate(loc2.Latitude, loc2.Longitude);
-            return 1;
-            ///return coord1.GetDistanceTo(coord2);
+            GeoCoordinate coord1 = new GeoCoordinate(loc1.Latitude, loc1.Longitude);
+            GeoCoordinate coord2 = new GeoCoordinate(loc2.Latitude, loc2.Longitude);
+
+            return coord1.GetDistanceTo(coord2);
         }
 
         public static void Run()
         {
             AddLocations();
 
-            //var distancesList = your linq to create and print stuff goes here
-
-            // Show Top 10 the furthest locations, e.g. LocationA - LocationB = 1234 km
-            // Show Top 10 the nearest locations
+            var distancesList = from loc1 in _locations
+                from loc2 in _locations
+                where !loc1.Equals(loc2)
+                select new Distance(){ LocA = loc1, LocB = loc2, Dist = GetDistance(loc1, loc2) };
+            distancesList = distancesList.Distinct().ToList();
+            distancesList.OrderByDescending(x => x.Dist).Take(10).ForEach(x => Console.WriteLine(x));
+            distancesList.OrderBy(x => x.Dist).Take(10).ForEach(x => Console.WriteLine(x));
+            
             Waiter.WaitForAnyKey();
         }
 
@@ -61,5 +66,42 @@ namespace Lessons._15
         public string Town { get; set; }
         public double Latitude { get; set; }
         public double Longitude { get; set; }
+
+        public override bool Equals(object obj)
+        {
+            if (!(obj is Location))
+                return false;
+            return Town.Equals(((Location)obj).Town);
+        }
+
+        public override int GetHashCode()
+        {
+            return Town.GetHashCode();
+        }
+    }
+
+    internal class Distance
+    {
+        public Location LocA { get; set; }
+        public Location LocB { get; set; }
+        public double Dist { get; set; }
+
+        public override bool Equals(object obj)
+        {
+            if (!(obj is Distance))
+                return false;
+            Distance dist = (Distance) obj;
+            return dist.LocA.Equals(LocA) && dist.LocB.Equals(LocB) || dist.LocB.Equals(LocA) && dist.LocA.Equals(LocB);
+        }
+
+        public override int GetHashCode()
+        {
+            return LocA.GetHashCode()*LocB.GetHashCode();
+        }
+
+        public override string ToString()
+        {
+            return String.Format("Distance between {0} and {1} is {2}.",LocA.Town,LocB.Town,Dist);
+        }
     }
 }

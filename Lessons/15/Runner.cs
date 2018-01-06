@@ -6,7 +6,7 @@
         {
             //TaskA.Run();
             //TaskB.Run();
-            //TaskC.Run();
+            TaskC.Run();
             //TaskD.Run();
         }
     }
