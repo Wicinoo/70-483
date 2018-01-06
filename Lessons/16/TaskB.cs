@@ -14,24 +14,32 @@ namespace Lessons._16
     {
         public static void Run()
         {
-            throw new NotImplementedException();
+            var myList = new MyList<int>() { 1, 2 };
 
-            //var myList = new MyList<int>() { 1, 2 };
-
-            //foreach (var item in myList)
-            //{
-            //    Console.WriteLine(item);
-            //}
+            foreach (var item in myList)
+            {
+                Console.WriteLine(item);
+            }
         }
     }
 
-    public class MyList<T>
+    public class MyList<T> : IEnumerable<T>
     {
-        List<T> _items = new List<T>();
+        readonly List<T> _items = new List<T>();
 
         public void Add(T item)
         {
             _items.Add(item);
+        }
+
+        public IEnumerator<T> GetEnumerator()
+        {
+            return this._items.GetEnumerator();
+        }
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return this._items.GetEnumerator();
         }
     }
 }

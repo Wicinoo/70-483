@@ -6,6 +6,11 @@ using System.Threading.Tasks;
 
 namespace Lessons._16
 {
+    using Castle.DynamicProxy.Generators.Emitters.SimpleAST;
+    using Castle.Facilities.TypedFactory.Internal;
+
+    using Rhino.Mocks.Expectations;
+
     /*
      * Implement UniqueList<T> as a custom collection that behaves exactly as List<T> but does not allow inserting duplicate items.
      * The collection must throw exceptions as per its doucmentation comment.
@@ -16,16 +21,16 @@ namespace Lessons._16
     {
         public static void Run()
         {
-            PerformExampleOperations(new List<int>());
+            PerformExampleOperations(new UniqueList<int>());
         }
 
-        public static void PerformExampleOperations(List<int> collection)
+        public static void PerformExampleOperations(UniqueList<int> collection)
         {
-            collection.Add(1);
-            collection.Add(1);
+            //collection.Add(1);
+           // collection.Add(1);
+           // collection.AddRange(new int[] { 1, 2 });
             collection.AddRange(new int[] { 1, 2 });
-            collection.AddRange(new int[] { 1, 2 });
-            collection.Insert(0, 1);
+            collection.Insert(0, 3);
             collection.InsertRange(0, new int[] { 1, 2 });
         }
     }
@@ -35,8 +40,44 @@ namespace Lessons._16
     /// </summary>
     /// <typeparam name="T"></typeparam>
     /// <exception cref="InvalidOperationException">When trying to insert item that already exists in the collection</exception>
-    public class UniqueList<T>
+    public class UniqueList<T> : List<T>
     {
-        //TODO
+        public new void Add(T item)
+        {
+            if (this.Contains(item))
+            {
+                throw new InvalidOperationException();
+            }
+            base.Add(item);
+        }
+
+        public new void AddRange(IEnumerable<T> range)
+        {
+            if(range.All(x => !Contains(x)))
+            {
+               base.AddRange(range);
+               return;
+            }
+            throw new InvalidOperationException();
+        }
+
+        public new void Insert(int position, T item)
+        {
+            if (this.Contains(item))
+            {
+                throw new InvalidOperationException();
+            }
+            base.Insert(position, item);
+        }
+
+        public new void InsertRange(int position, IEnumerable<T> range)
+        {
+            if (range.All(x => !this.Contains(x)))
+            {
+                base.InsertRange(position, range);
+                return;
+            }
+            throw new InvalidOperationException();
+        }
     }
 }
