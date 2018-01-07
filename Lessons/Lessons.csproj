@@ -256,6 +256,9 @@
     <Compile Include="16\TaskA.cs" />
     <Compile Include="16\TaskB.cs" />
     <Compile Include="16\TaskC.cs" />
+    <Compile Include="4.4 Serialize and deserialize data\BinarySerialization\BinarySerialization.cs" />
+    <Compile Include="4.4 Serialize and deserialize data\Runner.cs" />
+    <Compile Include="4.4 Serialize and deserialize data\XmlSerializer\XmlSerialization.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Settings.Designer.cs">
