@@ -1,4 +1,5 @@
-﻿using Lessons._4._4_Serialize_and_deserialize_data.XmlSerializer;
+﻿using Lessons._4._4_Serialize_and_deserialize_data.DataContract;
+using Lessons._4._4_Serialize_and_deserialize_data.XmlSerializer;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,7 +15,10 @@ namespace Lessons._4._4_Serialize_and_deserialize_data
             //var defaultSerialization = new XmlSerialization();
             //defaultSerialization.Run();
 
-            BinarySerialization.BinarySerialization.Run();
+            //BinarySerialization.BinarySerialization.Run();
+            //Console.ReadLine();
+
+            DataContractSerialization.Run();
             Console.ReadLine();
         }
     }

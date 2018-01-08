@@ -217,6 +217,7 @@
     <Compile Include="16\TaskB.cs" />
     <Compile Include="16\TaskC.cs" />
     <Compile Include="4.4 Serialize and deserialize data\BinarySerialization\BinarySerialization.cs" />
+    <Compile Include="4.4 Serialize and deserialize data\DataContract\DataContractSerialization.cs" />
     <Compile Include="4.4 Serialize and deserialize data\Runner.cs" />
     <Compile Include="4.4 Serialize and deserialize data\XmlSerializer\XmlSerialization.cs" />
     <Compile Include="Program.cs" />
@@ -317,7 +318,6 @@
   <ItemGroup>
     <Folder Include="12\" />
     <Folder Include="13\" />
-    <Folder Include="4.4 Serialize and deserialize data\DataContract\" />
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Service References\" />
