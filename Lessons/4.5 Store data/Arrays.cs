@@ -6,6 +6,8 @@ namespace Lessons._4._5_Store_data
     {
         public static void Run()
         {
+
+            //https://msdn.microsoft.com/en-us/library/system.array(v=vs.110).aspx
             SingleDimensionArray();
 
             MultidimensionalArray();
