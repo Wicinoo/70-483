@@ -8,6 +8,7 @@ namespace Lessons._4._5_Store_data
         {
 
             //https://msdn.microsoft.com/en-us/library/system.array(v=vs.110).aspx
+            //http://referencesource.microsoft.com/#mscorlib/system/array.cs,156e066ecc4ccedf
             SingleDimensionArray();
 
             MultidimensionalArray();
