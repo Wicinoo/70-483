@@ -43,12 +43,46 @@ namespace Lessons._4._5_Store_data
 
 
             //uses copyTo deep copy?
-            TestClass[] testArray = new TestClass[] { new TestClass() };
+            TestClass[] testArray = new TestClass[] { new TestClass(0) };
             TestClass[] anotherArry = new TestClass[copiedArray.Length];
 
             testArray.CopyTo(anotherArry, 0);
             Console.WriteLine(testArray[0].Equals(anotherArry[0]));   //no, it uses shallow copy
             Console.WriteLine(testArray[0] == anotherArry[0]);
+
+            //what returns GetLowerBound and GetUpperBound if items are not initialized?
+            Console.WriteLine(anotherArry.GetLowerBound(0));
+            TestClass[] testB = new TestClass[testArray.Length+2];      
+            Array.Copy(testArray, 0, testB, 1, testArray.Length);       //creates null, instance, null
+
+
+            Console.WriteLine(testB.GetLowerBound(0));     //return 0 - zero base index
+            Console.WriteLine(testB.GetUpperBound(0));     //return 2 - maximum of array - even is last item is null
+
+
+            Array arrayA = Array.CreateInstance(typeof(TestClass), 10);
+            Array arrayC = new TestClass[10];
+            Console.WriteLine(arrayA.GetType().IsArray);   //is type of this object array?  
+            Console.WriteLine(arrayA.GetType().GetElementType());
+            Console.WriteLine(arrayC.GetType().IsArray);
+
+            //https://msdn.microsoft.com/en-us/library/system.array(v=vs.110).aspx
+            //Type objects provide information about array type declarations. Array objects with the same array type share the same Type object.
+            //Type.IsArray and Type.GetElementType might not return the expected results with Array because if an array is cast to the type Array,
+            //the result is an object, not an array. That is, typeof(System.Array).IsArray returns false, and typeof(System.Array).GetElementType returns null.
+
+            
+            TestClass[,] arrayB = new TestClass[5,7];
+            Console.WriteLine("Range of dimension:{0}, by Rank property)", arrayB.Rank);
+            Console.WriteLine("Number of all elements thrue all dimensions:{0} by Length property", arrayB.Length);
+
+            //how to create instance for all item without loop for multidimensional array?
+            
+            
+
+            //Array.Sort(arrayA);
+            //Array.Reverse
+
         }
 
         private static void JaggedArray()
@@ -96,10 +130,16 @@ namespace Lessons._4._5_Store_data
     }
     public class TestClass
     {
-        public TestClass()
+
+        private int _id;
+        public TestClass(int i)
         {
-            Console.WriteLine("constructor was called");            
+            Console.WriteLine("constructor was called");
+            _id = i;
         }
 
+        public int ID {
+            get { return _id; }
+        }
     }
 }
