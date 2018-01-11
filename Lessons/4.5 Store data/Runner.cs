@@ -10,8 +10,8 @@ namespace Lessons._4._5_Store_data
     {
         public static void Run()
         {
-            Arrays.Run();
-
+            //Arrays.Run();
+            Lists.Run();
 
         }
     }
