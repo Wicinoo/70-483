@@ -52,6 +52,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>lib\FluentAssertions.Core.dll</HintPath>
     </Reference>
+    <Reference Include="GeoCoordinate.NetStandard1">
+      <HintPath>..\packages\GeoCoordinate.NetStandard1.1.0.0\lib\netstandard1.0\GeoCoordinate.NetStandard1.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Office.Interop.Excel, Version=14.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <EmbedInteropTypes>True</EmbedInteropTypes>
@@ -200,6 +203,21 @@
     <Compile Include="11\TaskB.CS" />
     <Compile Include="11\TaskC.CS" />
     <Compile Include="11\Waiter.cs" />
+    <Compile Include="14\Runner.cs" />
+    <Compile Include="14\TaskA.cs" />
+    <Compile Include="14\TaskB.cs" />
+    <Compile Include="14\TaskD.cs" />
+    <Compile Include="14\TaskE.cs" />
+    <Compile Include="15\Runner.cs" />
+    <Compile Include="15\TaskA.cs" />
+    <Compile Include="15\TaskB.cs" />
+    <Compile Include="15\TaskC.cs" />
+    <Compile Include="15\TaskD.cs" />
+    <Compile Include="15\Waiter.cs" />
+    <Compile Include="16\Runner.cs" />
+    <Compile Include="16\TaskA.cs" />
+    <Compile Include="16\TaskB.cs" />
+    <Compile Include="16\TaskC.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -232,6 +250,11 @@
     <Content Include="09\_Assignment.txt" />
     <Content Include="10\Lesson10Assignment.txt" />
     <Content Include="11\Lesson11Assignment.txt" />
+    <Content Include="14\Lesson14Assignment.txt" />
+    <Content Include="14\TaskAData.sql" />
+    <Content Include="14\TaskCPossibleOutput.png" />
+    <Content Include="15\Lesson15Assignment.txt" />
+    <Content Include="16\Lesson16Assignment.txt" />
     <Content Include="lib\Castle.Core.dll" />
     <Content Include="lib\Castle.Core.xml" />
     <Content Include="lib\Castle.Windsor.dll" />
@@ -261,9 +284,15 @@
     <Content Include="lib\xunit.execution.desktop.xml" />
   </ItemGroup>
   <ItemGroup>
+<<<<<<< HEAD
     <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />
   </ItemGroup>
   <ItemGroup />
+=======
+    <Folder Include="12\" />
+    <Folder Include="13\" />
+  </ItemGroup>
+>>>>>>> refs/remotes/origin/master
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>

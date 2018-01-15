@@ -20,6 +20,11 @@ namespace Lessons
             //_09.Runner.Run();
             //_10.Runner.Run();
             //_11.Runner.Run();
+<<<<<<< HEAD
+>>>>>>> refs/remotes/origin/master
+=======
+            //_14.Runner.Run();
+            _15.Runner.Run();
 >>>>>>> refs/remotes/origin/master
 
             Console.WriteLine("Press any key ...");
