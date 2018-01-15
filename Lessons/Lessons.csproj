@@ -221,6 +221,7 @@
     <Compile Include="4.4 Serialize and deserialize data\Runner.cs" />
     <Compile Include="4.4 Serialize and deserialize data\XmlSerializer\XmlSerialization.cs" />
     <Compile Include="4.5 Store data\Arrays.cs" />
+    <Compile Include="4.5 Store data\HashSets.cs" />
     <Compile Include="4.5 Store data\Lists.cs" />
     <Compile Include="4.5 Store data\Runner.cs" />
     <Compile Include="Program.cs" />

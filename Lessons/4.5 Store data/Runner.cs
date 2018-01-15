@@ -11,7 +11,8 @@ namespace Lessons._4._5_Store_data
         public static void Run()
         {
             //Arrays.Run();
-            Lists.Run();
+            //Lists.Run();
+            HashSets.Run();
 
         }
     }
