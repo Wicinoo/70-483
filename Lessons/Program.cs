@@ -21,7 +21,9 @@ namespace Lessons
             //_15.Runner.Run();
             //_16.Runner.Run();
             //Lessons._4._4_Serialize_and_deserialize_data.Runner.Run();
-            Lessons._4._5_Store_data.Runner.Run();
+            //Lessons._4._5_Store_data.Runner.Run();
+
+            Anothers.Runner.Run();
 
             Console.WriteLine("Press any key ...");
             Console.ReadKey(); 
