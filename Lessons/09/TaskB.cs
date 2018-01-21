@@ -1,10 +1,10 @@
-﻿using System;
-
-#if Debug
+﻿#if DEBUG
 
 #define MySymbol  //symbol is defined only for debug  configuration 1.
 
 #endif
+
+using System;
 
 
 namespace Lessons._09
@@ -24,6 +24,26 @@ namespace Lessons._09
     {
         public static void Run()
         {
+
+#line 200 "Other"
+            //debugger cannot go through this code, in exeption is row number "200"
+            //v Lessons._09.TaskB.Run() v W:\Programovani\csharpRepos\NewRepo\Lessons\09\Other: řádek 200
+            //v Lessons._09.Runner.Run() v W:\Programovani\csharpRepos\NewRepo\Lessons\09\Runner.cs:řádek 8
+            //v Lessons.Program.Main(String[] args) v W:\Programovani\csharpRepos\NewRepo\Lessons\Program.cs:řádek 19
+            //throw new Exception("ex");
+#line default
+            //debugger can go through this code, row number is real number
+            //v Lessons._09.TaskB.Run() v W:\Programovani\csharpRepos\NewRepo\Lessons\09\TaskB.cs:řádek 39
+            //v Lessons._09.Runner.Run() v W:\Programovani\csharpRepos\NewRepo\Lessons\09\Runner.cs:řádek 8
+            //v Lessons.Program.Main(String[] args) v W:\Programovani\csharpRepos\NewRepo\Lessons\Program.cs:řádek 19
+            //throw new Exception("ex");
+#line hidden
+            //the same bahavior like first example - but line numer is from real code
+            //throw new Exception("ex");
+
+#line default //line sequence have to be ended by default, or we will not able to debug next code
+
+
 #if MySymbol
             Console.WriteLine("MySymbol is defined");  //2.
 #endif

@@ -216,6 +216,7 @@
     <Compile Include="16\TaskA.cs" />
     <Compile Include="16\TaskB.cs" />
     <Compile Include="16\TaskC.cs" />
+    <Compile Include="3.5\PerformanceCounters.cs" />
     <Compile Include="4.4 Serialize and deserialize data\BinarySerialization\BinarySerialization.cs" />
     <Compile Include="4.4 Serialize and deserialize data\DataContract\DataContractSerialization.cs" />
     <Compile Include="4.4 Serialize and deserialize data\Runner.cs" />
@@ -224,6 +225,7 @@
     <Compile Include="4.5 Store data\HashSets.cs" />
     <Compile Include="4.5 Store data\Lists.cs" />
     <Compile Include="4.5 Store data\Runner.cs" />
+    <Compile Include="Anothers\ConsoleOperations\ConsoleOperations.cs" />
     <Compile Include="Anothers\Runner.cs" />
     <Compile Include="Anothers\String\StringFormat.cs" />
     <Compile Include="Program.cs" />

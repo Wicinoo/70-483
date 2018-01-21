@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Lessons._3._5;
+using Lessons.Anothers.ConsoleOperations;
+using System;
 
 namespace Lessons
 {
@@ -14,7 +16,7 @@ namespace Lessons
             //_06.Runner.Run();
             //_07.Runner.Run();
             //_08.Runner.Run();
-            //_09.Runner.Run();
+            _09.Runner.Run();
             //_10.Runner.Run();
             //_11.Runner.Run();
             //_14.Runner.Run();
@@ -23,8 +25,9 @@ namespace Lessons
             //Lessons._4._4_Serialize_and_deserialize_data.Runner.Run();
             //Lessons._4._5_Store_data.Runner.Run();
 
-            Anothers.Runner.Run();
-
+            //Anothers.Runner.Run();
+            //PerformanceCounters.Run();
+            //ConsoleOperations.Run();
             Console.WriteLine("Press any key ...");
             Console.ReadKey(); 
         }

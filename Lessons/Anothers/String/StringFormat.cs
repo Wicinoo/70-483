@@ -24,7 +24,7 @@ namespace Lessons.Anothers.String
             Console.Write("DateTimeFormatInfo.InvariantInfo");
             Console.WriteLine(time.ToString("d", DateTimeFormatInfo.InvariantInfo));
             Console.WriteLine(time.ToString("t", DateTimeFormatInfo.InvariantInfo));
-            Console.WriteLine(time.ToString("s", DateTimeFormatInfo.InvariantInfo));
+            Console.WriteLine(time.ToString("s", DateTimeFormatInfo.InvariantInfo));  //sortable format
 
             //standard date format can be different for different culture
             PrintDateWithSpecificCulture("d", "en-US", time);
@@ -47,6 +47,15 @@ namespace Lessons.Anothers.String
             PrintDateTimeInFormat("{0:MM/dd/yyyy}", time);
 
             PrintDateTimeInFormat("0:h throw exception!! you have to use {0:%h}", time);
+
+            Console.WriteLine("Example for other value types");
+            Console.WriteLine("Decimal nubmer = 0.5m;");
+            decimal number = 0.5m;
+            Console.WriteLine("p InvariantInfo " + number.ToString("p", DateTimeFormatInfo.InvariantInfo));
+            Console.WriteLine("N InvariantInfo " + number.ToString("N", DateTimeFormatInfo.InvariantInfo));
+            Console.WriteLine("C InvariantInfo " + number.ToString("C", DateTimeFormatInfo.InvariantInfo));
+            Console.WriteLine("C en-Us " + number.ToString("C", CultureInfo.CreateSpecificCulture("en-US")));
+
         }
 
         private static void PrintDateWithSpecificCulture(string v1, string v2, DateTime time)
