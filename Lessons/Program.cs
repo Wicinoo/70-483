@@ -16,12 +16,14 @@ namespace Lessons
             //_06.Runner.Run();
             //_07.Runner.Run();
             //_08.Runner.Run();
-            _09.Runner.Run();
+            //_09.Runner.Run();
             //_10.Runner.Run();
             //_11.Runner.Run();
             //_14.Runner.Run();
             //_15.Runner.Run();
             //_16.Runner.Run();
+
+            Diagnostics.Run();
             //Lessons._4._4_Serialize_and_deserialize_data.Runner.Run();
             //Lessons._4._5_Store_data.Runner.Run();
 
