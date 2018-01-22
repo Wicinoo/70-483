@@ -12,6 +12,9 @@ namespace Lessons._3._5
     {
         public static void Run()
         {
+
+            Trace.Assert(false, "it will stop for all building configuration?");
+
             Debug();
 
             TraceSourceBasicExample();
