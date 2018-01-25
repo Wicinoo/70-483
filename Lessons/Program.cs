@@ -1,6 +1,7 @@
 ﻿using Lessons._3._2;
 using Lessons._3._5;
 using Lessons.Anothers.ConsoleOperations;
+using Lessons.Anothers.String;
 using System;
 
 namespace Lessons
@@ -23,12 +24,13 @@ namespace Lessons
             //_14.Runner.Run();
             //_15.Runner.Run();
             //_16.Runner.Run();
-            Securities.Run();
+            //Securities.Run();
+            //Conversions.Run();
             //Diagnostics.Run();
             //Lessons._4._4_Serialize_and_deserialize_data.Runner.Run();
             //Lessons._4._5_Store_data.Runner.Run();
 
-            //Anothers.Runner.Run();
+            Anothers.Runner.Run();
             //PerformanceCounters.Run();
             //ConsoleOperations.Run();
             Console.WriteLine("Press any key ...");

@@ -21,6 +21,20 @@ namespace Lessons._3._5
 
             ExamExample();
             ReallExample();
+
+            LogMessageDirrectlyToFile("This is message");
+        }
+
+        private static void LogMessageDirrectlyToFile(string massage)
+        {
+            //Directs tracing of debugging outputs as xml-encoded data to a TextWriter or to a Stream, such as a FileStream
+            System.Diagnostics.XmlWriterTraceListener listener = new XmlWriterTraceListener("Error.log");
+            listener.WriteLine(massage);
+            listener.Flush();
+            listener.Close();
+
+            //result looks like:
+            //<E2ETraceEvent xmlns="http://schemas.microsoft.com/2004/06/E2ETraceEvent"><System xmlns="http://schemas.microsoft.com/2004/06/windows/eventlog/system"><EventID>0</EventID><Type>3</Type><SubType Name="Information">0</SubType><Level>8</Level><TimeCreated SystemTime="2018-01-25T00:24:29.1426003+01:00" /><Source Name="Trasování" /><Correlation ActivityID="{00000000-0000-0000-0000-000000000000}" /><Execution ProcessName="Lessons" ProcessID="8708" ThreadID="1" /><Channel/><Computer>FIK</Computer></System><ApplicationData>This is message</ApplicationData></E2ETraceEvent>
         }
 
         private class ActivityTracerScope : IDisposable

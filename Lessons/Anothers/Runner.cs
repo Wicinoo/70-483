@@ -1,4 +1,5 @@
-﻿using Lessons.Anothers.String;
+﻿using Lessons.Anothers.Reflection;
+using Lessons.Anothers.String;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,7 +12,8 @@ namespace Lessons.Anothers
     {
         public static void Run()
         {
-            StringFormat.Run();
+            //StringFormat.Run();
+            GetMethod.Run();
         }
     }
 }
