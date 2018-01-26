@@ -270,6 +270,7 @@
     <Compile Include="Anothers\ConsoleOperations\ConsoleOperations.cs" />
     <Compile Include="Anothers\Reflection\GetMethod.cs" />
     <Compile Include="Anothers\Runner.cs" />
+    <Compile Include="Anothers\SQL\TransactionScopeAndIsolation.cs" />
     <Compile Include="Anothers\String\Conversions.cs" />
     <Compile Include="Anothers\String\StringFormat.cs" />
     <Compile Include="Anothers\WebRequestToFile.cs" />
