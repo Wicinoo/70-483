@@ -14,12 +14,41 @@ namespace Lessons._4._4_Serialize_and_deserialize_data.XmlSerializer
         {
             DefaultSingleSerialization();
             Console.WriteLine();
+            //<? xml version = "1.0" encoding = "utf-16" ?>
+            //<CrazyRootName xmlns:xsi = "http://www.w3.org/2001/XMLSchema-instance" xmlns: xsd = "http://www.w3.org/2001/XMLSchema" >
+            //    <FirstName>Jon</FirstName>
+            //    <LastName>Lenon</LastName>
+            //    <Age>10</Age>
+            //</CrazyRootName>
+
+
             DefaultXmlSerializationForBinaryData();
             Console.WriteLine();
+            //<? xml version="1.0" encoding="utf-16" ?>
+            //<Test xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns: xsd="http://www.w3.org/2001/XMLSchema" >
+            //    <Data>AQIFBgcFBg ==</Data>
+            //</Test>
+
+
             SerializationWithNoDefaultEncoding();
             Console.WriteLine();
+
             DefaultSerializationForCollectionInRoot();
             Console.WriteLine();
+            //<? xml version = "1.0" encoding = "utf-16" ?>
+            //<ArrayOfPerson xmlns:xsi = "http://www.w3.org/2001/XMLSchema-instance" xmlns: xsd = "http://www.w3.org/2001/XMLSchema" >
+            //    <Person>
+            //        <FirstName>Jon</FirstName>
+            //        <LastName>Lenon</LastName>
+            //        <Age>10</Age>
+            //    </Person>
+            //    <Person>
+            //        <FirstName>Karel</FirstName>
+            //        <LastName>Novak</LastName>
+            //        <Age>11</Age>
+            //    </Person>
+            //</ArrayOfPerson>
+
 
             MissingPropertyDuringDeserialization();
             Console.WriteLine();
@@ -56,6 +85,7 @@ namespace Lessons._4._4_Serialize_and_deserialize_data.XmlSerializer
             using (var sr = new StringReader(xml))
             {
                 Person person = (Person)serializer.Deserialize(sr);
+                Console.WriteLine("Missing xml element for property FirstName will not throw exception");
                 Console.WriteLine(person.ToString());
             }
         }
@@ -188,9 +218,6 @@ namespace Lessons._4._4_Serialize_and_deserialize_data.XmlSerializer
         {
             return string.Format("FirstName: {0}, LastName:{1}, Age:{2}, PrivateProperty:{3}", FirstName, LastName, Age, _privateProperty);
         }
-
-        
-
     }
 
     [Serializable]

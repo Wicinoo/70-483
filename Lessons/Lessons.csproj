@@ -154,6 +154,7 @@
     <Compile Include="01\_06_DelegatesAdvancedTopics.cs" />
     <Compile Include="01\_07_SystemDelegates.cs" />
     <Compile Include="01\_08_Events.cs" />
+    <Compile Include="01\_15_ConcurrentCollectionsB.cs" />
     <Compile Include="02\Runner.cs" />
     <Compile Include="02\TaskA.cs" />
     <Compile Include="02\TaskB.cs" />
@@ -268,6 +269,9 @@
     <Compile Include="4.5 Store data\Lists.cs" />
     <Compile Include="4.5 Store data\Runner.cs" />
     <Compile Include="Anothers\ConsoleOperations\ConsoleOperations.cs" />
+    <Compile Include="Anothers\Crypto\Certificates.cs" />
+    <Compile Include="Anothers\Reflection\AssemblyLoad.cs" />
+    <Compile Include="Anothers\Reflection\GetAssemblies.cs" />
     <Compile Include="Anothers\Reflection\GetMethod.cs" />
     <Compile Include="Anothers\Runner.cs" />
     <Compile Include="Anothers\SQL\TransactionScopeAndIsolation.cs" />
@@ -366,7 +370,7 @@
     <ProjectReference Include="..\MyCoolLibrary\MyCoolLibrary.csproj">
       <Project>{8b8ff835-528a-4b5a-a253-87487bb1f30e}</Project>
       <Name>MyCoolLibrary</Name>
-      <Private>False</Private>
+      <Private>True</Private>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

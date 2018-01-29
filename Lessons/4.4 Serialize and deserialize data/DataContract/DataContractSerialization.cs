@@ -14,11 +14,37 @@ namespace Lessons._4._4_Serialize_and_deserialize_data.DataContract
             DataContractSerializer();
             Console.ReadLine();
 
+            DataContractSerializerWithSpecialNamespaceAndPropertyOrder();
+
             DataContractJsonSerializer();
             Console.ReadLine();
-
         }
 
+        private static void DataContractSerializerWithSpecialNamespaceAndPropertyOrder()
+        {
+            DataContractSerializer serializer = new DataContractSerializer(typeof(PersonWithNamespace));
+
+            var instance = new PersonWithNamespace()
+            {
+                FirstName = "FirstName",
+                LastName = "LastName"
+            };
+
+            using (var stream = new MemoryStream())
+            {
+                serializer.WriteObject(stream, instance);
+                Console.WriteLine(Encoding.UTF8.GetString(stream.ToArray()));
+            };
+        }
+
+        [DataContract(Namespace = "http://www.conmtoso.com/2012/06", Name = "SpecialName")]
+        private class PersonWithNamespace
+        {
+            [DataMember(Order = 10, EmitDefaultValue = true)]
+            public string FirstName { get; set; }
+            [DataMember]
+            public string LastName { get; set; }
+        }
         private static void DataContractJsonSerializer()
         {
             Console.WriteLine(System.Reflection.MethodBase.GetCurrentMethod().Name);
@@ -93,7 +119,7 @@ namespace Lessons._4._4_Serialize_and_deserialize_data.DataContract
             }
 
             [DataMember]                 //private member is serialized as well - if is marked by attribute
-            string _privateMember; 
+            string _privateMember;
 
             [DataMember]
             public int Id { get; set; }
@@ -107,7 +133,7 @@ namespace Lessons._4._4_Serialize_and_deserialize_data.DataContract
             {
                 return string.Format("Id:{0}, Name:{1}, IsDirty:{2}, PrivateMember:{3}", Id, Name, IsDirty, _privateMember);
             }
-       
+
 
         }
     }

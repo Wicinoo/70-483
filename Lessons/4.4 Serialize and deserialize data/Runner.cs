@@ -12,11 +12,11 @@ namespace Lessons._4._4_Serialize_and_deserialize_data
     {
         public static void Run()
         {
-            //var defaultSerialization = new XmlSerialization();
-            //defaultSerialization.Run();
+            var defaultSerialization = new XmlSerialization();
+           defaultSerialization.Run();
 
-            //BinarySerialization.BinarySerialization.Run();
-            //Console.ReadLine();
+            BinarySerialization.BinarySerialization.Run();
+            Console.ReadLine();
 
             DataContractSerialization.Run();
             Console.ReadLine();

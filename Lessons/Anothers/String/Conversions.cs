@@ -11,7 +11,14 @@ namespace Lessons.Anothers.String
     {
         public static void Run()
         {
+            HowWorksMethodCompareToForSort();
+            FormatCoins("SuperMan", 999);
+            FormatCoins("SuperMan", 0);
+            FormatCoins("SuperMan", 1);
+
             EasyConversins();
+
+
 
             UseArrayListImplicitCOnversionForItem();  //no
 
@@ -31,6 +38,35 @@ namespace Lessons.Anothers.String
 
 
         }
+
+        private static void HowWorksMethodCompareToForSort()
+        {
+            int a = 10;
+            Console.WriteLine(a.CompareTo(10));
+            Console.WriteLine(a.CompareTo(11));
+            Console.WriteLine(a.CompareTo(9));
+        }
+
+        private static void FormatCoins(string name, int coins)
+        {
+            Console.WriteLine(string.Format("Playrs {0}, collected {1} coins", name, coins.ToString("###0")));
+            Console.WriteLine(string.Format("Playrs {0}, collected {1:000#} coins", name, coins));
+            Console.WriteLine(string.Format("Playrs {0}, collected {1:D3} coins", name, coins));
+
+        }
+        //https://msdn.microsoft.com/cs-cz/library/microsoft.visualbasic.strings.format(v=vs.110).aspx
+        //we can specify format for number x>0, x=0, x<0 - formats are separated by ;
+        //Format                Number 5    Number -5   Number 0,5
+        //Without format        5           -5          0.5
+        //0                     5           -5          1
+        //0.00                  5.00        -5,00       0.50
+        //#,##0                 5           -5          1
+        //$#,##0;($#,##0)       $5          ($5)        $1
+        //#,##0.00;($#,##0.00)  $5.00       ($5.00)     $0.50
+        //0%                    500%        -500%       50%
+        //0.00%                 500.00%     -500.00%    50.00%
+
+
 
         private class Product
         {

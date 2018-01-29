@@ -12,13 +12,13 @@
             //_06_DelegatesAdvancedTopics.Run();
             //_07_SystemDelegates.Run();
             //_08_Events.Run();
-
-            TaskA.Run();
-            TaskB.Run();
-            TaskC.Run();
-            TaskD.Run();
-            TaskE.Run();
-            TaskF.Run();
+            _15_ConcurrentCollectionsB.Run();
+            //TaskA.Run();
+            //TaskB.Run();
+            //TaskC.Run();
+            //TaskD.Run();
+            //TaskE.Run();
+            //TaskF.Run();
             // Use R# to run tests in TaskG
         }
     }

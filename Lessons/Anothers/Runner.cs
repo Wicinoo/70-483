@@ -13,7 +13,8 @@ namespace Lessons.Anothers
         public static void Run()
         {
             //StringFormat.Run();
-            GetMethod.Run();
+            //GetMethod.Run();
+            AssemblyLoad.Run();
         }
     }
 }
