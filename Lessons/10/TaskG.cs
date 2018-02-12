@@ -23,6 +23,8 @@ namespace Lessons._10
             Console.WriteLine(IsValidName("Kent  Beck")); // false (two spaces)
             Console.WriteLine(IsValidName("Kent Beck Beck Beck")); // false (too many words)
             Console.WriteLine(IsValidName("Kent BECK")); // false (upper chars on other positions in the word)
+
+            Console.WriteLine(DateTime.Now.ToString("hh:mm tt"));
         }
 
         private static bool IsValidName(string text)
